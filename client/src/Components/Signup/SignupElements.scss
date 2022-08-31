@@ -1,0 +1,61 @@
+.signup-container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("https://blog.fhyzics.net/hubfs/wheat-1.png#keepProtocol") no-repeat
+      center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-wrapper {
+  width: 30%;
+  padding: 20px;
+  background-color: white;
+}
+.signup-form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.signup-title {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.forminput {
+  flex: 1;
+  min-width: 40%;
+  margin: 20px 10px 0px 0px;
+  padding: 10px;
+}
+.agreement {
+  font-size: 12px;
+  margin: 20px 0px;
+}
+.signup-button {
+  width: 100%;
+  border: none;
+  padding: 15px 20px;
+  background-color: teal;
+  color: white;
+  cursor: pointer;
+}
+.router-link {
+  font-size: 15px;
+  text-decoration: none;
+  color: teal;
+  margin-left: 30%;
+  margin-top: 50%;
+}
+
+#toast-container {
+  top: 30px !important;
+  right: 20px !important;
+  left: auto !important;
+}
