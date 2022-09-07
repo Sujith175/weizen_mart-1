@@ -3,6 +3,9 @@ import "./Loginelements.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import {ToastContainer,toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -21,21 +24,21 @@ const Login = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.error) {
-          alert(data.error);
+          toast.error(data.error);
         } else if (data.user.usertype === "Customer") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          alert("SignedIn Successfully");
+          toast.success("SignedIn Successfully");
           navigate("/");
         } else if (data.user.usertype === "Farmer") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          alert("SignedIn Successfully");
+          toast.success("SignedIn Successfully");
           navigate("/farmer");
         } else if (data.user.usertype === "Admin") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          alert("SignedIn Successfully");
+          toast.success("SignedIn Successfully");
           navigate("/admin");
         } else {
           console.log("error");
@@ -47,6 +50,8 @@ const Login = () => {
       <div className="login-wrapper">
         <h1 className="login-title">Sign In</h1>
         <div className="login-form">
+        <ToastContainer/>
+
           <input
             type="text"
             className="login-input"

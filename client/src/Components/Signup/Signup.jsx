@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import M from "materialize-css";
 import "./SignupElements.scss";
+import {ToastContainer,toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -16,19 +18,19 @@ const Signup = () => {
   const postData = () => {
     console.log(usertype);
     if (!/^[A-Za-z.-]+(\s*[A-Za-z.-]+)*$/.test(firstName)) {
-      alert("Invalid First Name");
+     toast.error("Invalid First Name");
       return;
     }
     if (!/^[A-Za-z.-]+(\s*[A-Za-z.-]+)*$/.test(lastName)) {
-      alert("Invalid Last Name");
+      toast.error("Invalid Last Name");
       return;
     }
     if (!/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)) {
-      alert("Invalid Phone Number");
+      toast.error("Invalid Phone Number");
       return;
     }
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      alert("Invalid Email ID");
+      toast.error("Invalid Email ID");
       return;
     }
     fetch("http://localhost:5000/signup", {
@@ -132,6 +134,7 @@ const Signup = () => {
           <button onClick={() => postData()} className="signup-button">
             Register
           </button>
+          <ToastContainer/>
         </div>
       </div>
     </div>
