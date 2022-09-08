@@ -1,14 +1,14 @@
 import React from "react";
 import Sidebar from "./src/Components/Sidebar/Sidebar";
 import Topbar from "./src/Components/Topbar/Topbar";
-import Home from "./src/Pages/Home";
+import AdminHome from "./src/Pages/AdminHome";
 
 const Admin = () => {
   return (
     <div>
         <Topbar/>
         <div className="container"><Sidebar/>
-        <Home/>
+        <AdminHome/>
         </div>
        </div>
   );

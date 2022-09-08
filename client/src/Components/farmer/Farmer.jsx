@@ -1,11 +1,15 @@
 import React from "react";
+import Sidebar from "./Sidebar/Sidebar";
+import Topbar from "./Topbar/Topbar";
 
-const Farmer = () => {
+const Admin = () => {
   return (
     <div>
-      <h1>this is farmer page</h1>
-    </div>
+        <Topbar/>
+        <div className="container"><Sidebar/>
+        </div>
+       </div>
   );
 };
 
-export default Farmer;
+export default Admin;

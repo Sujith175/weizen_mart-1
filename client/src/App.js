@@ -7,6 +7,8 @@ import Signup from "./Components/Signup/Signup";
 import { useEffect, createContext, useReducer } from "react";
 import { reducer, initialState } from "./Reducers/UserReducer";
 import Admin from "./Components/Admin/Admin";
+import UserList from "./Components/Admin/src/Pages/UserList"
+
 export const UserContext = createContext();
 const App = () => {
   const navigate = useNavigate();
@@ -24,12 +26,13 @@ const App = () => {
     <UserContext.Provider value={{ state, dispatch }}>
       <Routes>
         <Route path="/" element={<Navbar />}>
-          <Route index element={<Home />} />
+          <Route index element={<Home/>} />
           <Route path="farmer" element={<Farmer />} />
         </Route>
         <Route path="admin" element={<Admin />} />
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
+        <Route path="users" element={<UserList/>}/>
       </Routes>
     </UserContext.Provider>
   );

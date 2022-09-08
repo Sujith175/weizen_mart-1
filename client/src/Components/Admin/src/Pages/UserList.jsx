@@ -2,13 +2,13 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import './UserList.css'
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import Topbar from '../components/topbar/topbar';
+import Topbar from '../Components/Topbar/Topbar';
 import Sidebar from '../Components/Sidebar/Sidebar';
 import { Link } from "react-router-dom";
 import { useDispatch,useSelector } from 'react-redux';
 import { useEffect,useState } from 'react';
-import { deleteUsers, getUsers } from '../redux/apiCalls';
-import { userRequest } from "../requestMethods";
+//import { deleteUsers, getUsers } from '../redux/apiCalls';
+//import { userRequest } from "../requestMethods";
 
 export default function UserList() {
   const dispatch = useDispatch()
@@ -31,10 +31,10 @@ export default function UserList() {
   getUsers();
 },[]);*/
 
-  const handleDelete = (id) => {
+ /* const handleDelete = (id) => {
     deleteUsers(id,dispatch)
   };
-  
+  */
   const columns = [
     { field: "_id", headerName: "ID", width: 200 },
     {
@@ -64,7 +64,7 @@ export default function UserList() {
             </Link>
             <DeleteOutlineOutlinedIcon
               className="userListDelete"
-              onClick={() => handleDelete(params.row._id)}
+              //onClick={() => handleDelete(params.row._id)}
             />
           </>
         );
