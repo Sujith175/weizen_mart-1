@@ -44,6 +44,22 @@
     cursor: not-allowed;
   }
 }
+
+.google-button {
+  width: 50%;
+  border: none;
+  padding: 15px 20px;
+
+  color: black;
+  cursor: pointer;
+  margin-bottom: 10px;
+  &:disabled {
+    cursor: not-allowed;
+  }
+  &:hover {
+    background-color: rgb(104, 174, 174);
+  }
+}
 .link {
   margin: 5px 0px;
   font-size: 12px;

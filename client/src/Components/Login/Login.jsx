@@ -2,14 +2,19 @@ import React from "react";
 import "./Loginelements.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
-import {ToastContainer,toast} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { signInWithGooglePopup } from "../../utils/Firebase/firebase.utils";
+import { FcGoogle } from "react-icons/fc";
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const logGoogleUser = async () => {
+    const response = await signInWithGooglePopup();
+    // console.log(response);
+    navigate("/");
+  };
   const loginHandler = () => {
     fetch("http://localhost:5000/signin", {
       method: "post",
@@ -50,7 +55,7 @@ const Login = () => {
       <div className="login-wrapper">
         <h1 className="login-title">Sign In</h1>
         <div className="login-form">
-        <ToastContainer/>
+          <ToastContainer />
 
           <input
             type="text"
@@ -66,6 +71,10 @@ const Login = () => {
           />
           <button className="login-button" onClick={() => loginHandler()}>
             Login
+          </button>
+          <button className="google-button" onClick={logGoogleUser}>
+            <FcGoogle style={{ marginRight: "10%" }} />
+            Signin With Google
           </button>
           <Link to="/forgotpassword" className="link">
             Forgot Password
