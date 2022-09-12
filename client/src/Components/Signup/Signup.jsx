@@ -1,9 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import M from "materialize-css";
 import "./SignupElements.scss";
-import {ToastContainer,toast} from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
@@ -18,7 +17,7 @@ const Signup = () => {
   const postData = () => {
     console.log(usertype);
     if (!/^[A-Za-z.-]+(\s*[A-Za-z.-]+)*$/.test(firstName)) {
-     toast.error("Invalid First Name");
+      toast.error("Invalid First Name");
       return;
     }
     if (!/^[A-Za-z.-]+(\s*[A-Za-z.-]+)*$/.test(lastName)) {
@@ -51,10 +50,26 @@ const Signup = () => {
       .then((data) => {
         console.log(data);
         if (data.error) {
-          M.toast({ html: data.error, classes: "#d32f2f red darken-2" });
+          toast.error(data.error, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         } else {
-          M.toast({ html: data.message, classes: "#388e3c green darken-2 " });
-          navigate("/login");
+          toast.success(data.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setTimeout(() => navigate("/login"), 6000);
         }
       })
       .catch((err) => {
@@ -134,7 +149,7 @@ const Signup = () => {
           <button onClick={() => postData()} className="signup-button">
             Register
           </button>
-          <ToastContainer/>
+          <ToastContainer />
         </div>
       </div>
     </div>

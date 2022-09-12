@@ -33,18 +33,42 @@ const Login = () => {
         } else if (data.user.usertype === "Customer") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          toast.success("SignedIn Successfully");
-          navigate("/");
+          toast.success("SignedIn Successfully", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setTimeout(() => navigate("/"), 6000);
         } else if (data.user.usertype === "Farmer") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          toast.success("SignedIn Successfully");
-          navigate("/farmer");
+          toast.success("SignedIn Successfully", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setTimeout(() => navigate("/farmer"), 6000);
         } else if (data.user.usertype === "Admin") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          toast.success("SignedIn Successfully");
-          navigate("/admin");
+          toast.success("SignedIn Succesfully", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          setTimeout(() => navigate("/admin"), 6000);
         } else {
           console.log("error");
         }
