@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import "./NavbarElements.scss";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+import { UserContext } from "../../App";
 import {
   NavbarContainer,
   NavbarLanguage,
@@ -17,6 +18,9 @@ import {
   LogoutButton,
 } from "./NavbarElements";
 const Navbar = () => {
+  const { state, dispatch } = useContext(UserContext);
+  const navigate = useNavigate();
+
   return (
     <>
       <NavbarContainer>
@@ -39,7 +43,15 @@ const Navbar = () => {
               <NavMenuLink to="/login">Login</NavMenuLink>
             </NavMenuItem>
             <NavMenuItem>
-              <LogoutButton>Logout</LogoutButton>
+              <LogoutButton
+                onClick={() => {
+                  localStorage.clear();
+                  dispatch({ type: "CLEAR" });
+                  navigate("/login");
+                }}
+              >
+                Logout
+              </LogoutButton>
             </NavMenuItem>
           </NavRight>
         </WrapperContainer>
