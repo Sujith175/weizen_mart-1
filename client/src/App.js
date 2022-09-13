@@ -7,14 +7,14 @@ import Signup from "./Components/Signup/Signup";
 import { useEffect, createContext, useReducer } from "react";
 import { reducer, initialState } from "./Reducers/UserReducer";
 import Admin from "./Components/Admin/Admin";
-import UserList from "./Components/Admin/src/Pages/UserList"
+import UserList from "./Components/Admin/src/Pages/UserList";
 
 export const UserContext = createContext();
 const App = () => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       dispatch({ type: "USER", payload: user });
       navigate("/");
@@ -22,17 +22,18 @@ const App = () => {
       navigate("/login");
     }
   }, []);
+
   return (
     <UserContext.Provider value={{ state, dispatch }}>
       <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route index element={<Home/>} />
-          <Route path="farmer" element={<Farmer />} />
+        <Route path="/" element={user ? <Navbar /> : <Login />}>
+          <Route index element={user ? <Home /> : <Login />} />
+          <Route path="farmer" element={user ? <Farmer /> : <Login />} />
         </Route>
         <Route path="admin" element={<Admin />} />
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
-        <Route path="users" element={<UserList/>}/>
+        <Route path="users" element={<UserList />} />
       </Routes>
     </UserContext.Provider>
   );

@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const logGoogleUser = async () => {
     const response = await signInWithGooglePopup();
+    localStorage.setItem("user", JSON.stringify(response));
     // console.log(response);
     navigate("/");
   };
