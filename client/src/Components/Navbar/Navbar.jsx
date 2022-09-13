@@ -47,7 +47,11 @@ const Navbar = () => {
           </NavMenuItem>
           <NavMenuItem>
             <BiUserCircle style={{ color: "#a9740e", fontSize: "20px" }} />
-            <p style={{ color: "#a9740e" }}>{user.email}</p>
+            {user.email ? (
+              <p style={{ color: "#a9740e" }}>{user.email}</p>
+            ) : (
+              <p style={{ color: "#a9740e" }}>{user.user.email}</p>
+            )}
           </NavMenuItem>
           <NavMenuItem>
             <LogoutButton
