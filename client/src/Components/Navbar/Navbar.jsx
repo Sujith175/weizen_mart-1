@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "./NavbarElements.scss";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { UserContext } from "../../App";
-
+import { BiUserCircle } from "react-icons/bi";
 import {
   NavbarContainer,
   NavbarLanguage,
@@ -22,9 +22,7 @@ const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-  }, []);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const renderList = () => {
     if (state) {
@@ -46,6 +44,10 @@ const Navbar = () => {
           </NavMenuItem>
           <NavMenuItem>
             <NavMenuLink to="/cart">cart</NavMenuLink>
+          </NavMenuItem>
+          <NavMenuItem>
+            <BiUserCircle style={{ color: "#a9740e", fontSize: "20px" }} />
+            <p style={{ color: "#a9740e" }}>{user.email}</p>
           </NavMenuItem>
           <NavMenuItem>
             <LogoutButton
