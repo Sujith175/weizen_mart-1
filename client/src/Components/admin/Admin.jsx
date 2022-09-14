@@ -6,11 +6,12 @@ import AdminHome from "./src/Pages/AdminHome";
 const Admin = () => {
   return (
     <div>
-        <Topbar/>
-        <div className="container"><Sidebar/>
-        <AdminHome/>
-        </div>
-       </div>
+      <Topbar />
+      <div className="container">
+        <Sidebar />
+        <AdminHome />
+      </div>
+    </div>
   );
 };
 
