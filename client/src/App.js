@@ -8,6 +8,7 @@ import { useEffect, createContext, useReducer } from "react";
 import { reducer, initialState } from "./Reducers/UserReducer";
 import Admin from "./Components/Admin/Admin";
 import UserList from "./Components/Admin/src/Pages/UserList";
+import FarmerNavbar from "./Components/farmer/Navbar/FarmerNavbar";
 
 export const UserContext = createContext();
 const App = () => {
@@ -17,7 +18,7 @@ const App = () => {
   useEffect(() => {
     if (user) {
       dispatch({ type: "USER", payload: user });
-      navigate("/");
+      navigate("/home");
     } else {
       navigate("/login");
     }
@@ -27,7 +28,10 @@ const App = () => {
     <UserContext.Provider value={{ state, dispatch }}>
       <Routes>
         <Route path="/" element={user ? <Navbar /> : <Login />}>
-          <Route index element={user ? <Home /> : <Login />} />
+          <Route path="home" element={user ? <Home /> : <Login />} />
+          <Route path="farmer" element={user ? <Farmer /> : <Login />} />
+        </Route>
+        <Route path="farmernavbar" element={<FarmerNavbar />}>
           <Route path="farmer" element={user ? <Farmer /> : <Login />} />
         </Route>
         <Route path="admin" element={<Admin />} />

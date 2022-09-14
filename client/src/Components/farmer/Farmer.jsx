@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   FarmerWrapper,
   FarmerCard,
@@ -46,10 +48,10 @@ const Admin = () => {
           if (data.error) {
             console.log(data.error);
           } else {
-            console.log("Product Added Successfully");
+            alert("Product Added Successfully");
           }
         });
-      // navigate("/")
+      navigate("/farmernavbar/farmer");
     }
   }, [url]);
   const postDetails = () => {

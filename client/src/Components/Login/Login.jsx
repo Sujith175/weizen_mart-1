@@ -14,7 +14,7 @@ const Login = () => {
     const response = await signInWithGooglePopup();
     localStorage.setItem("user", JSON.stringify(response));
     // console.log(response);
-    navigate("/");
+    navigate("/home");
   };
   const loginHandler = () => {
     fetch("http://localhost:5000/signin", {
@@ -43,7 +43,7 @@ const Login = () => {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/"), 6000);
+          setTimeout(() => navigate("/home"), 6000);
         } else if (data.user.usertype === "Farmer") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
@@ -56,7 +56,7 @@ const Login = () => {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/farmer"), 6000);
+          setTimeout(() => navigate("/farmernavbar/farmer"), 6000);
         } else if (data.user.usertype === "Admin") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
