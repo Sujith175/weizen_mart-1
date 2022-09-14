@@ -40,4 +40,16 @@ router.post("/addproduct", requireLogin, (req, res) => {
       console.log(err);
     });
 });
+
+router.get("/allproducts", requireLogin, (req, res) => {
+  Product.find()
+    .populate("postedBy", "_id name")
+    .then((products) => {
+      res.json({ products });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 module.exports = router;
