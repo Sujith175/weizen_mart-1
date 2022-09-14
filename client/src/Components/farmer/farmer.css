@@ -1,14 +1,13 @@
-.container{
-    display: flex;
-    margin: 0px;
+.container {
+  display: flex;
+  margin: 0px;
 }
 
-
-.link{
-    text-decoration: none;
-    color: inherit;
+.link {
+  text-decoration: none;
+  color: inherit;
 }
 
-.others{
-    flex: 4;
+.others {
+  flex: 4;
 }
