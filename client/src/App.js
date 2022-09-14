@@ -9,6 +9,7 @@ import { reducer, initialState } from "./Reducers/UserReducer";
 import Admin from "./Components/Admin/Admin";
 import UserList from "./Components/Admin/src/Pages/UserList";
 import FarmerNavbar from "./Components/farmer/Navbar/FarmerNavbar";
+import Products from "./Components/UserProducts/Products";
 
 export const UserContext = createContext();
 const App = () => {
@@ -29,7 +30,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={user ? <Navbar /> : <Login />}>
           <Route path="home" element={user ? <Home /> : <Login />} />
-          <Route path="farmer" element={user ? <Farmer /> : <Login />} />
+          <Route path="products" element={user ? <Products /> : <Login />} />
         </Route>
         <Route path="farmernavbar" element={<FarmerNavbar />}>
           <Route path="farmer" element={user ? <Farmer /> : <Login />} />
