@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "./src/Components/Sidebar/Sidebar";
 import Topbar from "./src/Components/Topbar/Topbar";
 import AdminHome from "./src/Pages/AdminHome";
+import Fproducts from "./src/Pages/Fproducts";
 
 const Admin = () => {
   return (
@@ -9,7 +10,7 @@ const Admin = () => {
       <Topbar />
       <div className="container">
         <Sidebar />
-        <AdminHome />
+        <Fproducts/>
       </div>
     </div>
   );

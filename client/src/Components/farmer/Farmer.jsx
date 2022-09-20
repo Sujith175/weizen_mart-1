@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import styled from 'styled-components';
+
 import {
   FarmerWrapper,
   FarmerCard,
@@ -20,11 +22,22 @@ import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
   const [productName, setProductName] = useState("");
+  const [productState,setProductState] = useState("");
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState("");
   const [productDescription, setProductDescription] = useState("");
+  const [pnameErr,setPNameErr] = useState(false)
+  const[pstateErr,setPstateErr] = useState(false)
+  const [priceErr,setPriceErr] = useState(false)
+  const [priceDesc,setPriceDesc] = useState(false)
+  const [KgErr,setKgErr] = useState(false)
   const [url, setUrl] = useState("");
   const [image, setImage] = useState("");
+
+   const Error =styled.span`
+    color:red;
+    padding:5px;
+    `;
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -37,6 +50,7 @@ const Admin = () => {
         },
         body: JSON.stringify({
           productName,
+          productState,
           productPrice,
           productQuantity,
           productDescription,
@@ -47,8 +61,30 @@ const Admin = () => {
         .then((data) => {
           if (data.error) {
             console.log(data.error);
+            toast.error(data.error, {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           } else {
-            alert("Product Added Successfully");
+            toast.success("Product Added Successfully", {
+              position: "top-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            setProductName("");
+            setProductPrice("");
+            setProductQuantity("");
+            setProductDescription("");
+            setProductState("");
           }
         });
       navigate("/farmernavbar/farmer");
@@ -58,9 +94,9 @@ const Admin = () => {
     console.log("okey");
     const data = new FormData();
     data.append("file", image);
-    data.append("upload_preset", "instaClone");
-    data.append("cloud_name", "sujith101");
-    fetch("https://api.cloudinary.com/v1_1/sujith101/image/upload", {
+    data.append("upload_preset", "uploads");
+    data.append("cloud_name", "dbcd93z96");
+    fetch("https://api.cloudinary.com/v1_1/dbcd93z96/image/upload", {
       method: "post",
       body: data,
     })
@@ -71,10 +107,54 @@ const Admin = () => {
       .catch((err) => {
         console.log(err);
       });
+      
   };
+
+  const handleProductName = (e1)=>{
+    if(productName.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)){
+        console.log("Accepted")
+    }
+   else{
+    setPNameErr(true)
+   }
+}
+  const handleProductState = (e1)=>{
+    if(productState.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)){
+        console.log("Accepted")
+    }
+   else{
+    setPstateErr(true)
+   }
+}
+  const handlePrice = (e1)=>{
+    if(productPrice.match(/\d+(?:[.,]\d{0,2})?/)){
+        console.log("Accepted")
+    }
+   else{
+    setPriceErr(true)
+   }
+}
+  const handleKg = (e1)=>{
+    if(productQuantity.match(/\d+(?:[.,]\d{0,2})?/)){
+        console.log("Accepted")
+    }
+   else{
+    setKgErr(true)
+   }
+}
+  const handleDesc = (e1)=>{
+    if(productQuantity.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)){
+        console.log("Accepted")
+    }
+   else{
+    setPriceDesc(true)
+   }
+}
+
   return (
     <div>
-      <Topbar />
+    <ToastContainer />
+
       <FarmerContainer>
         <Sidebar />
         <FarmerWrapper>
@@ -88,24 +168,46 @@ const Admin = () => {
                     type="text"
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
+                    onKeyUp={handleProductName}
+                    required
                   ></Input>
+                {pnameErr&&!productName.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)?<Error>Enter a valid product name!</Error>:""}
+                </InputWrapper>
+                <InputWrapper>
+                  <InputLabel>Product State</InputLabel>
+                  <Input
+                    type="text"
+                    value={productState}
+                    onChange={(e) => setProductState(e.target.value)}
+                    onKeyUp={handleProductState}
+                    required
+                  ></Input>
+                {pstateErr&&!productState.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)?<Error>Enter a valid state name!</Error>:""}
                 </InputWrapper>
 
                 <InputWrapper>
-                  <InputLabel>Product Price</InputLabel>
+                  <InputLabel>Product Price in Kg</InputLabel>
                   <Input
-                    type="text"
+                    type="number"
                     value={productPrice}
                     onChange={(e) => setProductPrice(e.target.value)}
+                    onKeyUp={handlePrice}
+                    required
                   ></Input>
+                {priceErr&&!productPrice.match(/\d+(?:[.,]\d{0,2})?/)?<Error>Enter a valid price!</Error>:""}
+
                 </InputWrapper>
                 <InputWrapper>
                   <InputLabel>Product Quantity in Kg</InputLabel>
                   <Input
-                    type="text"
+                    type="number"
                     value={productQuantity}
+                    onKeyUp={handleKg}
+                    required
                     onChange={(e) => setProductQuantity(e.target.value)}
                   ></Input>
+                {KgErr&&!productQuantity.match(/\d+(?:[.,]\d{0,2})?/)?<Error>Enter a valid quantity!</Error>:""}
+
                 </InputWrapper>
                 <InputWrapper>
                   <InputLabel>Product Description</InputLabel>
@@ -113,13 +215,17 @@ const Admin = () => {
                     rows="4"
                     cols="50"
                     value={productDescription}
+                    onKeyUp={handleDesc}
                     onChange={(e) => setProductDescription(e.target.value)}
                   ></TextArea>
+                {priceDesc&&!productDescription.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)?<Error>Enter a valid description!</Error>:""}
+
                 </InputWrapper>
                 <InputWrapper>
                   <InputLabel>Select Image</InputLabel>
                   <Input
                     type="file"
+                    required
                     onChange={(e) => setImage(e.target.files[0])}
                   ></Input>
                 </InputWrapper>

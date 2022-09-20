@@ -11,8 +11,8 @@ export const FarmerWrapper = styled.div`
 export const FarmerCard = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  height: 87%;
-  width: 60vw;
+  height: flexible;
+  width: 40vw;
   position: relative;
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
@@ -33,7 +33,9 @@ export const Input = styled.input`
   height: fit-content;
   font-size: medium;
 `;
-
+export const Para = styled.p`
+  margin-top: 5%;
+`;
 export const TextArea = styled.textarea`
   display: flex;
   flex-direction: column-reverse;

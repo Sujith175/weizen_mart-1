@@ -1,4 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Sidebar from "../Components/Sidebar/Sidebar.jsx";
+import Topbar from "../Components/Topbar/Topbar.jsx";
+import postDetails from "./UpdateProd";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import {
   CardList,
   Image,
@@ -7,10 +15,8 @@ import {
   CardContainer,
   Para,
   Button,
-} from "./ProductElements.js";
-
-const Products = () => {
-
+} from "./ProductElemnts.js";
+const Fproducts = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -25,9 +31,16 @@ const Products = () => {
         console.log(result.products);
       });
   }, []);
+
+  const display=()=>{
+    toast.success("Product added to home");
+  }
+
   return (
     <>
       <Heading>Products</Heading>
+      <ToastContainer />
+
       <CardList>
         {data.map((product) => (
           <CardContainer>
@@ -37,7 +50,7 @@ const Products = () => {
             <Para>State: {product.productState}</Para>
             <Para> Quantity: {product.productQuantity} Kg</Para>
             <Para> {product.productDescription}</Para>
-            <Button>Add to Cart</Button>
+            <Button onClick={display}>Add Product to Home</Button>
           </CardContainer>
         ))}
       </CardList>
@@ -45,4 +58,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Fproducts;

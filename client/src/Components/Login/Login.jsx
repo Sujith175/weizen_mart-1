@@ -6,10 +6,21 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signInWithGooglePopup } from "../../utils/Firebase/firebase.utils";
 import { FcGoogle } from "react-icons/fc";
+import styled from 'styled-components';
+
 const Login = () => {
+
+  const Error =styled.span`
+  color:red;
+  padding:5px;
+  `;
+
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailErr,setEmailErr] = useState(false)
+  const [pwdErr,setPwdErr] = useState(false)
+
   const logGoogleUser = async () => {
     const response = await signInWithGooglePopup();
     localStorage.setItem("user", JSON.stringify(response));
@@ -43,7 +54,7 @@ const Login = () => {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/home"), 6000);
+          setTimeout(() => navigate("/home"), 4450);
         } else if (data.user.usertype === "Farmer") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
@@ -56,7 +67,7 @@ const Login = () => {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/farmernavbar/farmer"), 6000);
+          setTimeout(() => navigate("/farmernavbar/farmer"), 4450);
         } else if (data.user.usertype === "Admin") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
@@ -69,12 +80,30 @@ const Login = () => {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/admin"), 6000);
+          setTimeout(() => navigate("/admin"), 4450);
         } else {
           console.log("error");
         }
       });
   };
+  const handleEmail = (e1)=>{
+    if(email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+        console.log("Accepted")
+    }
+   else{
+    setEmailErr(true)
+   }
+}
+
+const handlePassword = (e1)=>{
+  if(password.match(/^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/)){
+      console.log("Accepted")
+  }
+ else{
+  setPwdErr(true)
+ }
+}
+
   return (
     <div className="login-container">
       <div className="login-wrapper">
@@ -87,23 +116,23 @@ const Login = () => {
             className="login-input"
             placeholder="Email ID"
             onChange={(e) => setEmail(e.target.value)}
+            onKeyUp={handleEmail}
           />
+        {emailErr&&!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)?<Error>Please enter a valid email!</Error>:""}
+
           <input
             type="password"
             className="login-input"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
+            onKeyUp={handlePassword}
           />
+          {pwdErr&&!password.match(/^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/)?<Error>Incorrect Password!</Error>:""}
           <button className="login-button" onClick={() => loginHandler()}>
             Login
           </button>
-          <button className="google-button" onClick={logGoogleUser}>
-            <FcGoogle style={{ marginRight: "10%" }} />
-            Signin With Google
-          </button>
-          <Link to="/forgotpassword" className="link">
-            Forgot Password
-          </Link>
+          
+          
           <Link to="/signup" className="link">
             {" "}
             Don't have an Account?

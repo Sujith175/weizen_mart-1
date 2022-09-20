@@ -24,8 +24,6 @@ const Home = () => {
         View all products
       </Link>
       {/* <Products/> */}
-      <Newsletter />
-      <Footer />
     </div>
   );
 };
