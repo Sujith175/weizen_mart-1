@@ -52,4 +52,30 @@ router.get("/allproducts", requireLogin, (req, res) => {
     });
 });
 
+router.get("/getproduct/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const singleProduct = await Product.findById({ _id: id });
+
+    res.status(201).json(singleProduct);
+  } catch (error) {
+    res.status(422).json(error);
+  }
+
+  const { id } = req.params;
+});
+
+router.patch("/updateproduct/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedproduct = await Product.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    console.log(updatedproduct);
+    res.status(201).json(updatedproduct);
+  } catch (error) {
+    res.status(422).json(error);
+  }
+});
 module.exports = router;

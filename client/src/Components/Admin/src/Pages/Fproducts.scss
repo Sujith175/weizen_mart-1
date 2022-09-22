@@ -1,0 +1,70 @@
+.products {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 1200px;
+}
+
+.products td,
+.products th {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.products tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.products th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #ab9b05;
+  color: white;
+}
+.btn {
+  text-decoration: none;
+  padding: 8px;
+  background-color: #ebdd59;
+  border-radius: 10px;
+  color: rgb(115, 106, 5);
+  &:hover {
+    background-color: #ab9b05;
+    color: white;
+  }
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 30%;
+  height: 600px;
+  margin-top: 10%;
+  margin-left: 10%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 2px 16px;
+  align-items: center;
+  justify-content: center;
+}
+.text-input {
+  padding: 5px;
+  margin-top: 2%;
+  margin-left: 20px;
+  margin-right: 10%;
+}
+.submit-btn {
+  margin-top: 2%;
+  margin-left: 40%;
+}
+
+#label {
+  margin-left: 4%;
+}
+#heading {
+  margin-left: "30px";
+}
