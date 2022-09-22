@@ -4,7 +4,8 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { UserContext } from "../../App";
 import { Badge } from '@mui/material';
-import { useCart } from "../Cart/Cart";
+
+
 
 import {
   NavbarContainer,
@@ -21,10 +22,10 @@ import {
   LogoutButton,
 } from "./NavbarElements";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+
 const Navbar = () => {
   const { state, dispatch } = useContext(UserContext);
   const navigate = useNavigate();
-  const items = useCart();
 
   return (
     <>
@@ -58,10 +59,10 @@ const Navbar = () => {
             </NavMenuItem>
             <NavMenuItem>
             
-            <Badge color="primary" >
+            <Badge  color="primary">
             <ShoppingCartOutlinedIcon/>
             </Badge>
-            
+           
             </NavMenuItem>
           </NavRight>
         </WrapperContainer>

@@ -137,6 +137,9 @@ const handlePassword = (e1)=>{
             {" "}
             Don't have an Account?
           </Link>
+          <Link to="/forgetpassword" className="link">
+            Forget password?
+          </Link>
         </div>
       </div>
     </div>

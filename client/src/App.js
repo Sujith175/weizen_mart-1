@@ -12,6 +12,7 @@ import FarmerNavbar from "./Components/farmer/Navbar/FarmerNavbar";
 import Products from "./Components/UserProducts/Products";
 import Fproducts from "./Components/Admin/src/Pages/Fproducts";
 import UpdateProd from "./Components/Admin/src/Pages/UpdateProd";
+import ForgetPwd from "./Components/Admin/src/Pages/ForgetPwd";
 
 export const UserContext = createContext();
 const App = () => {
@@ -43,7 +44,6 @@ const App = () => {
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="users" element={<UserList />} />
-        
       </Routes>
     </UserContext.Provider>
   );
