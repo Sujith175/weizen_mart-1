@@ -30,6 +30,7 @@ router.post("/addproduct", requireLogin, (req, res) => {
     productQuantity,
     productDescription,
     photo: url,
+    postedBy: req.user,
   });
   product
     .save()

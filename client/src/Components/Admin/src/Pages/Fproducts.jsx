@@ -65,6 +65,7 @@ const Fproducts = () => {
             {data.map((product) => (
               <tr>
                 <td>{product.productName}</td>
+                {console.log(product)}
                 <td>
                   <img height="100px" width="100px" src={product.photo} />
                 </td>

@@ -45,7 +45,7 @@ const App = () => {
           {/* <Route path="fproducts" element={<Fproducts />} /> */}
         </Route>
         <Route
-          path="/edit/:id"
+          path="edit/:id"
           element={user ? <EditProduct /> : <Login />}
         ></Route>
         <Route path="updateprod" element={<UpdateProd />} />
