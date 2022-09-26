@@ -44,7 +44,7 @@ router.post("/addproduct", requireLogin, (req, res) => {
 
 router.get("/allproducts", requireLogin, (req, res) => {
   Product.find()
-    .populate("postedBy", "_id name")
+    .populate("postedBy", "_id firstName")
     .then((products) => {
       res.json({ products });
     })
@@ -57,7 +57,10 @@ router.get("/getproduct/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const singleProduct = await Product.findById({ _id: id });
+    const singleProduct = await Product.findById({ _id: id }).populate(
+      "postedBy",
+      "_id firstName"
+    );
 
     res.status(201).json(singleProduct);
   } catch (error) {

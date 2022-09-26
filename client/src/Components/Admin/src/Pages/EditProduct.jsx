@@ -6,6 +6,7 @@ import { useEffect } from "react";
 const EditProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams("");
+  const [updatedPrice, setUpdatedPrice] = useState();
 
   const [inpval, setINP] = useState({
     productName: "",
@@ -14,8 +15,9 @@ const EditProduct = () => {
     productState: "",
     productQuantity: "",
     productDescription: "",
+    postedBy: "",
   });
-
+  const total = inpval.productPrice + updatedPrice;
   const setdata = (e) => {
     const { name, value } = e.target;
     setINP((preval) => {
@@ -34,6 +36,7 @@ const EditProduct = () => {
       },
     });
     const data = await res.json();
+
     setINP(data);
   };
   useEffect(() => {
@@ -48,6 +51,7 @@ const EditProduct = () => {
       productDescription,
       productQuantity,
       productState,
+      postedBy,
     } = inpval;
     const res2 = await fetch(`http://localhost:5000/updateproduct/${id}`, {
       method: "PATCH",
@@ -57,13 +61,14 @@ const EditProduct = () => {
       body: JSON.stringify({
         productName,
         productDescription,
-        productPrice,
+        productPrice: total,
         productQuantity,
         productState,
+        postedBy,
       }),
     });
     const data2 = await res2.json();
-    console.log(data2);
+
     if (res2.status === 422 || data2) {
       alert("Product Added SuccessFully");
       navigate("/admin");
@@ -74,7 +79,24 @@ const EditProduct = () => {
   return (
     <div>
       <div class="card">
-        <img height="200px" width="200px" src={inpval.photo} alt="" />
+        <label
+          style={{
+            marginLeft: "5%",
+            fontSize: "20px",
+            marginBottom: "20px",
+            color: "#ab9b05",
+          }}
+        >
+          This Product is added by : {inpval.postedBy.firstName}
+        </label>
+        <br></br>
+        <img
+          height="200px"
+          width="200px"
+          style={{ marginLeft: "5%", marginTop: "20px", marginBottom: "20px" }}
+          src={inpval.photo}
+          alt=""
+        />
         <br></br>
         <span id="label">Product Name:</span>{" "}
         <input
@@ -86,14 +108,43 @@ const EditProduct = () => {
           disabled
         ></input>
         <br></br>
-        <span id="label">Product Price:</span>{" "}
+        <span id="label">Customer Price:</span>{" "}
         <input
           className="text-input"
           type="text"
           name="productPrice"
           value={inpval.productPrice}
           onChange={setdata}
+          disabled
         ></input>
+        <br></br>
+        <span id="label">Admin Amount:</span>{" "}
+        <input
+          className="text-input"
+          type="text"
+          name="productPrice"
+          onChange={(e) => setUpdatedPrice(parseInt(e.target.value))}
+          placeholder="Reasonable price only"
+        ></input>
+        <br></br>
+        <span id="label">Total Amount:</span>{" "}
+        {total ? (
+          <input
+            className="text-input"
+            type="text"
+            name="productPrice"
+            disabled
+            value={total}
+          ></input>
+        ) : (
+          <input
+            className="text-input"
+            type="text"
+            name="productPrice"
+            disabled
+            value="Please add your price"
+          ></input>
+        )}
         <br></br>
         <span id="label">Product State:</span>{" "}
         <input

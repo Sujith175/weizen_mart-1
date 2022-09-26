@@ -21,8 +21,16 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = JSON.parse(localStorage.getItem("user"));
   useEffect(() => {
-    if (user) {
+    console.log(user.usertype);
+    if (user.usertype === "Customer") {
       dispatch({ type: "USER", payload: user });
+      navigate("/home");
+    } else if (user.usertype == "Farmer") {
+      dispatch({ type: "USER", payload: user });
+      navigate("/farmernavbar/farmer");
+    } else if (user.usertype === "Admin") {
+      dispatch({ type: "USER", payload: user });
+      navigate("/admin");
     } else {
       navigate("/login");
     }
