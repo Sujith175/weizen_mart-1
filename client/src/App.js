@@ -20,17 +20,25 @@ const App = () => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
   useEffect(() => {
-    console.log(user.usertype);
-    if (user.usertype === "Customer") {
+    if (user) {
       dispatch({ type: "USER", payload: user });
-      navigate("/home");
-    } else if (user.usertype == "Farmer") {
-      dispatch({ type: "USER", payload: user });
-      navigate("/farmernavbar/farmer");
-    } else if (user.usertype === "Admin") {
-      dispatch({ type: "USER", payload: user });
-      navigate("/admin");
+      if (user.usertype === "Admin") {
+        navigate("/admin");
+      } else {
+        navigate("/login");
+      }
+      if (user.usertype === "Farmer") {
+        navigate("/farmernavbar/farmer");
+      } else {
+        navigate("/login");
+      }
+      if (user.usertype === "Customer") {
+        navigate("/home");
+      } else {
+        navigate("/login");
+      }
     } else {
       navigate("/login");
     }
