@@ -127,7 +127,7 @@ const Admin = () => {
    }
 }
   const handlePrice = (e1)=>{
-    if(productPrice.match(/\d+(?:[.,]\d{0,2})?/)){
+    if(productPrice.match(/^[0-9\b]+$/)){
         console.log("Accepted")
     }
    else{
@@ -135,7 +135,7 @@ const Admin = () => {
    }
 }
   const handleKg = (e1)=>{
-    if(productQuantity.match(/\d+(?:[.,]\d{0,2})?/)){
+    if(productQuantity.match(/^[0-9\b]+$/)){
         console.log("Accepted")
     }
    else{
@@ -186,19 +186,19 @@ const Admin = () => {
                 </InputWrapper>
 
                 <InputWrapper>
-                  <InputLabel>Product Price in Kg</InputLabel>
+                  <InputLabel>Product Price(INR/Kg)</InputLabel>
                   <Input
                     type="number"
                     value={productPrice}
-                    onChange={(e) => setProductPrice(e.target.value)}
                     onKeyUp={handlePrice}
+                    onChange={(e) => setProductPrice(e.target.value)}
                     required
                   ></Input>
-                {priceErr&&!productPrice.match(/\d+(?:[.,]\d{0,2})?/)?<Error>Enter a valid price!</Error>:""}
+                {priceErr&&!productPrice.match(/^[0-9\b]+$/)?<Error>Enter a valid price!</Error>:""}
 
                 </InputWrapper>
                 <InputWrapper>
-                  <InputLabel>Product Quantity in Kg</InputLabel>
+                  <InputLabel>Product Quantity(Kg)</InputLabel>
                   <Input
                     type="number"
                     value={productQuantity}
@@ -206,7 +206,7 @@ const Admin = () => {
                     required
                     onChange={(e) => setProductQuantity(e.target.value)}
                   ></Input>
-                {KgErr&&!productQuantity.match(/\d+(?:[.,]\d{0,2})?/)?<Error>Enter a valid quantity!</Error>:""}
+                {KgErr&&!productQuantity.match(/^[0-9\b]+$/)?<Error>Enter a valid quantity!</Error>:""}
 
                 </InputWrapper>
                 <InputWrapper>

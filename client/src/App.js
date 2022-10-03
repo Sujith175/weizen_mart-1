@@ -1,6 +1,6 @@
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Farmer from "./Components/farmer/Farmer";
-import Home from "./Components/home/Home";
+import Home from "./Components/Home/Home";
 import Login from "./Components/Login/Login";
 import Navbar from "./Components/Navbar/Navbar";
 import Signup from "./Components/Signup/Signup";
@@ -14,6 +14,7 @@ import Fproducts from "./Components/Admin/src/Pages/Fproducts";
 import UpdateProd from "./Components/Admin/src/Pages/UpdateProd";
 import ForgetPwd from "./Components/Admin/src/Pages/ForgetPwd";
 import EditProduct from "./Components/Admin/src/Pages/EditProduct";
+import FarmerAddedProds from "./Components/farmer/FarmerAddedProds";
 
 export const UserContext = createContext();
 const App = () => {
@@ -55,7 +56,10 @@ const App = () => {
           path="farmernavbar"
           element={user ? <FarmerNavbar /> : <Login />}
         >
-          <Route path="farmer" element={user ? <Farmer /> : <Login />} />
+          <Route path="addedprods" element={user ? <FarmerAddedProds/> : <Login />} />
+          <Route path="farmer" element={user ? <Farmer/> : <Login />} />
+         
+          {/* <Route path="addproducts" element={user ? < /> : <Login />} />  */}
         </Route>
         <Route path="admin" element={user ? <Admin /> : <Login />}>
           {/* <Route path="fproducts" element={<Fproducts />} /> */}

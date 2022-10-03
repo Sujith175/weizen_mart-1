@@ -42,9 +42,7 @@ const Navbar = () => {
             <NavLogo>WEIZEN MART</NavLogo>
           </NavCenter>
           <NavRight>
-            <NavMenuItem>
-              <NavMenuLink to="/signup">Register</NavMenuLink>
-            </NavMenuItem>
+            
 
             <NavMenuItem>
               <LogoutButton

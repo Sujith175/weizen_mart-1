@@ -18,6 +18,8 @@ import {
 } from "./ProductElemnts.js";
 const Fproducts = () => {
   const [data, setData] = useState([]);
+  const [searchApiData,setSearchApiData] = useState([]);
+  const [filterVal,setFilterVal] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:5000/allproducts", {
@@ -28,16 +30,34 @@ const Fproducts = () => {
       .then((res) => res.json())
       .then((result) => {
         setData(result.products);
+        setSearchApiData(result.products);
       });
   }, []);
 
-  const display = () => {
-    toast.success("Product added to home");
-  };
+  const handleFilter=(e)=>{
+    if(e.target.value == ''){
+      setData(searchApiData);
+    }else{
+    const filterResult = searchApiData.filter(product => product.productName.toLowerCase().includes(e.target.value.toLowerCase())
+    ||product.productState.toLowerCase().includes(e.target.value.toLowerCase())
+    )
+    if(filterResult.length>0){
+      setData(filterResult);
+    }else{
+      setData([{"productName":"No data found"}]);
+    }
+    
+  }
+  setFilterVal(e.target.value);
+}
 
   return (
     <>
       <Topbar />
+      <div style={{margin:'20px 20%'}}>
+     <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
+     
+     </div>
       <Heading>Products</Heading>
       <ToastContainer />
 
@@ -57,9 +77,9 @@ const Fproducts = () => {
             <tr>
               <th>Product Name</th>
               <th>Product Image</th>
-              <th>Price</th>
+              <th>Price (INR/Kg)</th>
               <th>State</th>
-              <th>Quantity</th>
+              <th>Quantity (Kg)</th>
               <th>Description</th>
               <th>Action</th>
             </tr>

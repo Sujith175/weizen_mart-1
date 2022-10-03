@@ -13,8 +13,26 @@ export default function Sidebar() {
            
             <li className="sidebarListItem" >
               <LineStyleIcon className="sidebarIcon" />
-              <Link style={{textDecoration:'none',color:"black"}} to="/admin">Home</Link>
+              <Link style={{textDecoration:'none',color:"black"}} to="addedprods">Home</Link>
+       
             </li>
+            <li className="sidebarListItem" >
+              <LineStyleIcon className="sidebarIcon" />
+              <Link style={{textDecoration:'none',color:"black"}} to="">Notification of stock</Link>
+            </li>
+            <li className="sidebarListItem" >
+              <LineStyleIcon className="sidebarIcon" />
+              <Link style={{textDecoration:'none',color:"black"}} to="">Update stock </Link>
+            </li>
+            <li className="sidebarListItem" >
+              <LineStyleIcon className="sidebarIcon" />
+              <Link style={{textDecoration:'none',color:"black"}} to="">Show existing stock</Link>
+            </li>
+            <li className="sidebarListItem" >
+              <LineStyleIcon className="sidebarIcon" />
+              <Link style={{textDecoration:'none',color:"black"}} to="">Payment Details</Link>
+            </li>
+           
           </ul>
         </div>
       </div>

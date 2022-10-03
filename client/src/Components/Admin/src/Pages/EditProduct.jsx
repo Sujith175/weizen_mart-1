@@ -2,11 +2,19 @@ import React, { useState } from "react";
 import "./Fproducts.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import styled from 'styled-components';
+
 
 const EditProduct = () => {
   const navigate = useNavigate();
   const { id } = useParams("");
   const [updatedPrice, setUpdatedPrice] = useState();
+  const [priceErr,setPriceErr] = useState(false)
+
+  const Error =styled.span`
+  color:red;
+  padding:5px;
+  `;
 
   const [inpval, setINP] = useState({
     productName: "",
@@ -70,12 +78,22 @@ const EditProduct = () => {
     const data2 = await res2.json();
 
     if (res2.status === 422 || data2) {
-      alert("Product Added SuccessFully");
+      alert("Price Validated SuccessFully");
       navigate("/admin");
     } else {
       alert("data updated successfully");
     }
   };
+
+  const handlePrice = (e1)=>{
+    if(updatedPrice.match(/^[0-9\b]+$/)){
+        console.log("Accepted")
+    }
+   else{
+    setPriceErr(true)
+   }
+}
+
   return (
     <div>
       <div class="card">
@@ -108,7 +126,7 @@ const EditProduct = () => {
           disabled
         ></input>
         <br></br>
-        <span id="label">Customer Price:</span>{" "}
+        <span id="label">Farmer Price(INR/Kg):</span>{" "}
         <input
           className="text-input"
           type="text"
@@ -118,16 +136,19 @@ const EditProduct = () => {
           disabled
         ></input>
         <br></br>
-        <span id="label">Admin Amount:</span>{" "}
+        <span id="label">MSP Price(INR/Kg):</span>{" "}
         <input
           className="text-input"
           type="text"
           name="productPrice"
+          onKeyUp={handlePrice}
           onChange={(e) => setUpdatedPrice(parseInt(e.target.value))}
-          placeholder="Reasonable price only"
+          placeholder="MSP"
         ></input>
+        {priceErr&&!updatedPrice.match(/^[0-9\b]+$/)?<Error>Enter a valid price!</Error>:""}
+
         <br></br>
-        <span id="label">Total Amount:</span>{" "}
+        <span id="label">Total Amount: (INR/Kg)</span>{" "}
         {total ? (
           <input
             className="text-input"
@@ -156,7 +177,7 @@ const EditProduct = () => {
           onChange={setdata}
         ></input>
         <br></br>
-        <span id="label">Product Quantity:</span>{" "}
+        <span id="label">Product Quantity(Kg):</span>{" "}
         <input
           className="text-input"
           type="text"

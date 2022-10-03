@@ -41,11 +41,9 @@ const FarmerNavbar = () => {
       return [
         <>
           <NavMenuItem>
-            <NavMenuLink to="/products">Products</NavMenuLink>
+            <NavMenuLink to="addedprods">Products</NavMenuLink>
           </NavMenuItem>
-          <NavMenuItem>
-            <NavMenuLink to="/cart">cart</NavMenuLink>
-          </NavMenuItem>
+          
           <NavMenuItem>
             <BiUserCircle style={{ color: "#a9740e", fontSize: "20px" }} />
             {user.email ? (

@@ -42,24 +42,7 @@ export const categories = [
     title:"BLACK WHEAT",
     cat:"black"
 },
-{
-    id:4,
-    img:"https://www.marzuk.com.sg/assets/images/urunler/1-1.jpg",
-    title:"MILLING WHEAT",
-    cat:"milling"
-},
-{
-    id:5,
-    img:"https://4.imimg.com/data4/WU/BO/MY-11485706/lokwan-wheat-seeds.jpg",
-    title:"LOKWAN WHEAT",
-    cat:"lokwan"
-},
-{
-    id:6,
-    img:"https://th.bing.com/th/id/OIP.xIlsPWSHHlFqB3vw2X6yvQHaHc?pid=ImgDet&rs=1",
-    title:"WHITE WINTER WHEAT",
-    cat:"whitewinter"
-},
+
 ];
 
 export const popularProducts = [

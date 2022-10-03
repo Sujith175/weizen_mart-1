@@ -10,6 +10,7 @@ router.post("/addproduct", requireLogin, (req, res) => {
   const {
     productName,
     productPrice,
+    productState,
     productQuantity,
     productDescription,
     url,
@@ -17,6 +18,7 @@ router.post("/addproduct", requireLogin, (req, res) => {
   if (
     !productName ||
     !productPrice ||
+    !productState||
     !productQuantity ||
     !productDescription ||
     !url
@@ -27,6 +29,7 @@ router.post("/addproduct", requireLogin, (req, res) => {
   const product = new Product({
     productName,
     productPrice,
+    productState,
     productQuantity,
     productDescription,
     photo: url,
