@@ -20,7 +20,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import Topbar from "./Topbar/Topbar";
 import { useNavigate } from "react-router-dom";
 
-const Admin = () => {
+const Farmer = () => {
   const [productName, setProductName] = useState("");
   const [productState,setProductState] = useState("");
   const [productPrice, setProductPrice] = useState("");
@@ -84,12 +84,33 @@ const Admin = () => {
             setProductPrice("");
             setProductQuantity("");
             setProductDescription("");
-            setProductState("");
           }
         });
+        fetch("http://localhost:5000/stock", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwt"),
+          },
+          body: JSON.stringify({
+            productName,
+            productQuantity,
+            url,
+          }),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            console.log(data.error);
+          } else {
+            alert("Stock Added Successfully");
+          }
+        });
+        
       navigate("/farmernavbar/farmer");
     }
   }, [url]);
+
   const postDetails = () => {
     console.log("okey");
     const data = new FormData();
@@ -175,13 +196,14 @@ const Admin = () => {
                 </InputWrapper>
                 <InputWrapper>
                   <InputLabel>Product State</InputLabel>
-                  <Input
-                    type="text"
-                    value={productState}
-                    onChange={(e) => setProductState(e.target.value)}
-                    onKeyUp={handleProductState}
-                    required
-                  ></Input>
+                  <select  onChange={(e) => setProductState(e.target.value)}>
+                  <option selected="true" disabled="disabled" value={productState}>
+                    Select State
+                  </option>
+                    <option>UP</option>
+                    <option>Bihar</option>
+                    <option>Punjab</option>
+                  </select>
                 {pstateErr&&!productState.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)?<Error>Enter a valid state name!</Error>:""}
                 </InputWrapper>
 
@@ -239,4 +261,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Farmer;

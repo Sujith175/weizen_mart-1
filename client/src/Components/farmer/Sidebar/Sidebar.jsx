@@ -26,7 +26,8 @@ export default function Sidebar() {
             </li>
             <li className="sidebarListItem" >
               <LineStyleIcon className="sidebarIcon" />
-              <Link style={{textDecoration:'none',color:"black"}} to="">Show existing stock</Link>
+              
+              <Link style={{textDecoration:'none',color:"black"}} to="showstock">Show existing stock</Link>
             </li>
             <li className="sidebarListItem" >
               <LineStyleIcon className="sidebarIcon" />

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import {useNavigate} from 'react-router-dom';
+
 import {
   CardList,
   Image,
@@ -8,12 +10,23 @@ import {
   Para,
   Button,
 } from "./ProductElements.js";
+import { Link } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
+import { addItemToCart } from "../../features/cart/CartSlice";
 
 const Products = () => {
 
   const [data, setData] = useState([]);
   const [searchApiData,setSearchApiData] = useState([]);
   const [filterVal,setFilterVal] = useState("");
+  const cart = useAppSelector((state) => state.cart);
+	const dispatcher = useAppDispatch();
+	const navigate = useNavigate();
+
+  const addToCart = (product) => {
+		dispatcher(addItemToCart(product));
+		navigate("/cart");
+	};
 
   useEffect(() => {
     fetch("http://localhost:5000/allproducts", {
@@ -45,27 +58,32 @@ const Products = () => {
   }
   setFilterVal(e.target.value);
 }
-  return (
-    <>
-     <div style={{margin:'20px 20%'}}>
-     <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
-     </div>
-      <Heading>Products</Heading>
-      <CardList>
-        {data.map((product) => (
-          <CardContainer>
-            <Name>{product.productName}</Name>
-            <Image alt="" src={product.photo} />
-            <Para> Price (INR/Kg): {product.productPrice}</Para>
-            <Para>State: {product.productState}</Para>
-            <Para> Quantity (Kg): {product.productQuantity} Kg</Para>
-            <Para> {product.productDescription}</Para>
-            <Button>Add to Cart</Button>
-          </CardContainer>
-        ))}
-      </CardList>
-    </>
-  );
+return (
+  <>
+    {JSON.stringify(cart.cartItems)}
+    
+    <Heading>Products</Heading>
+    <CardList>
+      {data.map((product) => (
+        <CardContainer>
+          <Name>{product.productName}</Name>
+          <Image alt="" src={product.photo} />
+          <Para> Price: {product.productPrice}</Para>
+          <Para>State: {product.productState}</Para>
+          <Para> Quantity: {product.productQuantity} Kg</Para>
+          <Para> {product.productDescription}</Para>
+          <Button
+            onClick={() => {
+              addToCart(product);
+            }}
+          >
+            Add to Cart
+          </Button>
+        </CardContainer>
+      ))}
+    </CardList>
+  </>
+);
 };
 
 export default Products;

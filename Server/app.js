@@ -22,9 +22,11 @@ mongoose.connection.on("error", (err) => {
 
 require("./models/User");
 require("./models/Products");
+require("./models/Stock");
 app.use(express.json());
 app.use(require("./Routes/auth"));
 app.use(require("./Routes/products"));
+app.use(require("./Routes/stock"));
 app.listen(PORT, () => {
   console.log("server is running on ", PORT);
 });
