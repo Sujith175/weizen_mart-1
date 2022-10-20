@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import "./Cart.css";
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const Cart = () => {
     const cart = useSelector((state)=>state.cart);
@@ -33,7 +35,11 @@ const Cart = () => {
                         <div>
                         <h3>{cartItems.productName}</h3>
                         <p>{cartItems.productDescription}</p>
-                        <button>Remove</button>    
+                        <button>Remove  
+                        <div>
+                        <DeleteOutlineIcon/>
+                        </div>
+                        </button>
                         </div>
                     </div>
                     <div className='cart-product-price'>Price(INR/Kg):{cartItems.productPrice}</div>
@@ -54,6 +60,7 @@ const Cart = () => {
                 <div className='subtotal'>
                     <span>Subtotal</span>
                     <span className='amount'>{cart.cartTotalAmount}</span>
+                    </div>
                     <p>Taxes and shipping calculated at checkout</p>
                     <button>Checkout</button>
                     <div className='continue-shopping'>
@@ -61,7 +68,7 @@ const Cart = () => {
                     <ArrowBackIcon/> <span>Continue Shopping</span> 
                     </Link>
                     </div>
-                </div>
+                
             </div>
         </div>
       </div>)}
