@@ -1,12 +1,41 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React,{useEffect} from 'react';
+import { useSelector,useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import "./Cart.css";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { addItemToCart, clearCart, decreaseCart, getTotals, removeFromCart } from '../../features/cart/CartSlice';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
     const cart = useSelector((state)=>state.cart);
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(getTotals());
+    },[cart]);
+
+    const handleRemove = (cartItems) =>{
+        dispatch(removeFromCart(cartItems));
+    };
+
+    const handleDecrease = (cartItems) =>{
+        dispatch(decreaseCart(cartItems));
+    };
+
+    const handleIncrease = (cartItems) =>{
+        dispatch(addItemToCart(cartItems));
+    };
+
+    const handleClearCart = ()=>{
+        dispatch(clearCart());
+    };
+
+    const handleCheckout =()=>{
+        toast.success("Checkout in Process");
+        
+    }
+
   return (
     <div className='cart-container'>
       <h2>Shopping Cart</h2>
@@ -35,7 +64,7 @@ const Cart = () => {
                         <div>
                         <h3>{cartItems.productName}</h3>
                         <p>{cartItems.productDescription}</p>
-                        <button>Remove  
+                        <button onClick={()=>handleRemove(cartItems)}>Remove  
                         <div>
                         <DeleteOutlineIcon/>
                         </div>
@@ -44,9 +73,9 @@ const Cart = () => {
                     </div>
                     <div className='cart-product-price'>Price(INR/Kg):{cartItems.productPrice}</div>
                     <div className='cart-product-quantity'>
-                        <button>-</button>
+                        <button onClick={() => handleDecrease(cartItems)}>-</button>
                         <div className='count'>{cartItems.cartQuantity}</div>
-                        <button>+</button>
+                        <button onClick={()=>handleIncrease(cartItems)}>+</button>
                     </div>
                     <div className='cart-product-total-price'>
                         {cartItems.productPrice * cartItems.cartQuantity}
@@ -55,14 +84,14 @@ const Cart = () => {
             ))}
         </div>
         <div className='cart-summary'>
-            <button className='clear-cart'>Clear Cart</button>
+            <button className='clear-cart' onClick={()=>handleClearCart()}>Clear Cart</button>
             <div className='cart-checkout'>
                 <div className='subtotal'>
                     <span>Subtotal</span>
                     <span className='amount'>{cart.cartTotalAmount}</span>
                     </div>
                     <p>Taxes and shipping calculated at checkout</p>
-                    <button>Checkout</button>
+                    <button onClick={()=>handleCheckout()}>Checkout</button>
                     <div className='continue-shopping'>
                         <Link to="/products">
                     <ArrowBackIcon/> <span>Continue Shopping</span> 

@@ -21,7 +21,9 @@ import {
 } from "./NavbarElements";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { green } from "@mui/material/colors";
+import styled from "styled-components";
+
+const Label = styled.span``;
 
 const Navbar = () => {
 	const cart = useAppSelector((state) => state.cart);
@@ -58,23 +60,10 @@ const Navbar = () => {
 						</NavMenuItem>
 						<NavMenuItem>
 							<Link to="cart" style={{color:"black"}}>
-							<Badge color="primary">
 								<ShoppingCartOutlinedIcon />
-								<div
-									style={{
-										display: "inlineBlock",
-										background: "green",
-										padding: "7px",
-										borderRadius: "50%",
-										color: "#fff",
-										width:10,
-										height:10,
-										textAlign:"center",
-									}}
-								>
-									{cart.cartItems.length}
-								</div>
-							</Badge>
+								<Label  className="nav-cart">
+								{cart.cartItems.length}
+							</Label>
 							</Link>
 						</NavMenuItem>
 					</NavRight>

@@ -41,6 +41,62 @@ const CartSlice = createSlice({
 		}
 		localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
 		},
+		removeFromCart(state,action){
+			const nextCartItems = state.cartItems.filter(
+				cartItems=> cartItems._id !== action.payload._id
+			)
+			state.cartItems = nextCartItems;
+			localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
+			toast.error(`${action.payload.productName} Removed from cart`,{
+				autoClose: 2500,
+			});
+		},
+		decreaseCart(state,action){
+			const itemIndex = state.cartItems.findIndex(
+				cartItems => cartItems._id === action.payload._id
+			)
+			if(state.cartItems[itemIndex].cartQuantity>1){
+				state.cartItems[itemIndex].cartQuantity -=1
+				toast.info(`Decreased ${action.payload.productName} cart quantity`,{
+					autoClose: 2500,
+				});
+			} else if(state.cartItems[itemIndex].cartQuantity==1){
+				const nextCartItems = state.cartItems.filter(
+					cartItems=> cartItems._id !== action.payload._id
+				)
+				state.cartItems = nextCartItems;
+				toast.error(`${action.payload.productName} Removed from cart`,{
+					autoClose: 2500,
+				});
+			}
+			localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
+
+		},
+
+	clearCart(state,action){
+		state.cartItems = [];
+		toast.error(`Cart Cleared`,{
+			autoClose: 2500,
+		});
+		localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
+
+	},
+
+	getTotals(state,action){
+	let {total,quantity} =	state.cartItems.reduce((cartTotal,cartItems)=>{
+			const {productPrice,cartQuantity} = cartItems;
+			const itemTotal=productPrice*cartQuantity;
+			cartTotal.total += itemTotal
+			cartTotal.quantity += cartQuantity
+			return cartTotal;
+		},{
+		total:0,
+		quantity:0
+	});
+	state.cartTotalQuantity = quantity;
+	state.cartTotalAmount = total;
+	}
+
 	},
 
 	// extraReducers: (builder) => {
@@ -62,5 +118,5 @@ const CartSlice = createSlice({
 	// },
 });
 
-export const { addItemToCart } = CartSlice.actions;
+export const { addItemToCart,removeFromCart,decreaseCart,clearCart,getTotals } = CartSlice.actions;
 export default CartSlice.reducer;

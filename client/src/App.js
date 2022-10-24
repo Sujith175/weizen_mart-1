@@ -21,6 +21,7 @@ import { store } from "./store/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cart from "./Components/Cart/Cart";
+import { getTotals } from "./features/cart/CartSlice";
 
 export const UserContext = createContext();
 const App = () => {
@@ -47,9 +48,11 @@ const App = () => {
         navigate("/login");
       }
     } else {
-      navigate("/login");
+      
     }
   }, []);
+
+store.dispatch(getTotals());
 
   return (
     <Provider store={store}>
@@ -65,10 +68,9 @@ const App = () => {
           path="farmernavbar"
           element={user ? <FarmerNavbar /> : <Login />}
         >
+          
           <Route path="addedprods" element={user ? <FarmerAddedProds/> : <Login />} />
           <Route path="farmer" element={user ? <Farmer/> : <Login />} />
-          <Route path="showstock" element={user ? <Stocks/> : <Login />} />
-         
           {/* <Route path="addproducts" element={user ? < /> : <Login />} />  */}
         </Route>
         <Route path="admin" element={user ? <Admin /> : <Login />}>

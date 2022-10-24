@@ -14,7 +14,10 @@ export default function Sidebar() {
             <li className="sidebarListItem" >
               <LineStyleIcon className="sidebarIcon" />
               <Link style={{textDecoration:'none',color:"black"}} to="addedprods">Home</Link>
-       
+            </li>
+            <li className="sidebarListItem" >
+              <LineStyleIcon className="sidebarIcon" />
+              <Link style={{textDecoration:'none',color:"black"}} to="farmer">Add Products</Link>
             </li>
             <li className="sidebarListItem" >
               <LineStyleIcon className="sidebarIcon" />

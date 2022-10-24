@@ -103,7 +103,7 @@ const Farmer = () => {
           if (data.error) {
             console.log(data.error);
           } else {
-            alert("Stock Added Successfully");
+            toast.success("New Product Added Successfully");
           }
         });
         

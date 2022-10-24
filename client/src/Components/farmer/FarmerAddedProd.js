@@ -37,6 +37,8 @@ export const CardContainer = styled.div`
   border: 1px solid grey;
   border-radius: 5px;
   padding: 25px;
+  margin-top:0px;
+  margin-left:100px;
   -moz-osx-font-smoothing: grayscale;
   backface-visibility: hidden;
   transform: translateZ(0);

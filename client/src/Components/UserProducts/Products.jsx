@@ -13,6 +13,7 @@ import {
 import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { addItemToCart } from "../../features/cart/CartSlice";
+import { toast, ToastContainer } from "react-toastify";
 
 const Products = () => {
 
@@ -42,6 +43,7 @@ const Products = () => {
       });
   }, []);
 
+  
   const handleFilter=(e)=>{
     if(e.target.value == ''){
       setData(searchApiData);
@@ -60,9 +62,11 @@ const Products = () => {
 }
 return (
   <>
-    {JSON.stringify(cart.cartItems)}
-    
     <Heading>Products</Heading>
+    <div style={{margin:'20px 20%'}}>
+     <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
+     </div>
+    <ToastContainer/>
     <CardList>
       {data.map((product) => (
         <CardContainer>
