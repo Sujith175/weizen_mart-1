@@ -28,7 +28,15 @@
     padding-left: 0.5rem;
 }
 .cart-container .titles .total{
-    padding-right: 0.5rem;
+    padding-right: 0rem;
+    justify-self: right;
+}
+.cart-container .titles .price{
+    padding-right: 6rem;
+    justify-self: right;
+}
+.cart-container .titles .quantity{
+    padding-right: 5rem;
     justify-self: right;
 }
 .cart-item .cart-product{

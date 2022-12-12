@@ -52,9 +52,9 @@ const Cart = () => {
       ):(<div>
         <div className='titles'>
             <h3 className='product-title'>Product</h3>
-            <h3 className='price'>Price</h3>
-            <h3 className='quantity'>Quantity</h3>
-            <h3 className='total'>Total</h3>
+            <h3 className='price'>Price(INR/Kg)</h3>
+            <h3 className='quantity'>Quantity(Kg)</h3>
+            <h3 className='total'>Total(INR)</h3>
         </div>
         <div className='cart-items'>
             {cart.cartItems?.map(cartItems=>(
@@ -71,7 +71,7 @@ const Cart = () => {
                         </button>
                         </div>
                     </div>
-                    <div className='cart-product-price'>Price(INR/Kg):{cartItems.productPrice}</div>
+                    <div className='cart-product-price'>Price:{cartItems.productPrice}</div>
                     <div className='cart-product-quantity'>
                         <button onClick={() => handleDecrease(cartItems)}>-</button>
                         <div className='count'>{cartItems.cartQuantity}</div>

@@ -67,7 +67,7 @@ const Login = () => {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/farmernavbar/addedprods"), 4450);
+          setTimeout(() => navigate("/farmernavbar/farmer"), 4450);
         } else if (data.user.usertype === "Admin") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));

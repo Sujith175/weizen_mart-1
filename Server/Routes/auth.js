@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = mongoose.model("User");
 const { JWT_SECRET } = require("../keys");
+const app = express();
+app.use(express.json());
+
+app.set('view engine','ejs');
 router.post("/signup", (req, res) => {
   const { firstName, lastName, email, phone, password, usertype } = req.body;
 
@@ -69,4 +73,38 @@ router.post("/signin", (req, res) => {
       });
   });
 });
+
+router.post("/forget-password",async(req,res)=>{
+  const{email} =req.body;
+  try{
+    const oldUser = await User.findOne({email});
+    if(!oldUser){
+      return res.json({status:"User Not Exists!!"});
+    }
+    const secret = JWT_SECRET + oldUser.password;
+    const token = jwt.sign({email:oldUser.email,id:oldUser._id},secret,{expiresIn:'5m'});
+  
+  const link =`http://localhost:5000/reset-password/${oldUser._id}/${token}`;
+  console.log(link);
+  }catch(error){}
+});
+
+router.get('/reset-password/:id/:token',async(req,res)=>{
+  const{id,token} = req.params;
+  console.log(req.params);
+  const oldUser = await User.findOne({_id:id});
+  if(!oldUser){
+    return res.json({status:"User Not Exists!!"});
+  }
+  const secret = JWT_SECRET + oldUser.password;
+try{
+  const verify=jwt.verify(token,secret);
+  res.render("index",{email:verify.email});
+}catch(error){
+  console.log(error);
+  res.send("Not verified");
+}
+ 
+})
+
 module.exports = router;

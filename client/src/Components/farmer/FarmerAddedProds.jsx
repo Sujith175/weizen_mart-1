@@ -60,7 +60,7 @@ const FarmerAddedProds = () => {
   return (
     <>
    
-    <Sidebar/>
+    
     <div style={{margin:'20px 20%'}}>
      <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
      

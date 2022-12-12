@@ -72,9 +72,9 @@ return (
         <CardContainer>
           <Name>{product.productName}</Name>
           <Image alt="" src={product.photo} />
-          <Para> Price: {product.productPrice}</Para>
+          <Para> Price(INR/Kg): {product.productPrice}</Para>
           <Para>State: {product.productState}</Para>
-          <Para> Quantity: {product.productQuantity} Kg</Para>
+          <Para> Quantity(Kg): {product.productQuantity} Kg</Para>
           <Para> {product.productDescription}</Para>
           <Button
             onClick={() => {

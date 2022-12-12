@@ -22,6 +22,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cart from "./Components/Cart/Cart";
 import { getTotals } from "./features/cart/CartSlice";
+import Reset from "./Components/ForgetPwd/ForgetPswd";
 
 export const UserContext = createContext();
 const App = () => {
@@ -84,6 +85,7 @@ store.dispatch(getTotals());
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="users" element={<UserList />} />
+        <Route path="forgetpassword" element={<Reset/>}/>
       </Routes>
     </UserContext.Provider>
     </Provider>
