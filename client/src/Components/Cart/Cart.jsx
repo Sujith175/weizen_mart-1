@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -6,13 +6,18 @@ import "./Cart.css";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { addItemToCart, clearCart, decreaseCart, getTotals, removeFromCart } from '../../features/cart/CartSlice';
 import { toast } from 'react-toastify';
+import {useNavigate} from 'react-router-dom';
+import Announcement from "../Announcement";
 
 const Cart = () => {
     const cart = useSelector((state)=>state.cart);
     const dispatch = useDispatch();
+    const [disabled, setDisabled] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         dispatch(getTotals());
+        
     },[cart]);
 
     const handleRemove = (cartItems) =>{
@@ -21,10 +26,18 @@ const Cart = () => {
 
     const handleDecrease = (cartItems) =>{
         dispatch(decreaseCart(cartItems));
+        if(cartItems.cartQuantity<=cartItems.productQuantity){
+            setDisabled(false);
+        }
     };
 
     const handleIncrease = (cartItems) =>{
         dispatch(addItemToCart(cartItems));
+        if(cartItems.cartQuantity+1==cartItems.productQuantity){
+            toast.error("Stock over");
+            setDisabled(true);
+        }
+        
     };
 
     const handleClearCart = ()=>{
@@ -33,10 +46,15 @@ const Cart = () => {
 
     const handleCheckout =()=>{
         toast.success("Checkout in Process");
+        navigate("/checkout");
         
     }
 
   return (
+    <>
+    <div>
+         <Announcement />
+    </div>
     <div className='cart-container'>
       <h2>Shopping Cart</h2>
       {cart.cartItems.length === 0?(
@@ -75,7 +93,7 @@ const Cart = () => {
                     <div className='cart-product-quantity'>
                         <button onClick={() => handleDecrease(cartItems)}>-</button>
                         <div className='count'>{cartItems.cartQuantity}</div>
-                        <button onClick={()=>handleIncrease(cartItems)}>+</button>
+                        <button disabled={disabled} onClick={()=>handleIncrease(cartItems)}>+</button>
                     </div>
                     <div className='cart-product-total-price'>
                         {cartItems.productPrice * cartItems.cartQuantity}
@@ -102,6 +120,7 @@ const Cart = () => {
         </div>
       </div>)}
     </div>
+    </>
   );
 };
 

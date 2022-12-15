@@ -5,10 +5,13 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = mongoose.model("User");
 const { JWT_SECRET } = require("../keys");
+const nodemailer = require('nodemailer');
 const app = express();
 app.use(express.json());
 
 app.set('view engine','ejs');
+
+
 router.post("/signup", (req, res) => {
   const { firstName, lastName, email, phone, password, usertype } = req.body;
 
@@ -62,8 +65,8 @@ router.post("/signin", (req, res) => {
       .then((doMatch) => {
         if (doMatch) {
           const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-          const { _id, name, email, usertype } = savedUser;
-          res.json({ token, user: { _id, name, email, usertype } });
+          const { _id, firstName, email, usertype ,phone} = savedUser;
+          res.json({ token, user: { _id, firstName, email, usertype, phone } });
         } else {
           return res.status(422).json({ error: "Invalid Credentials" });
         }
@@ -74,37 +77,73 @@ router.post("/signin", (req, res) => {
   });
 });
 
-router.post("/forget-password",async(req,res)=>{
-  const{email} =req.body;
-  try{
-    const oldUser = await User.findOne({email});
-    if(!oldUser){
-      return res.json({status:"User Not Exists!!"});
+router.put("/sendotp" ,async (req,res)=>{
+  console.log(req.body)
+
+  const _otp = Math.floor(100000 + Math.random() * 900000);
+  console.log(_otp)
+
+  const user = await User.findOne({email: req.body.email});
+    
+    //send to user mail
+    if(!user){
+      res.send({code:500,message:'User not found'})
     }
-    const secret = JWT_SECRET + oldUser.password;
-    const token = jwt.sign({email:oldUser.email,id:oldUser._id},secret,{expiresIn:'5m'});
-  
-  const link =`http://localhost:5000/reset-password/${oldUser._id}/${token}`;
-  console.log(link);
-  }catch(error){}
+
+    let testAccount = await nodemailer.createTestAccount()
+
+    let transporter = nodemailer.createTransport({
+      service:"gmail",
+
+      auth:{
+        user: "ammuzzdona@gmail.com",
+        pass: "suxvyzieyleilacx",
+      },
+      tls: {
+        // do not fail on invalid certs
+        rejectUnauthorized: false
+    },
+    });
+
+    let info = await transporter.sendMail({
+      from:'ammuzzdona@gmail.com', //sender address
+      to: req.body.email, //list of recievers
+      subject: "OTP", //subject line
+      text: String(_otp),
+    })
+
+    if(info.messageId){
+      console.log(info,84)
+      User.updateOne({email:req.body.email},{otp:_otp})
+      .then((result)=>{
+        res.send({code:200, message:'otp send'});
+        console.log(result)
+      }).catch((err)=>{
+        res.send({code:500,message:"server error"});
+        console.log(err);
+      });
+      
+    }else{
+      res.send({code:500,message:'server error'})
+    }
+    
 });
 
-router.get('/reset-password/:id/:token',async(req,res)=>{
-  const{id,token} = req.params;
-  console.log(req.params);
-  const oldUser = await User.findOne({_id:id});
-  if(!oldUser){
-    return res.json({status:"User Not Exists!!"});
-  }
-  const secret = JWT_SECRET + oldUser.password;
-try{
-  const verify=jwt.verify(token,secret);
-  res.render("index",{email:verify.email});
-}catch(error){
-  console.log(error);
-  res.send("Not verified");
-}
- 
-})
+router.put("/submitotp",async(req,res)=>{
+  console.log(req.body)
+  const salt = await bcrypt.genSalt(10);
+    hashedpassword = await bcrypt.hash(req.body.password,salt);
+  
+  User.findOne({otp: req.body.otp}).then(result=>{
+    
+    //update the password
+    User.updateOne({email:result.email},{password:hashedpassword})
+    .then((result)=>{
+      res.send({code:200,message:'password updated'})
+    })
+  }).catch(err=>{
+    res.send({code:500,message:"user not found"})
+  })
+});
 
 module.exports = router;

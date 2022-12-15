@@ -11,6 +11,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import Sidebar from "./Sidebar/Sidebar.jsx";
 import { FarmerContainer } from "./FarmerElements.js";
+import Announcement from "../Announcement";
 
 
 const FarmerAddedProds = () => {
@@ -59,8 +60,7 @@ const FarmerAddedProds = () => {
   
   return (
     <>
-   
-    
+   <Announcement/>
     <div style={{margin:'20px 20%'}}>
      <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
      

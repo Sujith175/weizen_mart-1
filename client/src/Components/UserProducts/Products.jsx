@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {useNavigate} from 'react-router-dom';
+import Announcement from "../Announcement";
 
 import {
   CardList,
@@ -27,6 +28,7 @@ const Products = () => {
   const addToCart = (product) => {
 		dispatcher(addItemToCart(product));
 		navigate("/cart");
+    
 	};
 
   useEffect(() => {
@@ -62,6 +64,9 @@ const Products = () => {
 }
 return (
   <>
+  <div>
+  <Announcement />
+  </div>
     <Heading>Products</Heading>
     <div style={{margin:'20px 20%'}}>
      <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>

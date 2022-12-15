@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from 'styled-components';
+import Announcement from "../Announcement";
 
 import {
   FarmerWrapper,
@@ -173,6 +174,8 @@ const Farmer = () => {
 }
 
   return (
+    <>
+    <Announcement />
     <div>
     <ToastContainer />
 
@@ -258,6 +261,7 @@ const Farmer = () => {
         </FarmerWrapper>
       </FarmerContainer>
     </div>
+    </>
   );
 };
 

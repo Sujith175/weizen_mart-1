@@ -16,6 +16,20 @@ import {
   Para,
   Button,
 } from "./ProductElemnts.js";
+import styled from "styled-components"
+
+const Container = styled.div`
+height: 25px;
+background-color: #a9740e;   
+align-items:center;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+font-weight:500;
+`;
+
 const Fproducts = () => {
   const [data, setData] = useState([]);
   const [searchApiData,setSearchApiData] = useState([]);
@@ -54,6 +68,7 @@ const Fproducts = () => {
   return (
     <>
       <Topbar />
+      <Container/>
       <div style={{margin:'20px 20%'}}>
      <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
      

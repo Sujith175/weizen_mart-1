@@ -6,25 +6,20 @@ import LanguageIcon from "@mui/icons-material/Language";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { UserContext } from "../../../../../App";
 
 export default function Topbar() {
   const { state, dispatch } = useContext(UserContext);
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const close = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClick = () => {
     localStorage.clear();
     dispatch({ type: "CLEAR" });
     navigate("/login");
   };
 
   return (
+    
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
@@ -43,28 +38,23 @@ export default function Topbar() {
           <div className="topbarIconContainer">
             <SettingsIcon />
           </div>
-
-          <img
+          <PopupState variant="popover" popupId="demo-popup-menu">
+          {(popupState) => (
+        <React.Fragment>
+          <img variant="contained" {...bindTrigger(popupState)}
             src="https://th.bing.com/th/id/OIP.wRtvON_8JKRQghdROw5QvQHaHa?pid=ImgDet&rs=1"
             alt=""
             className="topAvatar"
-            onClick={handleClick}
           />
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            close={close}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleClose} style={{ height: "15px" }}>
-              Logout
-            </MenuItem>
+          <Menu {...bindMenu(popupState)}>
+            <MenuItem onClick={handleClick} style={{ height: "15px" }}>Logout</MenuItem>
           </Menu>
+        </React.Fragment>
+      )}
+    </PopupState>
         </div>
       </div>
     </div>
+    
   );
 }

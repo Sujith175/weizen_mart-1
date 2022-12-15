@@ -22,14 +22,15 @@ import {
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import styled from "styled-components";
+import { BiUserCircle } from "react-icons/bi";
 
 const Label = styled.span``;
 
 const Navbar = () => {
 	const cart = useAppSelector((state) => state.cart);
 	const { state, dispatch } = useContext(UserContext);
-
 	const navigate = useNavigate();
+	const user = JSON.parse(localStorage.getItem("user"));
 
 	return (
 		<>
@@ -46,7 +47,14 @@ const Navbar = () => {
 						<NavLogo>WEIZEN MART</NavLogo>
 					</NavCenter>
 					<NavRight>
-
+ 					<NavMenuItem>
+            		<BiUserCircle style={{ color: "#a9740e", fontSize: "20px" }} />
+            			{user.email ? (
+              		<p style={{ color: "#a9740e" }}>{user.firstName}</p>
+            			) : (
+              		<p style={{ color: "#a9740e" }}>{user.user.firstName}</p>
+            			)}
+          			</NavMenuItem>
 						<NavMenuItem>
 							<LogoutButton
 								onClick={() => {

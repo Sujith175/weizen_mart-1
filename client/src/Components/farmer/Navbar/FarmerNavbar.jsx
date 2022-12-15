@@ -47,9 +47,9 @@ const FarmerNavbar = () => {
           <NavMenuItem>
             <BiUserCircle style={{ color: "#a9740e", fontSize: "20px" }} />
             {user.email ? (
-              <p style={{ color: "#a9740e" }}>{user.email}</p>
+              <p style={{ color: "#a9740e" }}>{user.firstName}</p>
             ) : (
-              <p style={{ color: "#a9740e" }}>{user.user.email}</p>
+              <p style={{ color: "#a9740e" }}>{user.user.firstName}</p>
             )}
           </NavMenuItem>
           <NavMenuItem>

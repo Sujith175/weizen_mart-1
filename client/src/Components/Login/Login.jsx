@@ -8,6 +8,7 @@ import { signInWithGooglePopup } from "../../utils/Firebase/firebase.utils";
 import { FcGoogle } from "react-icons/fc";
 import styled from 'styled-components';
 
+
 const Login = () => {
 
   const Error =styled.span`
@@ -137,7 +138,7 @@ const handlePassword = (e1)=>{
             {" "}
             Don't have an Account?
           </Link>
-          <Link to="/forgetpassword" className="link">
+          <Link to="/pwd-reset" className="link">
             Forget password?
           </Link>
         </div>

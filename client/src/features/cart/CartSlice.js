@@ -97,13 +97,7 @@ const CartSlice = createSlice({
 	state.cartTotalAmount = total;
 	},
 
-	handleStock(state,action){
-		let {stock} = state.cartItems.reduce((cartTotal,cartItems)=>{
-			const {productQuantity,cartQuantity} = cartItems;
-			const balStock=productQuantity-cartQuantity;
-			cartTotal.stock -= balStock
-		})
-	}
+	
 
 	},
 
