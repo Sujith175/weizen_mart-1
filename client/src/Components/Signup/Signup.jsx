@@ -108,7 +108,7 @@ const handleLastName = (e1)=>{
    }
 }
 const handleEmail = (e1)=>{
-    if(email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+    if(email.match(/^(([a-zA-Z][a-zA-Z]{0,20}[a-zA-Z]+[^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
         console.log("Accepted")
     }
    else{
@@ -147,6 +147,10 @@ const handleConfirmPassword = (e)=>{
 
 
   return (
+    <>
+    <div className="name">
+    <h1 className="weizen">WEIZEN MART</h1>
+  </div>
     <div className="signup-container">
       <div className="signup-wrapper">
         <h1 className="signup-title">Sign Up</h1>
@@ -181,7 +185,7 @@ const handleConfirmPassword = (e)=>{
             onChange={(e) => setEmail(e.target.value)}
             onKeyUp={handleEmail}
           />
-          {emailErr&&!email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)?<Error>Please enter a valid email!</Error>:""}
+          {emailErr&&!email.match(/^(([a-zA-Z][a-zA-Z]{0,20}[a-zA-Z]+[^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)?<Error>Please enter a valid email!</Error>:""}
 
           <input
             className="forminput"
@@ -239,6 +243,7 @@ const handleConfirmPassword = (e)=>{
         </div>
       </div>
     </div>
+    </>
   );
 };
 

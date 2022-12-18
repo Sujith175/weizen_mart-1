@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
+      
     },
     phone: {
       type: String,
@@ -20,11 +20,11 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      
     },
     usertype: {
       type: String,
-      required: true,
+     
     },
     otp:{
       type: Number,

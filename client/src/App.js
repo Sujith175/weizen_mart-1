@@ -24,7 +24,9 @@ import "react-toastify/dist/ReactToastify.css";
 import Cart from "./Components/Cart/Cart";
 import { getTotals } from "./features/cart/CartSlice";
 import Reset from "./Components/ForgetPwd/ForgetPswd";
+import CommNavbar from "./Components/CommNavbar/CommNavbar"
 import Checkout from "./Components/Checkout/Checkout";
+import Updateprof from "./Components/ProfileUpdate/Updateprof";
 
 export const UserContext = createContext();
 const App = () => {
@@ -67,6 +69,11 @@ store.dispatch(getTotals());
           <Route path="products" element={user ? <Products /> : <Login />} />
           <Route path="cart" element={user ? <Cart/> : <Login />} />
         </Route>
+
+        <Route path="/" element={user ? <CommNavbar/>:<Login/>}>
+          <Route path="updateprof" element={user ? <Updateprof/> : <Login />} />
+        </Route>
+
         <Route
           path="farmernavbar"
           element={user ? <FarmerNavbar /> : <Login />}

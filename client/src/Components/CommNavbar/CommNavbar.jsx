@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import "./NavbarElements.scss";
+import "./CommNavbar.scss";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { UserContext } from "../../App";
@@ -18,16 +18,17 @@ import {
 	NavCenter,
 	NavbarLeft,
 	LogoutButton,
-} from "./NavbarElements";
+} from "./CommNavbarElements";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import styled from "styled-components";
 import { BiUserCircle } from "react-icons/bi";
 import { toast } from "react-toastify";
+import Announcement from "../Announcement";
 
 const Label = styled.span``;
 
-const Navbar = () => {
+const CommNavbar = () => {
 	const cart = useAppSelector((state) => state.cart);
 	const { state, dispatch } = useContext(UserContext);
 	const navigate = useNavigate();
@@ -42,13 +43,6 @@ const Navbar = () => {
 		<>
 			<NavbarContainer>
 				<WrapperContainer>
-					<NavbarLeft>
-						<NavbarLanguage>EN</NavbarLanguage>
-						<NavSearchContainer>
-							<NavSearchInput />
-							<SearchIcon style={{ color: "grey", fontSize: "16px" }} />
-						</NavSearchContainer>
-					</NavbarLeft>
 					<NavCenter>
 						<NavLogo>WEIZEN MART</NavLogo>
 					</NavCenter>
@@ -72,20 +66,13 @@ const Navbar = () => {
 								Logout
 							</LogoutButton>
 						</NavMenuItem>
-						<NavMenuItem>
-							<Link to="cart" style={{color:"black"}}>
-								<ShoppingCartOutlinedIcon />
-								<Label  className="nav-cart">
-								{cart.cartItems.length}
-							</Label>
-							</Link>
-						</NavMenuItem>
 					</NavRight>
 				</WrapperContainer>
 			</NavbarContainer>
+			<Announcement/>
 			<Outlet />
 		</>
 	);
 };
 
-export default Navbar;
+export default CommNavbar;

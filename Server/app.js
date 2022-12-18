@@ -25,12 +25,13 @@ require("./models/User");
 require("./models/Products");
 require("./models/Stock");
 require("./models/Checkout");
+require("./models/Cart");
 
 app.use(express.json());
 app.use(require("./Routes/auth"));
 app.use(require("./Routes/products"));
 app.use(require("./Routes/stock"));
-app.use(require("./Routes/checkout"));
+app.use(require("./Routes/cart"));
 
 
 

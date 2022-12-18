@@ -1,3 +1,14 @@
+.name{
+ justify-content: center;
+ /* background-color: burlywood; */
+ width:100%;
+
+}
+.weizen{
+  
+  justify-content: center;
+  margin-left: 36rem;
+}
 .login-container {
   width: 100vw;
   height: 100vh;
@@ -11,6 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 .login-wrapper {
   width: 25%;

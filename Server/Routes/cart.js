@@ -7,25 +7,20 @@ const Cart = mongoose.model("cart");
 const requireLogin = require("../Middleware/requireLogin");
 const { route } = require("./auth");
 
-router.post("/cart", requireLogin, (req, res) => {
+router.post("/cart", (req, res) => {
   const {
     productName,
-    productQuantity,
-    productPrice,
+   
   } = req.body;
   if (
-    !productName ||
-    !productQuantity ||
-    !productPrice
+    !productName 
   ) {
     return res.status(422).json({ error: "Please add all the details" });
   }
 
   const cart = new Cart({
     productName,
-    productQuantity,
-    productPrice,
-    postedBy: req.user,
+    
   });
   cart
     .save()

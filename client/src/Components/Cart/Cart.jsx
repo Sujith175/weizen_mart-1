@@ -45,6 +45,46 @@ const Cart = () => {
     };
 
     const handleCheckout =()=>{
+        
+      /*  fetch("http://localhost:5000/cart", {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              productName:cart.productName,
+    
+            }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              if (data.error) {
+                toast.error(data.error, {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              } else {
+                toast.success(data.message, {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });*/
+
         toast.success("Checkout in Process");
         navigate("/checkout");
         
@@ -80,7 +120,7 @@ const Cart = () => {
                     <div className='cart-product'>
                         <img src={cartItems.photo}/>
                         <div>
-                        <h3>{cartItems.productName}</h3>
+                        <h3 value={cartItems.productName}>{cartItems.productName}</h3>
                         <p>{cartItems.productDescription}</p>
                         <button onClick={()=>handleRemove(cartItems)}>Remove  
                         <div>
@@ -120,6 +160,7 @@ const Cart = () => {
         </div>
       </div>)}
     </div>
+    
     </>
   );
 };

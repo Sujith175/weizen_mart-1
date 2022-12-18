@@ -1,37 +1,32 @@
 import React from "react";
 import { useSelector } from 'react-redux';
 import { useState,useEffect } from "react";
-import "./CheckoutElement.scss";
+import "./Updateprof.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 
 
-const Checkout = () => {
-  const Error =styled.span`
-  color:red;
-  padding:5px;
-  `;
-  
-console.log(cart)
-const postData = () => {
-   
-    fetch("http://localhost:5000/checkout", {
+const Updateprof = () => {
+  const navigate = useNavigate();
+  const [firstName, setFname] = useState("");
+  const [lastName, setLname] = useState("");
+  const [phone, setPhone] = useState("");
+
+const handleClick = () => {
+   toast.success("Profile updated")
+   navigate("/home");
+   fetch("http://localhost:5000/signup", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id:user._id,
-        firstName:user.firstName,
-        email:user.email,
-        phone:user.phone,
-        address,
-        prodId:cartItems._id,
-        productName:cart.productName,
-        cartQuantity:cart.cartQuantity,
-        productPrice:cart.productPrice
+        firstName,
+        lastName,
+        phone,
       }),
     })
       .then((res) => res.json())
@@ -57,66 +52,49 @@ const postData = () => {
             draggable: true,
             progress: undefined,
           });
+          setTimeout(() => navigate("/login"), 6000);
         }
       })
       .catch((err) => {
         console.log(err);
       });
+
   };
   
   const user = JSON.parse(localStorage.getItem("user"));
-  const cart = JSON.parse(localStorage.getItem("cartItems"));
  
-  const [address, setAddress] = useState("");
-  const [addressErr,setAddressErr] = useState(false)
+  
 
-  const handleAddress = (e1)=>{
-    if(address.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)){
-        console.log("Accepted")
-    }
-   else{
-    setAddressErr(true)
-   }
-}
   return (
     <div className="signup-container">
       <div className="signup-wrapper">
-        <h1 className="signup-title">CheckOut Page</h1>
+        <h1 className="signup-title">Update Profile</h1>
         <div className="signup-form">
-          <p>{cart.productName}</p>
-          <p className="label">Name</p>
+          <p className="label">First Name</p>
           <input
             className="forminput"
             type="text"
-            value={user.firstName}
+            defaultValue={user.firstName}
+            onChange={(e) => setFname(e.target.value)}
           />
-         <p className="label">Email</p>
+          <p className="label">Last Name</p>
           <input
             className="forminput"
-            type="email"
-            value={user.email}
+            type="text"
+            defaultValue={user.lastName}
+            onChange={(e) => setLname(e.target.value)}
           />
           <p className="label">Contact</p>
           <input
             className="forminput"
             type="text"
-            value={user.phone}
+            defaultValue={user.phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
-          <p className="label">Enter your Address</p>
-          <input
-            className="forminput"
-            required
-            type="text"
-            placeholder="Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            onKeyUp={handleAddress}
-          />
-        {addressErr&&!address.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)?<Error>Please enter a valid address!</Error>:""}
 
          <br/>
-          <button className="signup-button" onClick={() => postData()}>
-            Proceed to Payment
+          <button className="signup-button" onClick={() => handleClick()}>
+            Update
           </button>
           <ToastContainer />
         </div>
@@ -125,4 +103,4 @@ const postData = () => {
   );
 };
 
-export default Checkout;
+export default Updateprof;
