@@ -10,7 +10,24 @@ import {useNavigate} from 'react-router-dom';
 import Announcement from "../Announcement";
 
 const Cart = () => {
-    const cart = useSelector((state)=>state.cart);
+  let cart={};
+  fetch("http://localhost:5000/getcartdetails/"+localStorage.getItem('user._id'), {
+	method: "get",
+	headers: {
+	  "Content-Type": "application/json",
+	},
+  }).then((response) => response.json())
+  .then((json) => {
+    cart={
+    cartItems: json.cart,
+		loading: "idle",
+		cartTotalQuantity:0,
+		cartTotalAmount:0, 
+    }
+    console.log("cart=====",cart);
+  });
+
+    // const cart = useSelector((state)=>state.cart);
     const dispatch = useDispatch();
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
@@ -37,6 +54,48 @@ const Cart = () => {
             toast.error("Stock over");
             setDisabled(true);
         }
+
+        fetch("http://localhost:5000/updatequantity", {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            productQuantity:cartItems.cartQuantity+1,
+            productId:cartItems._id,
+            userId:localStorage.getItem('user._id'),
+            cartId:cartItems._id
+          }),
+        })
+        .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.error) {
+              toast.error(data.error, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+            } else {
+              toast.success(data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+    
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
         
     };
 
@@ -132,11 +191,11 @@ const Cart = () => {
                     <div className='cart-product-price'>Price:{cartItems.productPrice}</div>
                     <div className='cart-product-quantity'>
                         <button onClick={() => handleDecrease(cartItems)}>-</button>
-                        <div className='count'>{cartItems.cartQuantity}</div>
+                        <div className='count'>{cartItems.productQuantity}</div>
                         <button disabled={disabled} onClick={()=>handleIncrease(cartItems)}>+</button>
                     </div>
                     <div className='cart-product-total-price'>
-                        {cartItems.productPrice * cartItems.cartQuantity}
+                        {cartItems.productPrice * cartItems.productQuantity}
                     </div>
                 </div>
             ))}

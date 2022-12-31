@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const router = express.Router();
 
 const Checkout = mongoose.model("Checkout");
-const requireLogin = require("../Middleware/requireLogin");
-const { route } = require("./auth");
+//const requireLogin = require("../Middleware/requireLogin");
+//const { route } = require("./auth");
 
 router.post("/checkout", (req, res) => {
     const {

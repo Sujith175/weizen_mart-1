@@ -27,6 +27,7 @@ import Reset from "./Components/ForgetPwd/ForgetPswd";
 import CommNavbar from "./Components/CommNavbar/CommNavbar"
 import Checkout from "./Components/Checkout/Checkout";
 import Updateprof from "./Components/ProfileUpdate/Updateprof";
+import Chat from "./Components/ChatBot/Chat";
 
 export const UserContext = createContext();
 const App = () => {
@@ -68,6 +69,7 @@ store.dispatch(getTotals());
           <Route path="home" element={user ? <Home /> : <Login />} />
           <Route path="products" element={user ? <Products /> : <Login />} />
           <Route path="cart" element={user ? <Cart/> : <Login />} />
+          
         </Route>
 
         <Route path="/" element={user ? <CommNavbar/>:<Login/>}>
@@ -97,7 +99,6 @@ store.dispatch(getTotals());
         <Route path="pwd-reset" element={<PswdReset/>}/>
         <Route path="forget-pass" element={<ForgetPswd/>}/>
         <Route path="checkout" element={user ? <Checkout/> : <Login />} />
-
       </Routes>
     </UserContext.Provider>
     </Provider>

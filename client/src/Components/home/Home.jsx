@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Announcement from "../Announcement";
 import Categories from "../Categories";
+import KommunicateChat from "../ChatBot/Chat";
 import Footer from "../Footer";
 import Newsletter from "../Newsletter";
 // import Products from "../Products";
@@ -13,6 +14,7 @@ const Home = () => {
       <Announcement />
       <Slider />
       <Categories />
+      <KommunicateChat/>
       <Link
         style={{
           marginLeft: "90%",

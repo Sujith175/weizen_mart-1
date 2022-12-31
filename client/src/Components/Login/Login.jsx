@@ -107,6 +107,7 @@ const handlePassword = (e1)=>{
 
   return (
     <>
+    
     <div className="name">
       <h1 className="weizen">WEIZEN MART</h1>
     </div>
