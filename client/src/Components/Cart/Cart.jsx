@@ -4,37 +4,37 @@ import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import "./Cart.css";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { addItemToCart, clearCart, decreaseCart, getTotals, removeFromCart } from '../../features/cart/CartSlice';
+import { addItemToCart, clearCart, decreaseCart, getTotals, removeFromCart,getPosts } from '../../features/cart/CartSlice';
 import { toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import Announcement from "../Announcement";
 
 const Cart = () => {
-  let cart={};
-  fetch("http://localhost:5000/getcartdetails/"+localStorage.getItem('user._id'), {
-	method: "get",
-	headers: {
-	  "Content-Type": "application/json",
-	},
-  }).then((response) => response.json())
-  .then((json) => {
-    cart={
-    cartItems: json.cart,
-		loading: "idle",
-		cartTotalQuantity:0,
-		cartTotalAmount:0, 
-    }
-    console.log("cart=====",cart);
-  });
+  // let cart={};
+  // fetch("http://localhost:5000/getcartdetails/"+localStorage.getItem('user._id'), {
+	// method: "get",
+	// headers: {
+	//   "Content-Type": "application/json",
+	// },
+  // }).then((response) => response.json())
+  // .then((json) => {
+  //   cart={
+  //   cartItems: json.cart,
+	// 	loading: "idle",
+	// 	cartTotalQuantity:0,
+	// 	cartTotalAmount:0, 
+  //   }
+  //   console.log("cart=====",cart);
+  // });
 
-    // const cart = useSelector((state)=>state.cart);
+
     const dispatch = useDispatch();
+    const cart =useSelector((state)=>state.cart);
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
 
     useEffect(()=>{
         dispatch(getTotals());
-        
     },[cart]);
 
     const handleRemove = (cartItems) =>{
@@ -104,16 +104,21 @@ const Cart = () => {
     };
 
     const handleCheckout =()=>{
-        
-      /*  fetch("http://localhost:5000/cart", {
+        let userid=JSON.parse(localStorage.getItem('user'));
+        fetch("http://localhost:5000/checkout", {
             method: "post",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              productName:cart.productName,
-    
-            }),
+            body:JSON.stringify({
+              userId:userid._id,
+              address:{
+                firstName: "ammu",
+                email: "user.email",
+                phone: "user.phone",
+                address: "address"
+              }
+            })
           })
             .then((res) => res.json())
             .then((data) => {
@@ -142,7 +147,7 @@ const Cart = () => {
             })
             .catch((err) => {
               console.log(err);
-            });*/
+            });
 
         toast.success("Checkout in Process");
         navigate("/checkout");
