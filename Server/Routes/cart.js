@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cart = require("../models/Cart");
 const router = express.Router();
 
 
@@ -46,7 +47,8 @@ router.post("/cart", (req, res) => {
     UserId,
     firstName,
     email,
-    phone
+    phone,
+    status:true
   });
   cart
     .save()
@@ -58,11 +60,11 @@ router.post("/cart", (req, res) => {
     });
 });
 
-router.post("/updatequantity",(req,res)=>{
-  let update=Cart.updateOne({
+router.post("/updatequantity",async(req,res)=>{
+  let update=await Cart.update({
     _id:mongoose.Types.ObjectId(req.body.cartId),
     productId:req.body.productId,
-    UserId:req.body.UserId
+    UserId:req.body.userId
   },
   {
     $set:{
@@ -71,11 +73,13 @@ router.post("/updatequantity",(req,res)=>{
   });
 });
 
+
 router.get('/getcartdetails/:userId',async (req,res)=>{
   let userId=req.params.userId;
   let cartDetails=await Cart.aggregate([
     {$match:{
-      UserId:userId
+      UserId:userId,
+      status:true
     },
   },
   {
@@ -96,6 +100,8 @@ router.get('/getcartdetails/:userId',async (req,res)=>{
   },
   {
     $addFields:{
+      cartQuantity:'$productQuantity',
+      productQuantity:'$productDetails.productQuantity',
       productDescription:'$productDetails.productDescription',
       photo:'$productDetails.photo'
     }
@@ -104,4 +110,18 @@ router.get('/getcartdetails/:userId',async (req,res)=>{
   ]);
   res.status(200).send({cart:cartDetails});
 });
+
+router.delete('/clearcart/:id',async(req,res)=>{
+  let clearcart=await cart.deleteMany({
+    UserId:req.params.id
+  });
+  res.json({message:'cart cleared successfully'});
+});
+
+router.delete('/remove/:id',async(req,res)=>{
+  let clearcart=await cart.deleteOne({
+    _id:mongoose.Types.ObjectId(req.params.id)
+  });
+  res.json({message:'Product removed successfully'});
+})
 module.exports = router;

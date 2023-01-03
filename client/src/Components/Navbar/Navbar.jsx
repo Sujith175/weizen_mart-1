@@ -24,6 +24,8 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import styled from "styled-components";
 import { BiUserCircle } from "react-icons/bi";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Label = styled.span``;
 
@@ -32,11 +34,24 @@ const Navbar = () => {
 	const { state, dispatch } = useContext(UserContext);
 	const navigate = useNavigate();
 	const user = JSON.parse(localStorage.getItem("user"));
+	const [data, setData] = useState([]);
 
 	const updateProfile = ()=>{
 		toast.success("Please Update your Profile");
 		navigate("/updateprof");
 	}
+
+	useEffect(()=>{
+      fetch("http://localhost:5000/getcartdetails/"+user._id, {
+            method: "get",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            }).then((response) => response.json())
+            .then((result) => {
+              setData(result.cart);
+            });
+	})
 
 	return (
 		<>
@@ -76,7 +91,7 @@ const Navbar = () => {
 							<Link to="cart" style={{color:"black"}}>
 								<ShoppingCartOutlinedIcon />
 								<Label  className="nav-cart">
-								{cart.cartItems.length}
+								{data.length}
 							</Label>
 							</Link>
 						</NavMenuItem>

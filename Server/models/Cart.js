@@ -40,6 +40,9 @@ const cartSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: true,
+    },
+    status:{
+      type:Boolean
     }
   },
   { timestamps: true }

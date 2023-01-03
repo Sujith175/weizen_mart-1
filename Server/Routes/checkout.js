@@ -41,7 +41,6 @@ router.post("/checkout",async (req, res) => {
     //   .catch((err) => {
     //     console.log(err);
     //   });
-    console.log("request body=====================",req.body);
     let userId=req.body.userId;
     let userDetails=req.body.address;
     // if (
@@ -54,13 +53,13 @@ router.post("/checkout",async (req, res) => {
     let cartproducts=await cart.find({
       UserId:userId
     });
-   cartproducts.forEach((prod)=>{
-      let updateProductStock= product.update({
+   cartproducts.forEach(async(prod)=>{
+      let updateProductStock=await product.update({
         _id:mongoose.Types.ObjectId(prod.productId)
       },
       {
-        $set:{
-          productQuantity:'$productQuantity'-prod.productQuantity
+        $inc:{
+          productQuantity:-prod.productQuantity
         }
       });
       const checkout = new Checkout({
@@ -78,7 +77,14 @@ router.post("/checkout",async (req, res) => {
       .save();
 
     });
-
+    let updateCart=await cart.update({
+      UserId:userId
+    },
+    {
+      $set:{
+        status:false
+      }
+    });
     res.json({ message:'Success'});
 
   });

@@ -47,7 +47,6 @@ const Products = () => {
 
 		dispatcher(addItemToCart(product));
 		navigate("/cart");
-    console.log("product=====",product);
     fetch("http://localhost:5000/cart", {
       method: "post",
       headers: {

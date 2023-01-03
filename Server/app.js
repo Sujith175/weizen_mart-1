@@ -32,7 +32,7 @@ app.use(require("./Routes/auth"));
 app.use(require("./Routes/products"));
 app.use(require("./Routes/stock"));
 app.use(require("./Routes/cart"));
-
+app.use(require("./Routes/checkout"));
 
 
 app.listen(PORT, () => {
