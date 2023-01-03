@@ -87,7 +87,6 @@ const Cart = () => {
 
     const handleDecrease = (cartItems) =>{
         // dispatch(decreaseCart(cartItems));
-        console.log("inside decrease=======",cartItems);
         if(parseInt(cartItems.cartQuantity,10)<=cartItems.productQuantity){
             setDisabled(false);
         }
@@ -119,7 +118,7 @@ const Cart = () => {
                 progress: undefined,
               });
             } else {
-              toast.success(data.message, {
+              toast.success(cartItems.productName, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -134,6 +133,7 @@ const Cart = () => {
           .catch((err) => {
             console.log(err);
           });
+          navigate('/cart')
     };
 
     const handleIncrease = (cartItems) =>{
@@ -185,6 +185,7 @@ const Cart = () => {
           .catch((err) => {
             console.log(err);
           });
+          navigate("/cart")
     };
 
     const handleClearCart = ()=>{
@@ -224,6 +225,7 @@ const Cart = () => {
         .catch((err) => {
           console.log(err);
         });
+        navigate("/cart")
     };
 
     const handleCheckout =()=>{
