@@ -8,21 +8,18 @@ import styled from 'styled-components';
 
 
 
-const Checkout = () => {
-    const cart = localStorage.getItem("cartItems");
+const Checkout = (req,res) => {
 
     const Error = styled.span`
   color:red;
   padding:5px;
   `;
-
+    let cart=req.body;
     const user = JSON.parse(localStorage.getItem("user"));
-
-    console.log('cart====',cart.length);
     const [address, setAddress] = useState("");
     const [addressErr, setAddressErr] = useState(false);
     let values=[];
-for(let i=0;i<cart.length;i++){
+    for(let i=0;i<cart.length;i++){
     let value = {
         id: user._id,
         firstName: user.firstName,
@@ -36,8 +33,6 @@ for(let i=0;i<cart.length;i++){
     }
     values.push(value);
 }
-
-console.log("values==",values);
 
     const postData = () => {
 

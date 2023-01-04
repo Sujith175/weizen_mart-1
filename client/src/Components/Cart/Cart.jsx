@@ -86,7 +86,7 @@ const Cart = () => {
     };
 
     const handleDecrease = (cartItems) =>{
-        // dispatch(decreaseCart(cartItems));
+        dispatch(decreaseCart(cartItems));
         if(parseInt(cartItems.cartQuantity,10)<=cartItems.productQuantity){
             setDisabled(false);
         }
@@ -137,7 +137,7 @@ const Cart = () => {
     };
 
     const handleIncrease = (cartItems) =>{
-        // dispatch(addItemToCart(cartItems));
+        dispatch(addItemToCart(cartItems));
         if(parseInt(cartItems.cartQuantity+1,10)==cartItems.productQuantity){
             toast.error("Stock over");
             setDisabled(true);

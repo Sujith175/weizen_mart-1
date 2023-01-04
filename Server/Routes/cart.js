@@ -8,63 +8,95 @@ const Cart = require('../models/Cart');
 const Product=require('../models/Products');
 
 
-router.post("/cart", (req, res) => {
-  const {
-    productId,
-    productName,
-    productPrice,
-    productQuantity,
-    productState,
-    postedBy,
-    UserId,
-    firstName,
-    email,
-    phone
-   
-  } = req.body;
-  if (
-    !productId||
-    !productName ||
-    !productPrice ||
-    !productQuantity ||
-    !productState ||
-    !postedBy ||
-    !UserId||
-    !firstName||
-    !email||
-    !phone
-  ) {
-    return res.status(422).json({ error: "Please add all the details" });
-  }
+router.post("/cart", async (req, res) => {
+  // const {
+  //   productId,
+  //   productName,
+  //   productPrice,
+  //   productQuantity,
+  //   productState,
+  //   postedBy,
+  //   UserId,
+  //   firstName,
+  //   email,
+  //   phone
+  // } = req.body;
+  // if (
+  //   !productId||
+  //   !productName ||
+  //   !productPrice ||
+  //   !productQuantity ||
+  //   !productState ||
+  //   !postedBy ||
+  //   !UserId||
+  //   !firstName||
+  //   !email||
+  //   !phone
+  // ) {
+  //   return res.status(422).json({ error: "Please add all the details" });
+  // }
 
-  const cart = new Cart({
-    productId,
-    productName,
-    productPrice,
-    productQuantity,
-    productState,
-    postedBy,
-    UserId,
-    firstName,
-    email,
-    phone,
+  // const cart = new Cart({
+  //   productId,
+  //   productName,
+  //   productPrice,
+  //   productQuantity,
+  //   productState,
+  //   postedBy,
+  //   UserId,
+  //   firstName,
+  //   email,
+  //   phone,
+  //   status:true
+  // });
+  // cart
+  //   .save()
+  //   .then((result) => {
+  //     res.json({ cart: result });
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   });
+  let isExist=await cart.find({
+    productId:req.body.productId,
+    UserId:req.body.UserId,
     status:true
   });
-  cart
-    .save()
-    .then((result) => {
-      res.json({ cart: result });
-    })
-    .catch((err) => {
-      console.log(err);
+
+  if(isExist.length>0){
+    let updatecart=await cart.update({
+      productId:req.body.productId,
+      UserId:req.body.UserId,
+      status:true
+    },
+    {
+      $inc:{
+        productQuantity:+1
+      }
     });
+  }else{
+    let addNewCart=await new cart({
+      productId:req.body.productId,
+        productName:req.body.productName,
+        productPrice:req.body.productPrice,
+        productQuantity:Number(req.body.productQuantity,10),
+        productState:req.body.productState,
+        postedBy:req.body.postedBy,
+        UserId:req.body.UserId,
+        firstName:req.body.firstName,
+        email:req.body.email,
+        phone:req.body.phone,
+        status:true
+    }).save();
+  }
 });
 
 router.post("/updatequantity",async(req,res)=>{
   let update=await Cart.update({
     _id:mongoose.Types.ObjectId(req.body.cartId),
     productId:req.body.productId,
-    UserId:req.body.userId
+    UserId:req.body.userId,
+    status:true
   },
   {
     $set:{
