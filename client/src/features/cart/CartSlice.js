@@ -71,8 +71,8 @@ const CartSlice = createSlice({
 			const itemIndex = state.cartItems.findIndex(
 				cartItems => cartItems._id === action.payload._id
 			)
-			if(state.cartItems[itemIndex].cartQuantity>1){
-				state.cartItems[itemIndex].cartQuantity -=1
+			if(state.cartItems[itemIndex].producttQuantity>1){
+				state.cartItems[itemIndex].productQuantity -=1
 				toast.info(`Decreased ${action.payload.productName} cart quantity`,{
 					autoClose: 2500,
 				});

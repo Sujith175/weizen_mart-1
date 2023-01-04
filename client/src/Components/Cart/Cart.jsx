@@ -44,11 +44,11 @@ const Cart = () => {
             .then((result) => {
               setData(result.cart);
             });
-        // dispatch(getTotals());
-    },[]);
+        //dispatch(getTotals());
+    },[cart]);
 
     const handleRemove = (cartItems) =>{
-        // dispatch(removeFromCart(cartItems));
+        dispatch(removeFromCart(cartItems));
         fetch("http://localhost:5000/remove/"+cartItems._id, {
           method: "delete",
           headers: {
@@ -86,7 +86,7 @@ const Cart = () => {
     };
 
     const handleDecrease = (cartItems) =>{
-        // dispatch(decreaseCart(cartItems));
+        dispatch(decreaseCart(cartItems));
         if(parseInt(cartItems.cartQuantity,10)<=cartItems.productQuantity){
             setDisabled(false);
         }
@@ -137,7 +137,7 @@ const Cart = () => {
     };
 
     const handleIncrease = (cartItems) =>{
-        // dispatch(addItemToCart(cartItems));
+        dispatch(addItemToCart(cartItems));
         if(parseInt(cartItems.cartQuantity+1,10)==cartItems.productQuantity){
             toast.error("Stock over");
             setDisabled(true);
@@ -189,7 +189,7 @@ const Cart = () => {
     };
 
     const handleClearCart = ()=>{
-        // dispatch(clearCart());
+        dispatch(clearCart());
         let userId=JSON.parse(localStorage.getItem('user'));
         fetch("http://localhost:5000/clearcart/"+userId._id, {
           method: "delete",
@@ -325,18 +325,19 @@ const Cart = () => {
                         <button disabled={disabled} onClick={()=>handleIncrease(cartItems)}>+</button>
                     </div>
                     <div className='cart-product-total-price'>
-                        {cartItems.productPrice * cartItems.productQuantity}
+                        {cartItems.productPrice * cartItems.cartQuantity}
                     </div>
-                </div>
+                    </div>
             ))}
         </div>
         <div className='cart-summary'>
             <button className='clear-cart' onClick={()=>handleClearCart()}>Clear Cart</button>
             <div className='cart-checkout'>
+            {data?.map(cartItems=>(
                 <div className='subtotal'>
                     <span>Subtotal</span>
-                    <span className='amount'>{cart.cartTotalAmount}</span>
-                    </div>
+                    <span className='amount'>{(cartItems.productPrice * cartItems.cartQuantity)}</span>
+                    </div>))}
                     <p>Taxes and shipping calculated at checkout</p>
                     <button onClick={()=>handleCheckout()}>Checkout</button>
                     <div className='continue-shopping'>

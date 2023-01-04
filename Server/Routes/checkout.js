@@ -43,6 +43,7 @@ router.post("/checkout",async (req, res) => {
     //   });
     let userId=req.body.userId;
     let userDetails=req.body.address;
+    
     // if (
 
     //   !userDetails.address 
@@ -51,8 +52,10 @@ router.post("/checkout",async (req, res) => {
     //   return res.status(422).json({ error: "Please add  the address" });
     // }
     let cartproducts=await cart.find({
-      UserId:userId
+      UserId:userId,
     });
+
+
    cartproducts.forEach(async(prod)=>{
       let updateProductStock=await product.update({
         _id:mongoose.Types.ObjectId(prod.productId)
