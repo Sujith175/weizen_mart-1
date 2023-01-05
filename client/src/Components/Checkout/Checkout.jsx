@@ -8,13 +8,27 @@ import styled from 'styled-components';
 
 
 
-const Checkout = (req,res) => {
+const Checkout = () => {
 
     const Error = styled.span`
   color:red;
   padding:5px;
   `;
-    let cart=req.body;
+    let userId=JSON.parse(localStorage.getItem('user'));
+    let cart=[];
+            fetch("http://localhost:5000/checkoutlist/"+userId._id, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    cart=data.cart;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
     const user = JSON.parse(localStorage.getItem("user"));
     const [address, setAddress] = useState("");
     const [addressErr, setAddressErr] = useState(false);

@@ -42,6 +42,7 @@ router.post("/checkout",async (req, res) => {
     //     console.log(err);
     //   });
     let userId=req.body.userId;
+    
     let userDetails=req.body.address;
     
     // if (
@@ -53,6 +54,7 @@ router.post("/checkout",async (req, res) => {
     // }
     let cartproducts=await cart.find({
       UserId:userId,
+      status:true
     });
 
 
@@ -92,6 +94,14 @@ router.post("/checkout",async (req, res) => {
 
   });
   
+  router.get("/checkoutlist/:id",async (req,res)=>{
+    let userId=req.params.id;
+    let cartproducts=await cart.find({
+      UserId:userId,
+      status:true
+    });
+    res.json({cart:cartproducts});
+  })
   
   
   module.exports = router;

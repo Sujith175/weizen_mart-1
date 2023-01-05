@@ -32,6 +32,8 @@ const Cart = () => {
     const cart =useSelector((state)=>state.cart);
     const [disabled, setDisabled] = useState(false);
     const navigate = useNavigate();
+    const [total,setTotal]=useState([]);
+
 
     useEffect(()=>{
       let userId=JSON.parse(localStorage.getItem('user'));
@@ -43,6 +45,11 @@ const Cart = () => {
             }).then((response) => response.json())
             .then((result) => {
               setData(result.cart);
+              let total=0;
+              result.cart.forEach(element => {
+                total=total+(element.productPrice*element.cartQuantity)
+              });
+              setTotal(total);
             });
         //dispatch(getTotals());
     },[cart]);
@@ -333,11 +340,11 @@ const Cart = () => {
         <div className='cart-summary'>
             <button className='clear-cart' onClick={()=>handleClearCart()}>Clear Cart</button>
             <div className='cart-checkout'>
-            {data?.map(cartItems=>(
+          
                 <div className='subtotal'>
                     <span>Subtotal</span>
-                    <span className='amount'>{(cartItems.productPrice * cartItems.cartQuantity)}</span>
-                    </div>))}
+                    <span className='amount'>{total}</span>
+                    </div>
                     <p>Taxes and shipping calculated at checkout</p>
                     <button onClick={()=>handleCheckout()}>Checkout</button>
                     <div className='continue-shopping'>
