@@ -4,6 +4,7 @@ import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 import styled from 'styled-components';
 import { useState } from 'react';
 import { sliderItems } from '../data';
+import { Link } from '@mui/material';
 
 const Container = styled.div`
 width: 100%;
@@ -57,7 +58,9 @@ flex:1;
 `;
 
 const Title = styled.h1`
-font-size:70px;
+font-size:60px;
+word-spacing:8px;
+font-weight: 800;
 `;
 
 const Desc = styled.p`
@@ -65,6 +68,19 @@ margin: 50px 0px;
 font-size: 20px;
 font-weight: 500;
 letter-spacing:3px;
+`;
+
+const Name = styled.p`
+font-size:80px;
+word-spacing:8px;
+color:#a9740e;
+font-weight: 1000;
+`;
+
+const Logo = styled.img`
+margin-left:27%;
+height:40%;
+width:40%;
 `;
 const Button = styled.button`
 padding:10px;
@@ -97,7 +113,8 @@ const Slider = () => {
           <InfoContainer>
             <Title>{item.title}</Title>
             <Desc>{item.desc}</Desc>
-            <Button>SHOP NOW</Button>
+            <Name>{item.name}</Name>
+            <Logo src={item.logo}></Logo>
           </InfoContainer>
           </Slide>
           ))}

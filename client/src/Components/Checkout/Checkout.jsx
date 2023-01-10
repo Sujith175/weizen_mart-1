@@ -43,8 +43,10 @@ const Checkout = () => {
         prodId: cart[i]._id,
         productName: cart[i].productName,
         cartQuantity: cart[i].cartQuantity,
-        productPrice: cart[i].productPrice
+        productPrice: cart[i].productPrice,
+        
     }
+    
     values.push(value);
 }
 

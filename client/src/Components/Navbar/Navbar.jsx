@@ -18,6 +18,7 @@ import {
 	NavCenter,
 	NavbarLeft,
 	LogoutButton,
+	MyOrdersButton,
 } from "./NavbarElements";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
@@ -41,6 +42,9 @@ const Navbar = () => {
 		navigate("/updateprof");
 	}
 
+	const handleMyOrders = ()=>{
+		navigate("/orders");
+	}
 	useEffect(()=>{
       fetch("http://localhost:5000/getcartdetails/"+user._id, {
             method: "get",
@@ -86,6 +90,11 @@ const Navbar = () => {
 							>
 								Logout
 							</LogoutButton>
+						</NavMenuItem>
+						<NavMenuItem>
+							<MyOrdersButton onClick={handleMyOrders}>
+							My Orders
+							</MyOrdersButton>		
 						</NavMenuItem>
 						<NavMenuItem>
 							<Link to="cart" style={{color:"black"}}>

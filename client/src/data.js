@@ -3,14 +3,18 @@ export const sliderItems = [
         id:1,
         img:"https://thumbs.dreamstime.com/b/golden-wheat-isolated-white-background-33793503.jpg",
         title:"FARM FRESH WHEAT",
-        desc:"CHERISH YOUR FAMILY WITH FRESH WHEAT",
+        desc:"CHERISH YOUR FAMILY WITH FRESH WHEAT FROM",
+        name:"WEIZEN MART",
+        logo:"https://static.vecteezy.com/system/resources/previews/000/577/615/original/agriculture-wheat-logo-template-healthy-life-logo-vector-icon-design.jpg",
         bg:"#ffffff"
     },
     {
         id:2,
         img:"https://thumbs.dreamstime.com/b/wheat-ears-6051234.jpg",
         title:"FARM FRESH WHEAT",
-        desc:"CHERISH YOUR FAMILY WITH FRESH WHEAT",
+        desc:"CHERISH YOUR FAMILY WITH FRESH WHEAT FROM",
+        name:"WEIZEN MART",
+        logo:"https://static.vecteezy.com/system/resources/previews/000/577/615/original/agriculture-wheat-logo-template-healthy-life-logo-vector-icon-design.jpg",
         bg:"#ffffff"
     },
     
@@ -18,7 +22,9 @@ export const sliderItems = [
         id:3,
         img:"https://www.biogreenscience.com/img/Spaghetti-Pasta-Macaroni-Soup-Noodles-Durum-Wheat.jpg",
         title:"FARM FRESH WHEAT",
-        desc:"CHERISH YOUR FAMILY WITH FRESH WHEAT",
+        desc:"CHERISH YOUR FAMILY WITH FRESH WHEAT FROM",
+        name:"WEIZEN MART",
+        logo:"https://static.vecteezy.com/system/resources/previews/000/577/615/original/agriculture-wheat-logo-template-healthy-life-logo-vector-icon-design.jpg",
         bg:"#f9fafa"
     },
 ];

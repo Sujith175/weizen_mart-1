@@ -14,7 +14,6 @@ const Home = () => {
       <Announcement />
       <Slider />
       <Categories />
-      <KommunicateChat/>
       <Link
         style={{
           marginLeft: "90%",

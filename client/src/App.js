@@ -28,6 +28,7 @@ import CommNavbar from "./Components/CommNavbar/CommNavbar"
 import Checkout from "./Components/Checkout/Checkout";
 import Updateprof from "./Components/ProfileUpdate/Updateprof";
 import Chat from "./Components/ChatBot/Chat";
+import Orders from "./Components/Orders/Orders";
 
 export const UserContext = createContext();
 const App = () => {
@@ -35,27 +36,34 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = JSON.parse(localStorage.getItem("user"));
   console.log(user);
+  const location = window.location.href
   useEffect(() => {
+   
     if (user) {
       dispatch({ type: "USER", payload: user });
-      if (user.usertype === "Admin") {
-        navigate("/admin");
-      } else {
-        navigate("/login");
+      if(location.includes('/cart') || location.includes('/products') || location.includes('/checkout') || location.includes('/orders')){
+        console.log("hittt")
+      }else{
+
+        if (user.usertype === "Admin") {
+          navigate("/admin");
+        } else {
+          navigate("/login");
+        }
+        if (user.usertype === "Farmer") {
+          navigate("/farmernavbar/farmer");
+        } else {
+          navigate("/login");
+        }
+        if (user.usertype === "Customer") {
+          navigate("/home");
+        } else {
+          navigate("/login");
+        }
       }
-      if (user.usertype === "Farmer") {
-        navigate("/farmernavbar/farmer");
       } else {
-        navigate("/login");
+        
       }
-      if (user.usertype === "Customer") {
-        navigate("/home");
-      } else {
-        navigate("/login");
-      }
-    } else {
-      
-    }
   }, []);
 
 store.dispatch(getTotals());
@@ -65,11 +73,11 @@ store.dispatch(getTotals());
     <UserContext.Provider value={{ state, dispatch }}>
     <ToastContainer/>
       <Routes>
-        <Route path="/" element={user ? <Navbar /> : <Login />}>
+        <Route path="/" element={user ? <Navbar /> : <Home />}>
           <Route path="home" element={user ? <Home /> : <Login />} />
           <Route path="products" element={user ? <Products /> : <Login />} />
           <Route path="cart" element={user ? <Cart/> : <Login />} />
-          
+          <Route path="orders" element={user ? <Orders/> : <Login />} />
         </Route>
 
         <Route path="/" element={user ? <CommNavbar/>:<Login/>}>

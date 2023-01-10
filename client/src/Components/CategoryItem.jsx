@@ -39,7 +39,7 @@ font-weight:600px;
 const CategoryItem = ({item}) => {
   return (
   <Container>
-        <Link to={'/products'}>
+        <Link to={'/login'}>
             <Image src={item.img}/>
             <Info>
                 <Title>{item.title}</Title>

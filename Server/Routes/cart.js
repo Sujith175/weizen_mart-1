@@ -103,6 +103,7 @@ router.post("/updatequantity",async(req,res)=>{
       productQuantity:req.body.productQuantity
     }
   });
+  res.json({message:'updated', code: 200});
 });
 
 

@@ -61,6 +61,7 @@ export const NavMenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
+  
 `;
 export const NavRight = styled.div`
   flex: 1;
@@ -89,7 +90,6 @@ export const LogoutButton = styled.button`
   text-decoration: none;
   color: black;
   border: 1px solid #fff;
-  padding: 12px 34px;
   font-size: 13px;
   background: transparent;
   position: relative;
@@ -99,5 +99,24 @@ export const LogoutButton = styled.button`
     border: 1px solid #a9740e;
     background: #a9740e;
     transition: 1s;
+    padding: 12px 34px;
+  }
+`;
+export const MyOrdersButton = styled.button`
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  border: 1px solid #fff;
+  
+  font-size: 13px;
+  background: transparent;
+  position: relative;
+
+  cursor: pointer;
+  &:hover {
+    border: 1px solid #a9740e;
+    background: #a9740e;
+    transition: 1s;
+    padding: 12px 34px;
   }
 `;

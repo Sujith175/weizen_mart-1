@@ -17,26 +17,26 @@ const CheckoutSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    address: {
-      type: String,
-      required: true,
-    },
     prodId:{
       type:String,
-      
+      required: true,
     },
     productName: {
       type: String,
-      
+      required: true,
     },
     cartQuantity: {
       type: Number,
-     
+      required: true,
     },
      productPrice:{
         type: Number,
-        
+        required: true,
     },
+    // photo:{
+    //   type:String
+    // }
+   
   },
   { timestamps: true }
 );

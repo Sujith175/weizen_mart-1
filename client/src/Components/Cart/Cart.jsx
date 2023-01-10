@@ -8,6 +8,8 @@ import { addItemToCart, clearCart, decreaseCart, getTotals, removeFromCart,getPo
 import { toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import Announcement from "../Announcement";
+import styled from 'styled-components';
+
 
 const Cart = () => {
   // let cart={};
@@ -27,30 +29,50 @@ const Cart = () => {
   //   console.log("cart=====",cart);
   // });
 
+  const Button = styled.button`
+padding:10px;
+font-size:20px;
+background-color:transparent;
+cursor:pointer;
+margin-left:10px;
+margin-top:15px;
+`;
+
   const [data, setData] = useState([]);
+  const [productPrice, setProductPrice] = useState([]);
+  //const [photo, setPhoto] = useState([]);
+  console.log('data', data)
     const dispatch = useDispatch();
     const cart =useSelector((state)=>state.cart);
+    console.log(cart, "cart")
     const [disabled, setDisabled] = useState(false);
+    const [disabled1, setDisabled1] = useState(false);
     const navigate = useNavigate();
     const [total,setTotal]=useState([]);
+    let userId=JSON.parse(localStorage.getItem('user'));
 
-
-    useEffect(()=>{
-      let userId=JSON.parse(localStorage.getItem('user'));
-      fetch("http://localhost:5000/getcartdetails/"+userId._id, {
+  const getCartDetails = () => {
+    fetch("http://localhost:5000/getcartdetails/"+userId._id, {
             method: "get",
             headers: {
               "Content-Type": "application/json",
             },
             }).then((response) => response.json())
             .then((result) => {
+              console.log(result, "result")
               setData(result.cart);
               let total=0;
               result.cart.forEach(element => {
+                //setPhoto(element.photo);
                 total=total+(element.productPrice*element.cartQuantity)
+                setProductPrice(element.productPrice);
+                
               });
               setTotal(total);
             });
+  }
+    useEffect(()=>{
+      getCartDetails()
         //dispatch(getTotals());
     },[cart]);
 
@@ -65,25 +87,9 @@ const Cart = () => {
         .then((data) => {
           console.log(data);
           if (data.error) {
-            toast.error(data.error, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+           console.log(data.error);
           } else {
-            toast.success(data.message, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            console.log(data.message);
   
           }
         })
@@ -94,9 +100,13 @@ const Cart = () => {
 
     const handleDecrease = (cartItems) =>{
         dispatch(decreaseCart(cartItems));
-        if(parseInt(cartItems.cartQuantity,10)<=cartItems.productQuantity){
-            setDisabled(false);
+        if(parseInt(cartItems.cartQuantity-1,10)===1){
+            setDisabled1(true);
         }
+        else{
+          setDisabled(false);
+        }
+       
         let userId=JSON.parse(localStorage.getItem('user'));
 
         fetch("http://localhost:5000/updatequantity", {
@@ -113,28 +123,10 @@ const Cart = () => {
         })
         .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            getCartDetails()
+            console.log(data, "decrease");
             if (data.error) {
-              toast.error(data.error, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-            } else {
-              toast.success(cartItems.productName, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-    
+             console.log()
             }
           })
           .catch((err) => {
@@ -148,7 +140,10 @@ const Cart = () => {
         if(parseInt(cartItems.cartQuantity+1,10)==cartItems.productQuantity){
             toast.error("Stock over");
             setDisabled(true);
+        }else{
+          setDisabled1(false);
         }
+       
         let userId=JSON.parse(localStorage.getItem('user'));
 
         fetch("http://localhost:5000/updatequantity", {
@@ -165,28 +160,10 @@ const Cart = () => {
         })
         .then((res) => res.json())
           .then((data) => {
+            getCartDetails()
             console.log(data);
             if (data.error) {
-              toast.error(data.error, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-            } else {
-              toast.success(data.message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-    
+              console.log(data.error);
             }
           })
           .catch((err) => {
@@ -207,27 +184,8 @@ const Cart = () => {
         .then((data) => {
           console.log(data);
           if (data.error) {
-            toast.error(data.error, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-          } else {
-            toast.success(data.message, {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
-  
-          }
+            console.log(data.error);
+          } 
         })
         .catch((err) => {
           console.log(err);
@@ -235,7 +193,12 @@ const Cart = () => {
         navigate("/cart")
     };
 
+    const onHomeClick=()=>{
+      navigate("/products");
+    }
+
     const handleCheckout =()=>{
+      
         let userid=JSON.parse(localStorage.getItem('user'));
         fetch("http://localhost:5000/checkout", {
             method: "post",
@@ -245,43 +208,24 @@ const Cart = () => {
             body:JSON.stringify({
               userId:userid._id,
               address:{
-                firstName: "ammu",
-                email: "user.email",
-                phone: "user.phone",
-                address: "address"
-              }
+                firstName: userId.firstName,
+                email: userId.email,
+                phone: userId.phone,
+              },
+             productPrice:productPrice,
+            // photo:photo
             })
           })
             .then((res) => res.json())
             .then((data) => {
               console.log(data);
               if (data.error) {
-                toast.error(data.error, {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              } else {
-                toast.success(data.message, {
-                  position: "top-right",
-                  autoClose: 5000,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                });
-              }
+                console.log(data.error);
+              } 
             })
             .catch((err) => {
               console.log(err);
             });
-
-        toast.success("Checkout in Process");
         navigate("/checkout");
         
     }
@@ -291,6 +235,7 @@ const Cart = () => {
     <div>
          <Announcement />
     </div>
+    <Button onClick={onHomeClick}>Home</Button>
     <div className='cart-container'>
       <h2>Shopping Cart</h2>
       {data.length === 0?(
@@ -327,7 +272,7 @@ const Cart = () => {
                     </div>
                     <div className='cart-product-price'>Price:{cartItems.productPrice}</div>
                     <div className='cart-product-quantity'>
-                        <button onClick={() => handleDecrease(cartItems)}>-</button>
+                        <button disabled={disabled1} onClick={() => handleDecrease(cartItems)}>-</button>
                         <div className='count'>{cartItems.cartQuantity}</div>
                         <button disabled={disabled} onClick={()=>handleIncrease(cartItems)}>+</button>
                     </div>

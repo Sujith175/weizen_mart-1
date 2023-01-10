@@ -15,6 +15,9 @@ import { Link } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { addItemToCart } from "../../features/cart/CartSlice";
 import { toast, ToastContainer } from "react-toastify";
+import Slider from "../Slider";
+import KommunicateChat from "../ChatBot/Chat";
+
 
 const Products = () => {
 
@@ -46,7 +49,7 @@ const Products = () => {
     const user = JSON.parse(localStorage.getItem("user"));
 
 		dispatcher(addItemToCart(product));
-		navigate("/cart");
+		//navigate("/cart");
     fetch("http://localhost:5000/cart", {
       method: "post",
       headers: {
@@ -116,6 +119,8 @@ return (
   <>
   <div>
   <Announcement />
+  <Slider/>
+  <KommunicateChat/>
   </div>
     <Heading>Products</Heading>
     <div style={{margin:'20px 20%'}}>
