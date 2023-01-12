@@ -39,7 +39,7 @@ const Navbar = () => {
 
 	const updateProfile = ()=>{
 		toast.success("Please Update your Profile");
-		navigate("/updateprof");
+		navigate(`/updateprof/${user._id}`);
 	}
 
 	const handleMyOrders = ()=>{

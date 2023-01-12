@@ -42,7 +42,6 @@ const App = () => {
     if (user) {
       dispatch({ type: "USER", payload: user });
       if(location.includes('/cart') || location.includes('/products') || location.includes('/checkout') || location.includes('/orders')){
-        console.log("hittt")
       }else{
 
         if (user.usertype === "Admin") {
@@ -81,7 +80,7 @@ store.dispatch(getTotals());
         </Route>
 
         <Route path="/" element={user ? <CommNavbar/>:<Login/>}>
-          <Route path="updateprof" element={user ? <Updateprof/> : <Login />} />
+          <Route path="updateprof/:id" element={user ? <Updateprof/> : <Login />} />
         </Route>
 
         <Route

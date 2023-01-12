@@ -243,7 +243,7 @@ const Farmer = () => {
                     onKeyUp={handleDesc}
                     onChange={(e) => setProductDescription(e.target.value)}
                   ></TextArea>
-                {priceDesc&&!productDescription.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)?<Error>Enter a valid description!</Error>:""}
+                {priceDesc&&!productDescription.match(/(^[a-zA-Z][a-zA-Z\s]{0,100}[a-zA-Z]$)/)?<Error>Enter a valid description!</Error>:""}
 
                 </InputWrapper>
                 <InputWrapper>

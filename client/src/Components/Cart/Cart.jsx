@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import Announcement from "../Announcement";
 import styled from 'styled-components';
+import HashLoader from "react-spinners/HashLoader";
 
 
 const Cart = () => {
@@ -28,7 +29,7 @@ const Cart = () => {
   //   }
   //   console.log("cart=====",cart);
   // });
-
+  const [loading,setLoading] = useState(false)
   const Button = styled.button`
 padding:10px;
 font-size:20px;
@@ -72,6 +73,11 @@ margin-top:15px;
             });
   }
     useEffect(()=>{
+      setLoading(true)
+      setTimeout(()=>{
+        setLoading(false)
+      },5000)
+
       getCartDetails()
         //dispatch(getTotals());
     },[cart]);
@@ -232,9 +238,22 @@ margin-top:15px;
 
   return (
     <>
+{
+  loading?
+  <div className='loader'>
+<HashLoader 
+        color={"#a9740e"}
+        loading={loading}
+        size={80}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+        <div color="#a9740e" className='loading-text'>Loading...</div>
+      </div>
+  :
+
     <div>
          <Announcement />
-    </div>
     <Button onClick={onHomeClick}>Home</Button>
     <div className='cart-container'>
       <h2>Shopping Cart</h2>
@@ -302,7 +321,8 @@ margin-top:15px;
         </div>
       </div>)}
     </div>
-    
+    </div>
+}
     </>
   );
 };

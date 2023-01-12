@@ -4,8 +4,7 @@ import { useState,useEffect } from "react";
 import "./Updateprof.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styled from 'styled-components';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 
 
 
@@ -15,11 +14,15 @@ const Updateprof = () => {
   const [lastName, setLname] = useState("");
   const [phone, setPhone] = useState("");
 
+  let userId=JSON.parse(localStorage.getItem('user'));
+
+
 const handleClick = () => {
+
    toast.success("Profile updated")
    navigate("/home");
-   fetch("http://localhost:5000/signup", {
-      method: "post",
+   fetch("http://localhost:5000/updateprofile/"+userId._id, {
+      method: "patch",
       headers: {
         "Content-Type": "application/json",
       },

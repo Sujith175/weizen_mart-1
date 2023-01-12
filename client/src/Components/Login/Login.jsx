@@ -7,6 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { signInWithGooglePopup } from "../../utils/Firebase/firebase.utils";
 import { FcGoogle } from "react-icons/fc";
 import styled from 'styled-components';
+import ReCAPTCHA from "react-google-recaptcha";
+import HashLoader from "react-spinners/HashLoader";
 
 
 const Login = () => {
@@ -17,10 +19,12 @@ const Login = () => {
   `;
 
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(false)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailErr,setEmailErr] = useState(false)
   const [pwdErr,setPwdErr] = useState(false)
+  const [verified,setVerified] = useState(false);
 
   const logGoogleUser = async () => {
     const response = await signInWithGooglePopup();
@@ -28,7 +32,20 @@ const Login = () => {
     // console.log(response);
     navigate("/home");
   };
+
+  //recaptcha
+  function onChange(value) {
+    console.log("Captcha value:", value);
+    setVerified(true)
+  }
+
   const loginHandler = () => {
+
+    setLoading(true)
+    setTimeout(()=>{
+      setLoading(false)
+    },8000)
+
     fetch("http://localhost:5000/signin", {
       method: "post",
       headers: {
@@ -107,7 +124,19 @@ const handlePassword = (e1)=>{
 
   return (
     <>
-    
+    {loading ?
+     <div className='loader'>
+     <HashLoader 
+             color={"#a9740e"}
+             loading={loading}
+             size={80}
+             aria-label="Loading Spinner"
+             data-testid="loader"
+           />
+      <div >Loading...</div>
+           </div>
+    :
+  <div>
     <div className="name">
       <h1 className="weizen">WEIZEN MART</h1>
     </div>
@@ -135,10 +164,15 @@ const handlePassword = (e1)=>{
             onKeyUp={handlePassword}
           />
           {pwdErr&&!password.match(/^\S*(?=\S{6,})(?=\S*\d)(?=\S*[A-Z])(?=\S*[a-z])(?=\S*[!@#$%^&*? ])\S*$/)?<Error>Incorrect Password!</Error>:""}
-          <button className="login-button" onClick={() => loginHandler()}>
+         
+          <ReCAPTCHA
+          sitekey="6LcWpuUjAAAAAM-nuoCRnhO18zrWm04iKreSMR5Q"
+          onChange={onChange}
+          />
+          
+          <button className="login-button" onClick={() => loginHandler()} disabled={!verified}>
             Login
           </button>
-          
           
           <Link to="/signup" className="link">
             {" "}
@@ -150,6 +184,9 @@ const handlePassword = (e1)=>{
         </div>
       </div>
     </div>
+    </div>
+
+}
     </>
   );
 };

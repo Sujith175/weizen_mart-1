@@ -26,6 +26,10 @@ export const Para = styled.p`
   color: white;
   margin-top: 5%;
 `;
+export const Para1 = styled.p`
+  color: red;
+  margin-top: 5%;
+`;
 
 export const CardContainer = styled.div`
   display: flex;

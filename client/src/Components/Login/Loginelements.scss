@@ -53,8 +53,10 @@
   color: white;
   cursor: pointer;
   margin-bottom: 10px;
+  margin-top: 10px;
   &:disabled {
-    color: green;
+    background-color: rgb(158, 11, 6);
+    color: rgb(226, 226, 226);
     cursor: not-allowed;
   }
 }

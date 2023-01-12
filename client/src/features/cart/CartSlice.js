@@ -60,9 +60,7 @@ const CartSlice = createSlice({
 			)
 			state.cartItems = nextCartItems;
 			localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
-			toast.error(`${action.payload.productName} Removed from cart`,{
-				autoClose: 2500,
-			});
+			
 		},
 		decreaseCart(state,action){
 			const itemIndex = state.cartItems.findIndex(
@@ -76,9 +74,7 @@ const CartSlice = createSlice({
 					cartItems=> cartItems._id !== action.payload._id
 				)
 				state.cartItems = nextCartItems;
-				toast.error(`${action.payload.productName} Removed from cart`,{
-					autoClose: 2500,
-				});
+				
 			}
 			localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
 
