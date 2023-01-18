@@ -5,10 +5,20 @@ import "./CheckoutElement.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from 'styled-components';
+import {useNavigate} from 'react-router-dom';
 
 
 
 const Checkout = () => {
+
+    const Button = styled.button`
+    padding:10px;
+    font-size:20px;
+    background-color:transparent;
+    cursor:pointer;
+    margin-right:20px;
+    margin-bottom:40%;
+    `;
 
     const Error = styled.span`
   color:red;
@@ -30,8 +40,10 @@ const Checkout = () => {
                     console.log(err);
                 });
     const user = JSON.parse(localStorage.getItem("user"));
+    const subtotal = localStorage.getItem("subtotal");
     const [address, setAddress] = useState("");
     const [addressErr, setAddressErr] = useState(false);
+    const navigate = useNavigate();
     let values=[];
     for(let i=0;i<cart.length;i++){
     let value = {
@@ -49,44 +61,35 @@ const Checkout = () => {
     
     values.push(value);
 }
-
+const onHomeClick=()=>{
+    navigate("/products");
+  }
     const postData = () => {
 
-        fetch("http://localhost:5000/checkout", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: values,
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                if (data.error) {
-                    toast.error(data.error, {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                } else {
-                    toast.success(data.message, {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+       var options = {
+        key:"rzp_test_T4qIUo1QAdXGT9",
+        key_secret:"avsueVgqVIdZiaJm1q7x2lsn",
+        amount:subtotal*100,
+        currency:"INR",
+        name:"WEIZEN MART",
+        description:"for test purpose",
+        handler:function(response){
+            alert(response.razorpay_payment_id);
+        },
+        prefill:{
+            name:user.firstName,
+            email:user.email,
+            contact:user.phone,
+        },
+        notes:{
+            address:"Razorpay Corporate Office"
+        },
+        theme:{
+            color:"blue"
+        }
+       };
+        var pay = new window.Razorpay(options);
+        pay.open();
     };
 
 
@@ -100,7 +103,9 @@ const Checkout = () => {
         }
     }
     return (
+        <>
         <div className="signup-container">
+        <Button onClick={onHomeClick}>Home</Button>
             <div className="signup-wrapper">
                 <h1 className="signup-title">CheckOut Page</h1>
                 <div className="signup-form">
@@ -134,7 +139,16 @@ const Checkout = () => {
                         onKeyUp={handleAddress}
                     />
                     {addressErr && !address.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/) ? <Error>Please enter a valid address!</Error> : ""}
-
+                    <p className="label">Enter your Address</p>
+                    <input
+                        className="forminput"
+                        required
+                        type="text"
+                        placeholder="Address"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        onKeyUp={handleAddress}
+                    />
                     <br />
                     <button className="signup-button" onClick={() => postData()}>
                         Proceed to Payment
@@ -143,6 +157,7 @@ const Checkout = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

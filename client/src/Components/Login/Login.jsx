@@ -44,7 +44,7 @@ const Login = () => {
     setLoading(true)
     setTimeout(()=>{
       setLoading(false)
-    },8000)
+    },10500)
 
     fetch("http://localhost:5000/signin", {
       method: "post",
@@ -65,20 +65,20 @@ const Login = () => {
           localStorage.setItem("user", JSON.stringify(data.user));
           toast.success("SignedIn Successfully", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/products"), 4450);
+          setTimeout(() => navigate("/products"), 3000);
         } else if (data.user.usertype === "Farmer") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
           toast.success("SignedIn Successfully", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 1500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,

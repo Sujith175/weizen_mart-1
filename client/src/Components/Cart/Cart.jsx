@@ -70,6 +70,7 @@ margin-top:15px;
                 
               });
               setTotal(total);
+              localStorage.setItem("subtotal",total);
             });
   }
     useEffect(()=>{

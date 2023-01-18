@@ -4,7 +4,7 @@ import Home from "./Components/Home/Home";
 import Login from "./Components/Login/Login";
 import Navbar from "./Components/Navbar/Navbar";
 import Signup from "./Components/Signup/Signup";
-import { useEffect, createContext, useReducer } from "react";
+import { useEffect, createContext, useReducer, useState } from "react";
 import { reducer, initialState } from "./Reducers/UserReducer";
 import Admin from "./Components/Admin/src/Pages/Fproducts";
 import UserList from "./Components/Admin/src/Pages/UserList";
@@ -16,18 +16,15 @@ import ForgetPswd from "./Components/ForgetPwd/ForgetPswd";
 import PswdReset from "./Components/ForgetPwd/PswdReset";
 import EditProduct from "./Components/Admin/src/Pages/EditProduct";
 import FarmerAddedProds from "./Components/farmer/FarmerAddedProds";
-import Stocks from "./Components/farmer/Stocks";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cart from "./Components/Cart/Cart";
 import { getTotals } from "./features/cart/CartSlice";
-import Reset from "./Components/ForgetPwd/ForgetPswd";
 import CommNavbar from "./Components/CommNavbar/CommNavbar"
 import Checkout from "./Components/Checkout/Checkout";
 import Updateprof from "./Components/ProfileUpdate/Updateprof";
-import Chat from "./Components/ChatBot/Chat";
 import Orders from "./Components/Orders/Orders";
 
 export const UserContext = createContext();
@@ -35,10 +32,9 @@ const App = () => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, initialState);
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
+  //console.log(user);
   const location = window.location.href
   useEffect(() => {
-   
     if (user) {
       dispatch({ type: "USER", payload: user });
       if(location.includes('/cart') || location.includes('/products') || location.includes('/checkout') || location.includes('/orders')){

@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const PORT = 5000;
 const cors = require("cors");
 
-
 app.use(
   cors({
     origin: "*",
@@ -33,6 +32,7 @@ app.use(require("./Routes/products"));
 app.use(require("./Routes/stock"));
 app.use(require("./Routes/cart"));
 app.use(require("./Routes/checkout"));
+
 
 
 app.listen(PORT, () => {

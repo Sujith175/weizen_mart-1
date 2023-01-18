@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {useNavigate} from 'react-router-dom';
 import Announcement from "../Announcement";
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import MicIcon from '@mui/icons-material/Mic';
+import CloseIcon from '@mui/icons-material/Close';
 
 import {
   CardList,
@@ -20,8 +23,6 @@ import KommunicateChat from "../ChatBot/Chat";
 import { color } from "@mui/system";
 
 const Products = () => {
-
-  
   const [data, setData] = useState([]);
   const [searchApiData,setSearchApiData] = useState([]);
   const [filterVal,setFilterVal] = useState("");
@@ -30,7 +31,6 @@ const Products = () => {
 	const navigate = useNavigate();
 
  
-
   useEffect(() => {
    
     fetch("http://localhost:5000/allproducts", {
@@ -41,7 +41,7 @@ const Products = () => {
       .then((res) => res.json())
       .then((result) => {
         setData(result.products);
-        console.log(result.products);
+        //console.log(result.products);
         setSearchApiData(result.products);
       });
   }, []);
@@ -122,17 +122,63 @@ const Products = () => {
   }
   setFilterVal(e.target.value);
 }
+//   const handleFilter1=(e)=>{
+//     if(e.target.value == ''){
+//       setData(searchApiData);
+//     }else{
+//     const filterResult = searchApiData.filter(product => product.productName.toLowerCase().includes(e.target.value.toLowerCase())
+//     ||product.productState.toLowerCase().includes(e.target.value.toLowerCase())
+//     )
+//     if(filterResult.length>0){
+//       setData(filterResult);
+//     }else{
+//       setData([{"productName":"No data found"}]);
+//     }
+    
+//   }
+  
+// }
+
+// const {
+//   transcript,
+//   listening,
+//   resetTranscript,
+//   browserSupportsSpeechRecognition
+// } = useSpeechRecognition();
+
+// if (!browserSupportsSpeechRecognition) {
+//   return <span>Browser doesn't support speech recognition.</span>;
+// }
+
+
 return (
   <>
   <div>
   <Announcement />
   <Slider/>
   <KommunicateChat/>
- 
+  {/* <div>
+      <p>Microphone: {listening ? 'on' : 'off'}</p>
+      <button onClick={SpeechRecognition.startListening}>Start</button>
+      <button onClick={SpeechRecognition.stopListening}>Stop</button>
+      <button onClick={resetTranscript}>Reset</button>
+      <p>{transcript}</p>
+    </div> */}
     <Heading>Products</Heading>
+    {/* <p>Microphone: {listening ? 'on' : 'off'}</p> */}
     <div style={{margin:'20px 20%'}}>
-     <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
+     <input type="search" style={{height:'30px',width:'24%'}} placeholder="Search Here " value={filterVal} onInput={(e)=>{handleFilter(e)}}
+     />
+     {/* <MicIcon onClick={SpeechRecognition.startListening}/>
+     <CloseIcon onClick={resetTranscript}/> */}
+     {/* <p>{transcript}</p> */}
      </div>
+    {/* <div style={{margin:'20px 20%'}}>
+     <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here By Typing" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
+     </div> */}
+
+    
+
     <ToastContainer/>
     <CardList>
       {data.map((product) => (
