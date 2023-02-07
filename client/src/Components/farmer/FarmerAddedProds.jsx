@@ -8,10 +8,6 @@ import {
   Para,
   Button,
 } from "./FarmerAddedProd.js";
-import SearchIcon from "@mui/icons-material/Search";
-import Sidebar from "./Sidebar/Sidebar.jsx";
-import { FarmerContainer } from "./FarmerElements.js";
-import Announcement from "../Announcement";
 
 
 const FarmerAddedProds = () => {
@@ -41,7 +37,7 @@ const FarmerAddedProds = () => {
   }
 
   const handleFilter=(e)=>{
-      if(e.target.value == ''){
+      if(e.target.value === ''){
         setData(searchApiData);
       }else{
       const filterResult = searchApiData.filter(product => product.productName.toLowerCase().includes(e.target.value.toLowerCase())
@@ -60,10 +56,9 @@ const FarmerAddedProds = () => {
   
   return (
     <>
-   <Announcement/>
     <div style={{margin:'20px 20%'}}>
      <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
-     
+
      </div>
       <Heading>Products Added</Heading>
       <CardList>

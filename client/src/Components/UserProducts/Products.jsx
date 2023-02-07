@@ -26,6 +26,7 @@ const Products = () => {
   const [data, setData] = useState([]);
   const [searchApiData,setSearchApiData] = useState([]);
   const [filterVal,setFilterVal] = useState("");
+  const [displayBox,setDisplayBox] = useState("");
   const cart = useAppSelector((state) => state.cart);
 	const dispatcher = useAppDispatch();
 	const navigate = useNavigate();
@@ -122,6 +123,62 @@ const Products = () => {
   }
   setFilterVal(e.target.value);
 }
+
+const handleClick=(product)=>{
+  const user = JSON.parse(localStorage.getItem("user"));
+  //setDisplayBox(true);
+  fetch("http://localhost:5000/stockreq", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      productId:product._id,
+      productName:product.productName,
+      productPrice:product.productPrice,
+      productQuantity:product.productQuantity,
+      productState:product.productState,
+      postedBy:product.postedBy,
+      UserId: user._id,
+      firstName: user.firstName,
+      email: user.email,
+      phone: user.phone,
+    }),
+  })
+  .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      if (data.error) {
+        toast.error(data.error, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        toast.success(data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    toast.success("Request send successfully",{
+      autoClose: 2000,
+    })
+}
+
 //   const handleFilter1=(e)=>{
 //     if(e.target.value == ''){
 //       setData(searchApiData);
@@ -187,7 +244,7 @@ return (
           <Image alt="" src={product.photo} />
           <Para> Price(INR/Kg): {product.productPrice}</Para>
           <Para>State: {product.productState}</Para>
-          <Para> Quantity(Kg): {product.productQuantity>0 ? product.productQuantity :  "STOCK OVER"}</Para>
+          <Para> Quantity(Kg): {product.productQuantity>0 ? product.productQuantity :  "STOCK OVER" }</Para>
           <Para> {product.productDescription}</Para>
           <Button
             onClick={() => {
@@ -196,13 +253,13 @@ return (
           >
             Add to Cart
           </Button>
-          {/* <Button
+          {product.productQuantity>0? "" :<Button
             onClick={() => {
-              addToCart(product);
+              handleClick(product);
             }}
           >
             Request Stock
-          </Button> */}
+          </Button>} 
         </CardContainer>
       ))}
     </CardList>

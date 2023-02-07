@@ -85,7 +85,7 @@ const Login = () => {
             draggable: true,
             progress: undefined,
           });
-          setTimeout(() => navigate("/farmernavbar/farmer"), 4450);
+          setTimeout(() => navigate("/farmer"), 4450);
         } else if (data.user.usertype === "Admin") {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
@@ -105,7 +105,7 @@ const Login = () => {
       });
   };
   const handleEmail = (e1)=>{
-    if(email.match(/^(([a-zA-Z][a-zA-Z]{0,20}[a-zA-Z]+[^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
+    if(email.match(/^(([a-zA-Z][a-zA-Z]{0,20}[a-zA-Z]+[^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)){
         console.log("Accepted")
     }
    else{
@@ -154,7 +154,7 @@ const handlePassword = (e1)=>{
             onChange={(e) => setEmail(e.target.value)}
             onKeyUp={handleEmail}
           />
-        {emailErr&&!email.match(/^(([a-zA-Z][a-zA-Z]{0,20}[a-zA-Z]+[^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)?<Error>Please enter a valid email!</Error>:""}
+        {emailErr&&!email.match(/^(([a-zA-Z][a-zA-Z]{0,20}[a-zA-Z]+[^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)?<Error>Please enter a valid email!</Error>:""}
 
           <input
             type="password"

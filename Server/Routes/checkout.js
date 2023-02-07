@@ -46,7 +46,9 @@ router.post("/checkout",async (req, res) => {
     
     let userDetails=req.body.address;
 
-    let photo=req.body.photo;
+    let subtotal=req.body.subtotal;
+
+    
     // if (
 
     //   !userDetails.address 
@@ -54,6 +56,17 @@ router.post("/checkout",async (req, res) => {
     // ) {
     //   return res.status(422).json({ error: "Please add  the address" });
     // }
+
+    // if (
+    //   !userDetails.address ||
+    //   !userDetails.locality ||
+    //   !userDetails.pincode||
+    //   !userDetails.city||
+    //   !userDetails.state
+    // ) {
+    //   return res.status(422).json({ error: "Please add all the details" });
+    // }
+
     let cartproducts=await cart.find({
       UserId:userId,
       status:true
@@ -70,15 +83,22 @@ router.post("/checkout",async (req, res) => {
         }
       });
       const checkout = new Checkout({
-       id:userDetails.id,
+      id:userDetails.id,
       firstName:userDetails.firstName,
       email:userDetails.email,
       phone:userDetails.phone,
+      address:userDetails.address,
+      locality:userDetails.locality,
+      pincode:userDetails.pincode,
+      city:userDetails.city,
+      State:userDetails.State,
+      landmark:userDetails.landmark,
       prodId:prod.productId,
       productName:prod.productName,
       cartQuantity:prod.productQuantity,
       productPrice:prod.productPrice,
-     // photo:photo
+      subtotal:subtotal,
+      //photo:prod.photo
     });
     checkout
       .save();

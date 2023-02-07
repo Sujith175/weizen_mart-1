@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const router = express.Router();
 
 const Product = mongoose.model("product");
+const Stockreq = mongoose.model("stockreq")
 const requireLogin = require("../Middleware/requireLogin");
 const { route } = require("./auth");
 
@@ -78,7 +79,7 @@ router.patch("/updateproduct/:id", async (req, res) => {
     const { id } = req.params;
     const updatedproduct = await Product.findByIdAndUpdate(id, req.body, {
       new: true,
-    });
+    });      
     console.log(updatedproduct);
     res.status(201).json(updatedproduct);
   } catch (error) {

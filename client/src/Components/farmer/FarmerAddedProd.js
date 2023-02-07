@@ -8,20 +8,21 @@ export const Heading = styled.h1`
   color: rgb(169, 116, 14);
 `;
 export const CardList = styled.div`
-  width: 85vw;
-  margin: 0 auto;
+  width: 60vw;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
   margin-bottom: 50px;
 `;
 export const Image = styled.img`
   height: 200px;
   width: 200px;
+  margin-left:23px;
 `;
 export const Name = styled.h1`
   color: black;
   text-align:center;
+  margin-bottom:5px;
 `;
 export const Para = styled.p`
   color: white;

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Components/Sidebar/Sidebar.jsx";
-import Topbar from "../Components/Topbar/Topbar.jsx";
 import postDetails from "./UpdateProd";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { ToastContainer, toast } from "react-toastify";
@@ -18,17 +17,7 @@ import {
 } from "./ProductElemnts.js";
 import styled from "styled-components"
 
-const Container = styled.div`
-height: 25px;
-background-color: #a9740e;   
-align-items:center;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:14px;
-font-weight:500;
-`;
+
 
 const Fproducts = () => {
   const [data, setData] = useState([]);
@@ -67,8 +56,6 @@ const Fproducts = () => {
 
   return (
     <>
-      <Topbar />
-      <Container/>
       <div style={{margin:'20px 20%'}}>
      <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
      
@@ -112,7 +99,7 @@ const Fproducts = () => {
                 <td>{product.productDescription}</td>
                 <td>
                   <Link className="btn" to={`/edit/${product._id}`}>
-                    Validate Product
+                    ValidateProduct
                   </Link>
                 </td>
               </tr>

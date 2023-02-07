@@ -38,13 +38,14 @@ const CommNavbar = () => {
 		toast.success("Please Update your Profile");
 		navigate("/updateprof");
 	}
+	
 
 	return (
 		<>
 			<NavbarContainer>
 				<WrapperContainer>
 					<NavCenter>
-						<NavLogo>WEIZEN MART</NavLogo>
+					<NavLogo>WEIZEN MART</NavLogo>
 					</NavCenter>
 					<NavRight>
  					<NavMenuItem>

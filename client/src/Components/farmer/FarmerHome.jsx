@@ -1,30 +1,15 @@
 import styled from "styled-components";
 import { Outlet, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import Topbar from "../Components/Topbar/Topbar";
-import Fproducts from "./Fproducts";
+import Announcement from "../Announcement";
+import Topbar from "./Topbar/Topbar";
 
 const Dashboard = () => {
   
-  const Container = styled.div`
-  height: 25px;
-  width:90rem;
-  background-color: #a9740e;   
-  align-items:center;
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:14px;
-  font-weight:500;
-  `;
-//  const auth = useSelector((state) => state.auth);
-//  if (!auth.isAdmin) return <p>Access denied. Not an Admin!</p>;
-
   return (
     <>
     <Topbar/>
-    <Container/>
+    <Announcement />
     <StyledDashboard>
       <SideNav>
         <h3>Quick Links</h3>
@@ -32,7 +17,15 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/admin/fproducts"
+          to="/farmer/addprods"
+        >
+          Add Products
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/farmer/addedprods"
         >
           Products
         </NavLink>
@@ -40,26 +33,18 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/admin/users"
+          to="/farmer/stockrequests"
         >
-          Users
+          Stock Requests
         </NavLink>
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "link-active" : "link-inactive"
-          }
-          to="/admin/stockreqs"
-        >
-          Stock Request
-        </NavLink>
-        <NavLink
+        {/* <NavLink
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
           to="/admin/users"
         >
           Users
-        </NavLink>
+        </NavLink> */}
       </SideNav>
       <Content>
         <Outlet />
@@ -104,5 +89,4 @@ const Content = styled.div`
   margin-left: 200px;
   padding: 2rem 3rem;
   width: 100%;
-  font-weight:1000px;
 `;

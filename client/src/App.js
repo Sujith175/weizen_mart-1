@@ -26,6 +26,11 @@ import CommNavbar from "./Components/CommNavbar/CommNavbar"
 import Checkout from "./Components/Checkout/Checkout";
 import Updateprof from "./Components/ProfileUpdate/Updateprof";
 import Orders from "./Components/Orders/Orders";
+import AdminHome from "./Components/Admin/src/Pages/AdminHome";
+import StockRequests from "./Components/Admin/src/Pages/StockRequests";
+import FarmerHome from "../src/Components/farmer/FarmerHome";
+import StockReqs from "./Components/farmer/StockReqs";
+import EditQuantity from "./Components/farmer/EditQuantity";
 
 export const UserContext = createContext();
 const App = () => {
@@ -37,7 +42,9 @@ const App = () => {
   useEffect(() => {
     if (user) {
       dispatch({ type: "USER", payload: user });
-      if(location.includes('/cart') || location.includes('/products') || location.includes('/checkout') || location.includes('/orders')){
+      if(location.includes('/cart') || location.includes('/products') || location.includes('/checkout') || location.includes('/orders')
+      || location.includes('/admin')|| location.includes('/farmer')
+      ){
       }else{
 
         if (user.usertype === "Admin") {
@@ -46,7 +53,7 @@ const App = () => {
           navigate("/login");
         }
         if (user.usertype === "Farmer") {
-          navigate("/farmernavbar/farmer");
+          navigate("/farmer");
         } else {
           navigate("/login");
         }
@@ -79,21 +86,27 @@ store.dispatch(getTotals());
           <Route path="updateprof/:id" element={user ? <Updateprof/> : <Login />} />
         </Route>
 
-        <Route
+        {/* <Route
           path="farmernavbar"
           element={user ? <FarmerNavbar /> : <Login />}
-        >
+        > */}
           
+          <Route path="farmer" element={user ? <FarmerHome/> : <Login />} >
+          <Route path="addprods" element={user ? < Farmer/> : <Login />} />  
           <Route path="addedprods" element={user ? <FarmerAddedProds/> : <Login />} />
-          <Route path="farmer" element={user ? <Farmer/> : <Login />} />
-          {/* <Route path="addproducts" element={user ? < /> : <Login />} />  */}
+          <Route path="stockrequests" element={<StockReqs />} />
         </Route>
-        <Route path="admin" element={user ? <Admin /> : <Login />}>
-          {/* <Route path="fproducts" element={<Fproducts />} /> */}
+        <Route path="admin" element={user ? <AdminHome/> : <Login />}>
+          <Route path="fproducts" element={<Fproducts />} /> 
+          <Route path="stockreqs" element={<StockRequests />} /> 
         </Route>
         <Route
           path="edit/:id"
           element={user ? <EditProduct /> : <Login />}
+        ></Route>
+        <Route
+          path="editquantity/:id"
+          element={user ? <EditQuantity /> : <Login />}
         ></Route>
         <Route path="updateprod" element={<UpdateProd />} />
         <Route path="signup" element={<Signup />} />

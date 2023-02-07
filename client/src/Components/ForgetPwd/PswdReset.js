@@ -37,7 +37,7 @@ const PswdReset = () => {
                             name="email" id="email" placeholder='Enter Your Email Address' />
                         </div>
 
-                        <button onClick={handleSubmit} className='btn' >Send OTP</button>
+                        <button onClick={handleSubmit} className='button' >Send OTP</button>
                     </form>
                     <ToastContainer />
                 </div>

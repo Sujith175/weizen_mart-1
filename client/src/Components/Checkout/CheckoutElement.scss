@@ -1,6 +1,6 @@
-.signup-container {
+.checkout-container {
     width: 100vw;
-    height: 100vh;
+    height: 138vh;
     background: linear-gradient(
         rgba(255, 255, 255, 0.5),
         rgba(255, 255, 255, 0.5)
@@ -13,17 +13,18 @@
     justify-content: center;
   }
   
-  .signup-wrapper {
+  .checkout-wrapper {
     width: 30%;
     padding: 20px;
     background-color: white;
+    
   }
-  .signup-form {
+  .checkout-form {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
   }
-  .signup-title {
+  .checkout-title {
     font-size: 24px;
     font-weight: 300;
   }
