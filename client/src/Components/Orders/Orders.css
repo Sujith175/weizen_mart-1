@@ -1,0 +1,102 @@
+.cart-container1{
+    padding: 2rem 4rem;
+}
+.cart-container1 h2{
+    font-weight: 400;
+    font-size: 38px;
+    text-align: center;
+}
+.cart-container1 .titles1{
+    margin: 2rem 0 1rem 0;
+}
+.cart-container1 .titles1 h3{
+    margin: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.cart-item1, .cart-container1 .titles1{
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 1rem;
+}
+.cart-item1{
+    border-top: 1px solid rgb(187,187,187);
+    padding: 1rem 0;
+}
+.cart-container1 .titles1 .product-title1{
+    padding-left: 0.5rem;
+}
+.cart-container1 .titles1 .total1{
+    padding-right: 8rem;
+    justify-self: right;
+}
+.cart-container1 .titles1 .price1{
+    padding-right: 4rem;
+    justify-self: right;
+}
+.cart-container1 .titles1 .quantity1{
+    padding-right: 5rem;
+    justify-self: right;
+}
+
+.cart-item1 .cart-product1{
+    display: flex;
+    margin-left: 15px;
+}
+.cart-item1 .cart-product1 img{
+    width: 100px;
+    max-width: 100%;
+    margin-right: 1rem;
+}
+.cart-item1 .cart-product1 h3{
+    font-weight: 400;
+}
+/* .cart-item1 .cart-product1 button{
+    border: none;
+    outline: none;
+    margin-top: 0.7rem;
+    cursor: pointer;
+    background: none;
+    color: rgb(0, 0, 0);
+}
+
+.cart-item1 .cart-product1 button:hover{
+    color: rgb(216, 20, 20);
+} */
+.cart-product-quantity1{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 130px;
+    max-width: 100%;
+    /* border: 0.5px solid rgb(177,177,177);
+    border-radius: 5px; */
+}
+/* .cart-product-quantity button{
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0.7rem 1.5rem;
+    cursor: pointer;
+} */
+.cart-product-quantity1 .count1{
+    padding: 0.7rem 0;
+}
+.cart-product-total-price1{
+    justify-self: right;
+    padding-right: 11rem;
+    font-weight: 700;
+}
+.reciept-dwnload{
+    justify-self: right;
+    padding-right: 5rem;
+}
+.pdf-dwnload{
+    text-decoration: none;
+  padding: 8px;
+  background-color: #a5960ee5;
+  border-radius: 10px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}

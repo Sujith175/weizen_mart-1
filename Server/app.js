@@ -26,6 +26,7 @@ require("./models/Stock");
 require("./models/Checkout");
 require("./models/Cart");
 require("./models/StockReq");
+require("./models/StockReqFrmr");
 
 app.use(express.json());
 app.use(require("./Routes/auth"));

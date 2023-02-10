@@ -147,6 +147,7 @@ const onHomeClick=()=>{
                   userId:userid._id,
                   address:{
                     firstName: userId.firstName,
+                    lastName: userId.lastName,
                     email: userId.email,
                     phone: userId.phone,
                     address:address,
@@ -247,11 +248,17 @@ const onHomeClick=()=>{
                 <h1 className="checkout-title">CheckOut Page</h1>
                 <form>
                 <div className="checkout-form">
-                    <p className="label">Name</p>
+                    <p className="label">First Name</p>
                     <input
                         className="forminput"
                         type="text"
                         value={user.firstName}
+                    />
+                    <p className="label">Last Name</p>
+                    <input
+                        className="forminput"
+                        type="text"
+                        value={user.lastName}
                     />
                     <p className="label">Email</p>
                     <input

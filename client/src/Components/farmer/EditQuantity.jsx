@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import styled from 'styled-components';
+import { toast } from "react-toastify";
 
 
 const EditQuantity = () => {
   const navigate = useNavigate();
   const { id } = useParams("");
-  const [updatedPrice, setUpdatedPrice] = useState();
-  const [priceErr,setPriceErr] = useState(false)
+  const [quantityErr,setQuantityErr] = useState(false)
 
   const Error =styled.span`
   color:red;
@@ -44,7 +44,6 @@ const EditQuantity = () => {
       },
     });
     const data = await res.json();
-
     setINP(data);
   };
   useEffect(() => {
@@ -52,9 +51,9 @@ const EditQuantity = () => {
   }, []);
   const updateProduct = async (e) => {
     e.preventDefault();
+
     const {
       productPrice,
-      photo,
       productName,
       productDescription,
       productQuantity,
@@ -79,13 +78,23 @@ const EditQuantity = () => {
 
     if (res2.status === 422 || data2) {
       alert("quantity Updated SuccessFully");
-      navigate("/farmer");
+      navigate("/farmer/stockrequests");
     } else {
       alert("data updated successfully");
     }
   };
 
- 
+  const handleQuantity = (e1)=>{
+    if(updatedQuantity.match(/^[0-9\b]+$/)){
+        console.log("Accepted")
+    }
+   else{
+    setQuantityErr(true)
+   }
+   if(updatedQuantity>50){
+    toast.error("Quantity above 50 cannot be added")
+   }
+}
 
   return (
     <div>
@@ -132,10 +141,13 @@ const EditQuantity = () => {
           className="text-input"
           type="text"
           name="productQuantity"
-          placeholder="Updated Quantity"
+          placeholder={inpval.productQuantity}
           value={updatedQuantity}
           onChange={(e) => setUpdatedQuantity(e.target.value)}
+          onKeyUp={handleQuantity}
         ></input>
+        {quantityErr&&!updatedQuantity.match(/^[0-9\b]+$/)?<Error>Enter a valid price!</Error>:""}
+        {updatedQuantity>50?<Error>Quantity above 50 cannot be added</Error>:""}
         <br></br>
         <span id="label">Product Description:</span>{" "}
         <textarea

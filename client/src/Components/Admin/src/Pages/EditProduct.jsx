@@ -146,7 +146,6 @@ const EditProduct = () => {
           placeholder="MSP"
         ></input>
         {priceErr&&!updatedPrice.match(/^[0-9\b]+$/)?<Error>Enter a valid price!</Error>:""}
-
         <br></br>
         <span id="label">Total Amount: (INR/Kg)</span>{" "}
         {total ? (

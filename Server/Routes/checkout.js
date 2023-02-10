@@ -85,6 +85,7 @@ router.post("/checkout",async (req, res) => {
       const checkout = new Checkout({
       id:userDetails.id,
       firstName:userDetails.firstName,
+      lastName:userDetails.lastName,
       email:userDetails.email,
       phone:userDetails.phone,
       address:userDetails.address,
@@ -168,8 +169,62 @@ router.post("/checkout",async (req, res) => {
     res.status(200).send({orders:orders});
     
   })
+
+  router.get("/reciept/:id",async (req,res)=>{
+    let orderId=req.params.id;
+    let reciept=await checkout.find({
+      _id:orderId,
+      status:true
+    });
+    res.status(200).send({reciept:reciept});
+    
+  })
   
-  
+            //Doubt
+  // router.get("/reciept/:id",async (req,res)=>{
+
+  //   let orderId=req.params.id;
+  //   let cartproducts=await checkout.find({
+  //     _id:orderId,
+  //     status:true
+  //   });
+
+  //   let reciept=await checkout.aggregate([
+  //     {$match:{
+  //       _id:mongoose.Types.ObjectId('63e3868812b0c67ac2086f88'),
+  //       status:true
+  //     },
+  //   },
+  //   {
+  //     $addFields:{
+  //       productId:{$toObjectId:'$productId'}
+  //     }
+  //   },
+  //   {
+  //     $lookup:{
+  //       from:'products',
+  //       localField:'productId',
+  //       foreignField:'_id',
+  //       as:'productDetails'
+  //     }
+  //   },
+  //   {
+  //     $unwind:'$productDetails'
+  //   },
+  //   {
+  //     $addFields:{
+  //       cartQuantity:'$productQuantity',
+  //       productQuantity:'$productDetails.productQuantity',
+  //       productDescription:'$productDetails.productDescription',
+  //       photo:'$productDetails.photo'
+  //     }
+  //   },
+  //   {$unset:'productDetails'}
+  //   ]);
+
+  //   res.status(200).send({reciept:reciept});
+
+  // })
   
   module.exports = router;
   

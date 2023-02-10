@@ -60,6 +60,7 @@ margin-top:15px;
             },
             }).then((response) => response.json())
             .then((result) => {
+              setLoading(true)
               console.log(result, "result")
               setData(result.cart);
               let total=0;
@@ -74,10 +75,10 @@ margin-top:15px;
             });
   }
     useEffect(()=>{
-      setLoading(true)
-      setTimeout(()=>{
-        setLoading(false)
-      },5000)
+      // setLoading(true)
+      // setTimeout(()=>{
+      //   setLoading(false)
+      // },5000)
 
       getCartDetails()
         //dispatch(getTotals());
@@ -242,17 +243,7 @@ margin-top:15px;
     <>
 {
   loading?
-  <div className='loader'>
-<HashLoader 
-        color={"#a9740e"}
-        loading={loading}
-        size={80}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-        <div color="#a9740e" className='loading-text'>Loading...</div>
-      </div>
-  :
+
 
     <div>
          <Announcement />
@@ -306,7 +297,6 @@ margin-top:15px;
         <div className='cart-summary'>
             <button className='clear-cart' onClick={()=>handleClearCart()}>Clear Cart</button>
             <div className='cart-checkout'>
-          
                 <div className='subtotal'>
                     <span>Subtotal</span>
                     <span className='amount'>{total}</span>
@@ -324,7 +314,17 @@ margin-top:15px;
       </div>)}
     </div>
     </div>
-}
+:  <div className='loader'>
+<HashLoader 
+        color={"#a9740e"}
+        // loading={loading}
+        size={80}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+        <div color="#a9740e" className='loading-text'>Loading...</div>
+      </div>
+  }
     </>
   );
 };

@@ -126,7 +126,6 @@ const Products = () => {
 
 const handleClick=(product)=>{
   const user = JSON.parse(localStorage.getItem("user"));
-  //setDisplayBox(true);
   fetch("http://localhost:5000/stockreq", {
     method: "post",
     headers: {

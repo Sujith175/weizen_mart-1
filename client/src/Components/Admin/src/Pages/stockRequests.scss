@@ -22,14 +22,16 @@
     color: white;
   }
 
-  .bttn {
+  .bttn1 {
     text-decoration: none;
-    margin-left: 100px;
+    margin-left: 80px;
+    margin-bottom: 10px;
     align-items: center;
     font-weight: 1000;
+    display: inline-flex; 
+    align-items: flex-start;
     font-size: medium;
-    padding: 10px;
-    padding-top: 2px;
+    padding: 8px;
     background-color: #c4b532e5;
     color: rgb(0, 0, 0);
     &:hover {
@@ -41,3 +43,16 @@
   .sendbtn{
     margin-left: 12px;
   }
+
+  .stockadded1{
+    color: green;
+    margin-left: 8rem;
+    margin-bottom: 10px;
+  }
+  .stocknotadded1{
+    color: red;
+    margin-left: 8rem;
+    margin-bottom: 10px;
+  }
+
+  
