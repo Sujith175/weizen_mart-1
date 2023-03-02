@@ -1,14 +1,31 @@
 import styled from "styled-components";
-import { Outlet, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Outlet, Link } from "react-router-dom";
 import Topbar from "../Components/Topbar/Topbar";
-import Fproducts from "./Fproducts";
+
 
 const Dashboard = () => {
   
+  const NavItem = styled(Link)`
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  border: 1px solid #fff;
+  padding: 8px;
+  font-size: 13px;
+  background: transparent;
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    border: 1px solid #a9740e;
+    background: #a9740e;
+    transition: 1s;
+  }
+`;
+
+
   const Container = styled.div`
   height: 25px;
-  width:90rem;
+  width:84.3rem;
   background-color: #a9740e;   
   align-items:center;
   color:white;
@@ -28,38 +45,54 @@ const Dashboard = () => {
     <StyledDashboard>
       <SideNav>
         <h3>Quick Links</h3>
-        <NavLink
+        <NavItem
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
           to="/admin/fproducts"
         >
-          Products
-        </NavLink>
-        <NavLink
+          Validate Products
+        </NavItem>
+        <NavItem
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/admin/users"
+          to="/admin/addedprods"
         >
-          Users
-        </NavLink>
-        <NavLink
+          All Products
+        </NavItem>
+        <NavItem
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
           to="/admin/stockreqs"
         >
-          Stock Request
-        </NavLink>
-        <NavLink
+          Stock Requests
+        </NavItem>
+        <NavItem
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/admin/users"
+          to="/admin/farmers"
         >
-          Users
-        </NavLink>
+          Farmers
+        </NavItem>
+        <NavItem
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/admin/customers"
+        >
+          Customers
+        </NavItem>
+        <NavItem
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/admin/analytics"
+        >
+          Data Visualization
+        </NavItem>
       </SideNav>
       <Content>
         <Outlet />

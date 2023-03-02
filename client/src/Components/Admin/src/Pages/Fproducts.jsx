@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Sidebar from "../Components/Sidebar/Sidebar.jsx";
-import postDetails from "./UpdateProd";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Fproducts.scss";
 import {
   CardList,
-  Image,
+  
   Heading,
-  Name,
-  CardContainer,
-  Para,
-  Button,
+  
 } from "./ProductElemnts.js";
-import styled from "styled-components"
 
 
 
@@ -38,7 +31,7 @@ const Fproducts = () => {
   }, []);
 
   const handleFilter=(e)=>{
-    if(e.target.value == ''){
+    if(e.target.value === ''){
       setData(searchApiData);
     }else{
     const filterResult = searchApiData.filter(product => product.productName.toLowerCase().includes(e.target.value.toLowerCase())
@@ -90,7 +83,7 @@ const Fproducts = () => {
                 <td>{product.productName}</td>
 
                 <td>
-                  <img height="100px" width="100px" src={product.photo} />
+                  <img height="100px" width="100px" src={product.photo} alt="loading" />
                 </td>
 
                 <td>{product.productPrice}</td>

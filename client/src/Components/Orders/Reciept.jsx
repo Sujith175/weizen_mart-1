@@ -2,14 +2,25 @@ import React, { useEffect ,useState,useRef} from 'react'
 import { useParams } from "react-router-dom";
 import './Reciept.scss';
 import { useReactToPrint } from 'react-to-print';
-import { toast } from 'react-toastify';
-import ReactPrint from 'react-to-print';
+import styled from 'styled-components';
+import {useNavigate} from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 
 const Reciept = () => {
+  const Button = styled.button`
+    padding:10px;
+    font-size:20px;
+    background-color:transparent;
+    cursor:pointer;
+    margin-left:10px;
+    margin-top:15px;
+`;
  const componentRef = useRef();
     const { id } = useParams("");
     const [data, setData] = useState([]);
-const handlePrint = useReactToPrint({
+    const navigate = useNavigate();
+    const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: 'WeizenMart-reciept',
     
@@ -37,10 +48,21 @@ useEffect(() => {
     getinfo();
   }, []);
 
+  const onHomeClick=()=>{
+    navigate("/products");
+  }
+
   return (
     <>
+    <Button onClick={onHomeClick} className="shopping"><ArrowBackIcon /><span >Continue Shopping</span></Button>
     <div ref={componentRef}>
-    <img style={{marginLeft:"35rem"}} src='https://th.bing.com/th/id/OIP.XOdyOQYl_PxeBGw32aj0NQHaF7?w=236&h=188&c=7&r=0&o=5&pid=1.7' />
+    <div class="watermark">
+    {/* Watermark container */}
+    <div class="watermark__inner">
+         {/* The watermark  */}
+        <div class="watermark__body">Weizen Mart</div>
+    </div>
+    <img style={{marginLeft:"35rem"}} src='https://th.bing.com/th/id/OIP.XOdyOQYl_PxeBGw32aj0NQHaF7?w=236&h=188&c=7&r=0&o=5&pid=1.7' alt='loading'/>
     <h1 style={{marginLeft:"35rem",marginTop:"0px"}}>WEIZEN MART</h1>
     <div className='allcontainer' >
     {data.map((item)=>  
@@ -84,7 +106,7 @@ useEffect(() => {
       </tr>
       <tr>
         <th>Subtotal</th>
-        <td>{item.subtotal}</td>
+        <td>{item.productPrice*item.cartQuantity}</td>
       </tr>
     </table>
     <hr></hr>
@@ -97,8 +119,10 @@ useEffect(() => {
       </div>
       <br></br>
    <br></br>
+   </div>
       <button className='button' onClick={handlePrint}> Download </button>
-   
+      <br></br>
+   <br></br>
     </>
   )
 }

@@ -27,7 +27,6 @@ const FarmerAddedProds = () => {
       .then((res) => res.json())
       .then((result) => {
         setData(result.products);
-        console.log(result.products);
         setSearchApiData(result.products);
       });
   }, []);
@@ -41,7 +40,7 @@ const FarmerAddedProds = () => {
         setData(searchApiData);
       }else{
       const filterResult = searchApiData.filter(product => product.productName.toLowerCase().includes(e.target.value.toLowerCase())
-      ||product.createdAt.toLowerCase().includes(e.target.value.toLowerCase())
+      ||product.createdAt.substring(0,10).toLowerCase().includes(e.target.value.toLowerCase())
       )
       if(filterResult.length>0){
         setData(filterResult);
@@ -60,23 +59,27 @@ const FarmerAddedProds = () => {
      <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
 
      </div>
-      <Heading>Products Added</Heading>
+      <Heading>All Products</Heading>
       <CardList>
         {data.map((product) => (
           <CardContainer key={product._id} >
-            <Name>{product.productName}</Name>
             <Image alt="" src={product.photo} />
-            <Para>Date of Product Added: 
-             {product.createdAt}
+            <div style={{position: "absolute",right: "0px",backgroundColor:"white",fontSize:"15px",padding:"5px",borderRadius:"0% 0% 0% 12px"}}>{product.productQuantity>0?<h3 style={{textAlign:"left",marginTop:"5px",fontFamily:"sans-serif"}}className="stockadded">IN STOCK</h3>:<h3 style={{textAlign:"center",marginTop:"5px",fontFamily:"sans-serif"}} className="stocknotadded">STOCK OVER</h3>}
+            </div>
+            <Name>{product.productName}</Name>
+            <Para style={{fontSize:"18px"}}>Date of Product Added <br></br>
+             {product.createdAt.substring(0,10)}
               </Para> 
             <Button onClick={display} >More Details</Button>
             {disp? <>
-                    <Para>Product State: {product.productState}</Para>
-                    <Para>Product Price(INR/Kg): {product.productPrice}</Para>
-                    <Para>Product Quantity(Kg): {product.productQuantity}</Para>
-                    <Para>Product description: {product.productDescription}</Para>
+                    <Para>Product State  : {product.productState}</Para>
+                    <Para>Product Price(INR/Kg)  : {product.productPrice}</Para>
+                    <Para>Product Quantity(Kg)  : {product.productQuantity>0?product.productQuantity:"STOCK OVER"}</Para>
+                    <Para>Product description  : {product.productDescription}</Para>
+                    <br></br>
                   </>
             :""}
+
           </CardContainer>
         ))}
       </CardList>

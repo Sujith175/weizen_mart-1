@@ -5,6 +5,7 @@ const router = express.Router();
 const Product = mongoose.model("product");
 const Stockreq = mongoose.model("stockreq")
 const StockReqFarmer = mongoose.model("stockreqfarmer")
+const user = mongoose.model("User");
 const requireLogin = require("../Middleware/requireLogin");
 const { route } = require("./auth");
 
@@ -73,7 +74,6 @@ router.get("/getproduct/:id", async (req, res) => {
     res.status(422).json(error);
   }
 
-  const { id } = req.params;
 });
 
 router.patch("/updateproduct/:id", async (req, res) => {
@@ -95,4 +95,7 @@ router.patch("/updateproduct/:id", async (req, res) => {
     res.status(422).json(error);
   }
 });
+
+
+
 module.exports = router;

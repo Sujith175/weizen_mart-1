@@ -116,9 +116,9 @@ router.post("/stockreq", (req, res) => {
           });
       });
 
-      router.get("/adminreqs", requireLogin, (req, res) => {
-        StockReqFarmer.find()
-          .populate("postedBy", "_id firstName")
+      router.get("/adminreqs/:id", (req, res) => {
+        const { id } = req.params;
+        StockReqFarmer.find({postedBy:id})
           .then((farmrrequests) => {
             res.json({ farmrrequests });
           })
@@ -126,5 +126,6 @@ router.post("/stockreq", (req, res) => {
             console.log(err);
           });
       });
+     
     
 module.exports = router;

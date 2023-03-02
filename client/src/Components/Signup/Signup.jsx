@@ -5,6 +5,7 @@ import "./SignupElements.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from 'styled-components';
+import axios from 'axios';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -45,6 +46,19 @@ const Signup = () => {
       toast.error("Invalid Email ID");
       return;
     }
+//send mail to registered user
+axios.put('http://localhost:5000/sendmail',
+{
+    email:email,
+})
+.then(res =>{
+    console.log(res.data)
+    if (res.code === 200){
+        navigate("/signup");
+    }
+})
+
+
     fetch("http://localhost:5000/signup", {
       method: "post",
       headers: {
@@ -135,7 +149,7 @@ const handlePassword = (e1)=>{
 }
 const handleConfirmPassword = (e)=>{
     confirmPassword(e.target.value);
-    if(password != confirmPassword){
+    if(password !== confirmPassword){
        setConfmPwdErr("Password does not match");
        //console.log("not matching")
     }
@@ -216,7 +230,7 @@ const handleConfirmPassword = (e)=>{
             required
             onChange={(e) => handleConfirmPassword(e)}
           />
-          {confmPwdErr&&password!=confmPassword?<Error>Password does not match</Error>:""}
+          {confmPwdErr&&password!==confmPassword?<Error>Password does not match</Error>:""}
 
           <select
             className="forminput"

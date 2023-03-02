@@ -49,6 +49,7 @@ const EditQuantity = () => {
   useEffect(() => {
     getinfo();
   }, []);
+
   const updateProduct = async (e) => {
     e.preventDefault();
 
@@ -60,6 +61,7 @@ const EditQuantity = () => {
       productState,
       postedBy,
     } = inpval;
+    
     const res2 = await fetch(`http://localhost:5000/updateproduct/${id}`, {
       method: "PATCH",
       headers: {
@@ -78,7 +80,7 @@ const EditQuantity = () => {
 
     if (res2.status === 422 || data2) {
       alert("quantity Updated SuccessFully");
-      navigate("/farmer/stockrequests");
+      navigate("/farmer/addedprods");
     } else {
       alert("data updated successfully");
     }

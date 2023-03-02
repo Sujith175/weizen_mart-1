@@ -114,7 +114,7 @@ const handleStockClick=(request)=>{
              </tr>
              <tr>
               <th>Requested Date & Time</th>
-              <td>{reqs.createdAt}</td>
+              <td>{reqs.createdAt.substring(0,10)}</td>
              </tr>
              <br></br>
           

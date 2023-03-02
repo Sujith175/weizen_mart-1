@@ -24,7 +24,8 @@ const stockreqfarmerSchema = new mongoose.Schema(
       required:true
     },
     postedBy: {
-      type: ObjectId,
+      //type: ObjectId,
+      type: String,
       ref: "User",
     },
     UserId:{

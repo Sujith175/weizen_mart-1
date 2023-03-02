@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {useNavigate} from 'react-router-dom';
 import Announcement from "../Announcement";
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import MicIcon from '@mui/icons-material/Mic';
-import CloseIcon from '@mui/icons-material/Close';
 
 import {
   CardList,
@@ -20,13 +17,14 @@ import { addItemToCart } from "../../features/cart/CartSlice";
 import { toast, ToastContainer } from "react-toastify";
 import Slider from "../Slider";
 import KommunicateChat from "../ChatBot/Chat";
-import { color } from "@mui/system";
+import Footer from "../Footer";
+
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [searchApiData,setSearchApiData] = useState([]);
   const [filterVal,setFilterVal] = useState("");
-  const [displayBox,setDisplayBox] = useState("");
+  //const [displayBox,setDisplayBox] = useState("");
   const cart = useAppSelector((state) => state.cart);
 	const dispatcher = useAppDispatch();
 	const navigate = useNavigate();
@@ -108,7 +106,7 @@ const Products = () => {
 	};
 
   const handleFilter=(e)=>{
-    if(e.target.value == ''){
+    if(e.target.value === ''){
       setData(searchApiData);
     }else{
     const filterResult = searchApiData.filter(product => product.productName.toLowerCase().includes(e.target.value.toLowerCase())
@@ -225,6 +223,8 @@ return (
     <div style={{margin:'20px 20%'}}>
      <input type="search" style={{height:'30px',width:'24%'}} placeholder="Search Here " value={filterVal} onInput={(e)=>{handleFilter(e)}}
      />
+     <br></br>
+     <br></br>
      {/* <MicIcon onClick={SpeechRecognition.startListening}/>
      <CloseIcon onClick={resetTranscript}/> */}
      {/* <p>{transcript}</p> */}
@@ -239,8 +239,10 @@ return (
     <CardList>
       {data.map((product) => (
         <CardContainer>
-          <Name>{product.productName}</Name>
           <Image alt="" src={product.photo} />
+          <div style={{position: "absolute",right: "0px",backgroundColor:"white",fontSize:"15px",padding:"5px",borderRadius:"0% 0% 0% 12px"}}>{product.productQuantity>0?<h3 style={{textAlign:"left",marginTop:"5px",fontFamily:"sans-serif"}}className="stockadded">IN STOCK</h3>:<h3 style={{textAlign:"center",marginTop:"5px",fontFamily:"sans-serif"}} className="stocknotadded">STOCK OVER</h3>}
+            </div>
+          <Name>{product.productName}</Name>
           <Para> Price(INR/Kg): {product.productPrice}</Para>
           <Para>State: {product.productState}</Para>
           <Para> Quantity(Kg): {product.productQuantity>0 ? product.productQuantity :  "STOCK OVER" }</Para>
@@ -259,11 +261,12 @@ return (
           >
             Request Stock
           </Button>} 
+          <br></br>
         </CardContainer>
       ))}
     </CardList>
     </div>
-  
+  <Footer/>
   </>
 );
 };

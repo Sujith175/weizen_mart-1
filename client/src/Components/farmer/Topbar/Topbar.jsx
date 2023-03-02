@@ -1,8 +1,5 @@
 import React,{ useContext } from "react";
 import "./topbar.css";
-import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
-import LanguageIcon from "@mui/icons-material/Language";
-import SettingsIcon from "@mui/icons-material/Settings";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
@@ -20,11 +17,15 @@ export default function Topbar() {
     navigate("/login");
   };
 
+  const logoClick = () =>{
+    navigate("/farmer")
+  }
+
   return (
     <div className="topbar">
       <div className="topbarWrapper">
         <div className="topLeft">
-          <span className="logo">Weizen Mart Farmer</span>
+          <span className="logo" onClick={logoClick}>Weizen Mart Farmer</span>
         </div>
         <div className="topRight">
           {/* <div className="topbarIconContainer">

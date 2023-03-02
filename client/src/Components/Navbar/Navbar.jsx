@@ -3,7 +3,7 @@ import "./NavbarElements.scss";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { UserContext } from "../../App";
-import { Badge } from "@mui/material";
+
 
 import {
 	NavbarContainer,
@@ -40,10 +40,11 @@ const Navbar = () => {
 	const updateProfile = ()=>{
 		toast.success("Please Update your Profile");
 		navigate(`/updateprof/${user._id}`);
+		
 	}
 
 	const handleMyOrders = ()=>{
-		navigate("/orders");
+		navigate(`/orders/${user._id}`);
 	}
 	useEffect(()=>{
       fetch("http://localhost:5000/getcartdetails/"+user._id, {

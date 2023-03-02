@@ -121,6 +121,9 @@
   .cart-summary .clear-cart:hover {
     background-color: rgb(236, 134, 16);
   }
+  .shopping:hover{
+    background-color: rgb(236, 134, 16);
+  }
 .cart-checkout{
     width: 270px;
     max-width: 100%;

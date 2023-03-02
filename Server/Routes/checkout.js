@@ -83,7 +83,7 @@ router.post("/checkout",async (req, res) => {
         }
       });
       const checkout = new Checkout({
-      id:userDetails.id,
+      userId:userId,
       firstName:userDetails.firstName,
       lastName:userDetails.lastName,
       email:userDetails.email,
@@ -163,7 +163,7 @@ router.post("/checkout",async (req, res) => {
   router.get("/checkout/:id",async (req,res)=>{
     let userId=req.params.id;
     let orders=await checkout.find({
-      UserId:userId,
+      userId:userId,
       status:true
     });
     res.status(200).send({orders:orders});

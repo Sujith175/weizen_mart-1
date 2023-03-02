@@ -1,6 +1,5 @@
 import React from "react";
-import { useSelector } from 'react-redux';
-import { useState, useEffect } from "react";
+import { useState,useEffect } from "react";
 import "./CheckoutElement.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,8 +23,28 @@ const Checkout = () => {
   padding:5px;
   `;
     let userId=JSON.parse(localStorage.getItem('user'));
-    // const [data, setData] = useState([]);
+    
+     const [data, setData] = useState([]);
     // const [productPrice, setProductPrice] = useState([]);
+
+    useEffect(()=>{
+        let userId=JSON.parse(localStorage.getItem('user'));
+        
+                fetch("http://localhost:5000/checkout/"+userId._id, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        setData(data.orders);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+                  
+      });
 
     let cart=[];
 
@@ -77,14 +96,7 @@ const onHomeClick=()=>{
     navigate("/products");
   }
 
-  const handleState = (e1)=>{
-    if(State.match("")){
-        console.log("Not Accepted")
-    }
-//    else{
-//     setstateErr(true)
-//    }
-}
+  
     const postData = (e) => {
 
         // if (" ".test(State)) {
@@ -211,6 +223,14 @@ const onHomeClick=()=>{
             setPincodeErr(true)
         }
     }
+    // const handleState = (e1)=>{
+    //     if(State.match("")){
+    //         console.log("Not Accepted");
+    //     }
+    // //    else{
+    // //     setstateErr(true)
+    // //    }
+    // }
     const handleLocality = (e1) => {
         e1.preventDefault()
         if (locality.match(/(^[a-zA-Z][a-zA-Z\s]{0,20}[a-zA-Z]$)/)) {
@@ -318,7 +338,6 @@ const onHomeClick=()=>{
                      <p className="label">Enter your State</p> <br></br>
                     <select style={{height:30}} onChange={(e) => setState(e.target.value)} 
                     required
-                  
                     >
                     <option defaultValue={true}   value={State}>
                     Select State

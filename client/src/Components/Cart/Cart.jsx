@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import "./Cart.css";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { addItemToCart, clearCart, decreaseCart, getTotals, removeFromCart,getPosts } from '../../features/cart/CartSlice';
+import { addItemToCart, clearCart, decreaseCart, removeFromCart } from '../../features/cart/CartSlice';
 import { toast } from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import Announcement from "../Announcement";
@@ -29,14 +29,15 @@ const Cart = () => {
   //   }
   //   console.log("cart=====",cart);
   // });
-  const [loading,setLoading] = useState(false)
+  
+  const [loading,setLoading] = useState(false);
   const Button = styled.button`
-padding:10px;
-font-size:20px;
-background-color:transparent;
-cursor:pointer;
-margin-left:10px;
-margin-top:15px;
+    padding:10px;
+    font-size:20px;
+    background-color:transparent;
+    cursor:pointer;
+    margin-left:10px;
+    margin-top:15px;
 `;
 
   const [data, setData] = useState([]);
@@ -145,7 +146,7 @@ margin-top:15px;
 
     const handleIncrease = (cartItems) =>{
         dispatch(addItemToCart(cartItems));
-        if(parseInt(cartItems.cartQuantity+1,10)==cartItems.productQuantity){
+        if(parseInt(cartItems.cartQuantity+1,10)===cartItems.productQuantity){
             toast.error("Stock over");
             setDisabled(true);
         }else{
@@ -207,8 +208,8 @@ margin-top:15px;
 
     const handleCheckout =()=>{
       
-        // let userid=JSON.parse(localStorage.getItem('user'));
-        // fetch("http://localhost:5000/checkout", {
+      const user = JSON.parse(localStorage.getItem("user"));
+      // fetch("http://localhost:5000/checkout", {
         //     method: "post",
         //     headers: {
         //       "Content-Type": "application/json",
@@ -235,7 +236,7 @@ margin-top:15px;
         //       console.log(err);
         //     });
         //     toast.success("Order Placed Successfully")
-        navigate("/checkout");
+        navigate(`/checkout/${user._id}`);
         
     }
 
@@ -247,7 +248,7 @@ margin-top:15px;
 
     <div>
          <Announcement />
-    <Button onClick={onHomeClick}>Home</Button>
+    <Button onClick={onHomeClick} className="shopping"> <ArrowBackIcon /><span >Continue Shopping</span></Button>
     <div className='cart-container'>
       <h2>Shopping Cart</h2>
       {data.length === 0?(
@@ -271,7 +272,7 @@ margin-top:15px;
             {data?.map(cartItems=>(
                 <div className='cart-item' key={cartItems._id}>
                     <div className='cart-product'>
-                        <img src={cartItems.photo}/>
+                        <img src={cartItems.photo} alt="loading"/>
                         <div>
                         <h3 value={cartItems.productName}>{cartItems.productName}</h3>
                         <p>{cartItems.productDescription}</p>
@@ -301,13 +302,14 @@ margin-top:15px;
                     <span>Subtotal</span>
                     <span className='amount'>{total}</span>
                     </div>
-                    <p>Taxes and shipping calculated at checkout</p>
+                    {/* <p>Taxes and shipping calculated at checkout</p> */}
+                    <br></br>
                     <button onClick={()=>handleCheckout()}>Checkout</button>
-                    <div className='continue-shopping'>
+                    {/* <div className='continue-shopping'>
                         <Link to="/products">
-                    <ArrowBackIcon/> <span>Continue Shopping</span> 
+                      
                     </Link>
-                    </div>
+                    </div> */}
                 
             </div>
         </div>

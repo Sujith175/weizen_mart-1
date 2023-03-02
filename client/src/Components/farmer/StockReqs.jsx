@@ -2,24 +2,43 @@ import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import "./Stockreqs.scss";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 
 const StockReqs = () => {
   const [data, setData] = useState([]);
   
+  const { id } = useParams("");
 
+  // useEffect(() => {
+  //   fetch("http://localhost:5000/adminreqs", {
+  //     headers: {
+  //       Authorization: "Bearer " + localStorage.getItem("jwt"),
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((result) => {
+  //       setData(result.farmrrequests);
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    fetch("http://localhost:5000/adminreqs", {
+  const getinfo = async () => {
+    const res = await fetch(`http://localhost:5000/adminreqs/${id}`, {
+      method: "GET",
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
+        "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
-      .then((result) => {
-        setData(result.farmrrequests);
-      });
+    .then((res) => res.json())
+    .then((result) => {
+      setData(result.farmrrequests);
+    });
+    // const data = await res.json();
+    //setINP(data);
+  };
+  useEffect(() => {
+    getinfo();
   }, []);
-
 
   return (
     <>
@@ -45,7 +64,7 @@ const StockReqs = () => {
              </tr>
              <tr>
               <th>Requested Date & Time</th>
-              <td>{reqs.createdAt}</td>
+              <td>{reqs.createdAt.substring(0,10)}</td>
              </tr>
             <br></br>
             {reqs.productQuantity>0?<h3 className="stockadded">Stock Added</h3>:<h3 className="stocknotadded">Stock not added</h3>}

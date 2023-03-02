@@ -1,11 +1,27 @@
 import styled from "styled-components";
-import { Outlet, NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Outlet, Link } from "react-router-dom";
 import Announcement from "../Announcement";
 import Topbar from "./Topbar/Topbar";
 
 const Dashboard = () => {
-  
+const user = JSON.parse(localStorage.getItem("user"));
+const NavItem = styled(Link)`
+display: inline-block;
+text-decoration: none;
+color: black;
+border: 1px solid #fff;
+padding: 8px;
+font-size: 13px;
+background: transparent;
+position: relative;
+cursor: pointer;
+&:hover {
+  border: 1px solid #a9740e;
+  background: #a9740e;
+  transition: 1s;
+}
+`;
+
   return (
     <>
     <Topbar/>
@@ -13,41 +29,57 @@ const Dashboard = () => {
     <StyledDashboard>
       <SideNav>
         <h3>Quick Links</h3>
-        <NavLink
+        <NavItem
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
           to="/farmer/addprods"
         >
           Add Products
-        </NavLink>
-        <NavLink
+        </NavItem>
+        <NavItem
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
           to="/farmer/addedprods"
         >
-          Products
-        </NavLink>
-        <NavLink
+         All Products
+        </NavItem>
+        <NavItem
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/farmer/stockrequests"
+          to={`/farmer/stockrequests/${user._id}`}
         >
           Stock Requests
-        </NavLink>
-        {/* <NavLink
+        </NavItem>
+        <NavItem
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/admin/users"
+          to={`/farmer/myprods/${user._id}`}
         >
-          Users
-        </NavLink> */}
+          My Products
+        </NavItem>
+        <NavItem
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/farmer/crops"
+        >
+          Crop Prediction
+        </NavItem>
+        <NavItem
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/farmer/fertilizers"
+        >
+          Fertilizer Prediction
+        </NavItem>
       </SideNav>
       <Content>
-        <Outlet />
+        <Outlet/>
       </Content>
     </StyledDashboard>
     </>

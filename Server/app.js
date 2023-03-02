@@ -35,7 +35,7 @@ app.use(require("./Routes/stock"));
 app.use(require("./Routes/cart"));
 app.use(require("./Routes/checkout"));
 app.use(require("./Routes/stockReqs"));
-
+//app.use(require("./Routes/updateProf"));
 
 
 app.listen(PORT, () => {
