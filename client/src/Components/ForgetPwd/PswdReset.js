@@ -5,19 +5,26 @@ import axios from 'axios'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const PswdReset = () => {
+   
     const navigate = useNavigate();
     const[email,setEmail] = useState('')
+   
     const handleSubmit=()=>{
         console.log(email)
         axios.put('http://localhost:5000/sendotp',
         {
             email:email,
         })
-        .then(res =>{
-            console.log(res.data)
+
+        .then((res) =>{
+            console.log("inside================")
             if (res.code === 200){
+                console.log("inside")
                 navigate("/forget-pass")
             }
+        })
+        .catch((err)=>{
+            console.log(err);
         })
 
     }

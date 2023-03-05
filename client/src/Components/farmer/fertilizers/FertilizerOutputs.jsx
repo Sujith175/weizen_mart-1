@@ -5,13 +5,13 @@ export const labels = ["Urea","DAP","14-35-14","28-28","17-17-17","20-20","10-26
 
 // Image paths for each output fertilizer
 export const label_image_paths = {
-    "Urea":"images/fertilizers/urea.jpg", 
-    "DAP": "images/fertilizers/DAP.jpg", 
-    "14-35-14": "images/fertilizers/default.jpg", 
-    "28-28":"images/fertilizers/default.jpg", 
-    "17-17-17": "images/fertilizers/default.jpg", 
-    "20-20":"images/fertilizers/default.jpg", 
-    "10-26-26": "images/fertilizers/default.jpg", 
+    "Urea":"https://ishtarcompany.com/wp-content/uploads/2018/12/Iran-urea-n46.jpg", 
+    "DAP": "https://krishibondhu.com/wp-content/uploads/2021/03/DAP-Fertilizer-on-daraz-bd.jpg", 
+    "14-35-14": "https://farmfields.net/wp-content/uploads/2017/05/NPK-15-15-15.jpg", 
+    "28-28":"https://image.made-in-china.com/2f0j00bBotpUTrJKgd/Complex-Fertilizer-NPK-28-28-0.jpg", 
+    "17-17-17": "https://plantingfertilizer.com/wp-content/uploads/2019/07/npk-17-17-17-070501-1.jpg", 
+    "20-20":"https://th.bing.com/th/id/OIP.A_8T_Ja6CUJKjn_BJJ0DRQHaHa?pid=ImgDet&rs=1", 
+    "10-26-26": "https://th.bing.com/th/id/R.5f0fe1e0dff8ee4987987d831da0ccf5?rik=fEk2u95AwqSK%2fA&riu=http%3a%2f%2frimex.bg%2fthumbs%2ffiles%2fA_0%2f675%2fnp102626-6WDL.jpg%26code%3dA675&ehk=mgaLCDCIynzo%2fFqp%2bbjZJf%2bJjC%2bC3qsky2%2fezaKg7W0%3d&risl=&pid=ImgRaw&r=0", 
 }
 
 // Descriptions for each fertilizer predicted by the ML model.

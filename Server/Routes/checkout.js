@@ -180,51 +180,45 @@ router.post("/checkout",async (req, res) => {
     
   })
   
-            //Doubt
-  // router.get("/reciept/:id",async (req,res)=>{
+  router.get('/api/income', async (req, res) => {
+    try {
+      const { year } = req.query;
+      const yearStart = new Date(`${year}-01-01T00:00:00.000Z`);
+      const yearEnd = new Date(`${year}-12-31T23:59:59.999Z`);
+      const pipeline = [
+        {
+          $match: {
+            createdAt: {
+              $gte: yearStart,
+              $lte: yearEnd,
+            },
+          },
+        },
+        {
+          $group: {
+            _id: {
+              yearMonth: {
+                $dateToString: {
+                  format: '%Y-%m',
+                  date: '$createdAt',
+                },
+              },
+            },
+            total: {
+              $sum: '$subtotal',
+            },
+          },
+        },
+      ];
+      const result = await Checkout.aggregate(pipeline);
+    res.json(result);
+    console.log(result)
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
-  //   let orderId=req.params.id;
-  //   let cartproducts=await checkout.find({
-  //     _id:orderId,
-  //     status:true
-  //   });
-
-  //   let reciept=await checkout.aggregate([
-  //     {$match:{
-  //       _id:mongoose.Types.ObjectId('63e3868812b0c67ac2086f88'),
-  //       status:true
-  //     },
-  //   },
-  //   {
-  //     $addFields:{
-  //       productId:{$toObjectId:'$productId'}
-  //     }
-  //   },
-  //   {
-  //     $lookup:{
-  //       from:'products',
-  //       localField:'productId',
-  //       foreignField:'_id',
-  //       as:'productDetails'
-  //     }
-  //   },
-  //   {
-  //     $unwind:'$productDetails'
-  //   },
-  //   {
-  //     $addFields:{
-  //       cartQuantity:'$productQuantity',
-  //       productQuantity:'$productDetails.productQuantity',
-  //       productDescription:'$productDetails.productDescription',
-  //       photo:'$productDetails.photo'
-  //     }
-  //   },
-  //   {$unset:'productDetails'}
-  //   ]);
-
-  //   res.status(200).send({reciept:reciept});
-
-  // })
   
   module.exports = router;
   

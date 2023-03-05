@@ -203,7 +203,7 @@ export function FertilizerPage() {
 
     return (
         <>
-                <h1 className="heade">Prediction of Crop Using AI</h1>
+                <h1 className="heade">Prediction of Fertilizer Using AI</h1>
             <LinearProgress style={{ visibility: 'hidden', display: 'none' }} className="fertilizer-progress-bar"  color="success" />
             <p className="fertilizer-p"> Enter soil characteristics & crop you are growing to find best <b> FERTILIZER </b> for your farm 👩‍🌾🌽🚜 </p>
             <div className="fertilizer-container">

@@ -203,7 +203,7 @@ const handleConfirmPassword = (e)=>{
 
           <input
             className="forminput"
-            type="text"
+            type="tel"
             placeholder="Phone"
             required
             value={phone}

@@ -93,6 +93,14 @@ const Dashboard = () => {
         >
           Data Visualization
         </NavItem>
+        <NavItem
+          className={({ isActive }) =>
+            isActive ? "link-active" : "link-inactive"
+          }
+          to="/admin/income"
+        >
+          Income Analytics
+        </NavItem>
       </SideNav>
       <Content>
         <Outlet />

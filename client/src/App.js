@@ -37,6 +37,7 @@ import { CropPage } from "./Components/farmer/crops/CropPage";
 import { CropResult } from "./Components/farmer/result/CropResult";
 import { FertilizerPage } from "./Components/farmer/fertilizers/FertilizerPage";
 import { FertilizerResult } from "./Components/farmer/result/FertilizerResult";
+import Income from "./Components/Admin/src/Pages/Income";
 
 export const UserContext = createContext();
 const App = () => {
@@ -117,6 +118,7 @@ store.dispatch(getTotals());
           <Route path="farmers" element={user?<Farmers/>:<Login />} /> 
           <Route path="customers" element={user?<Customers/>:<Login />} /> 
           <Route path="analytics" element={user?<Example/>:<Login />} /> 
+          <Route path="income" element={user?<Income/>:<Login />} /> 
         </Route>
         <Route
           path="edit/:id"

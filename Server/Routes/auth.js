@@ -36,7 +36,7 @@ router.post("/signup", (req, res) => {
           password: hashedpassword,
           firstName,
           lastName,
-          phone,
+          phone:"+91"+phone,
           usertype,
         });
         user
@@ -90,6 +90,7 @@ router.get("/allfarmers", requireLogin, (req, res) => {
     });
 });
 
+//Regns of farmer and customer
 router.get('/api/data/:year', async (req, res) => {
   const { year } = req.params;
   const start = new Date(`${year}-01-01T00:00:00.000Z`);
@@ -159,6 +160,7 @@ router.get("/allcustomers", requireLogin, (req, res) => {
     });
 });
 
+//Forget Password
 
 router.put("/sendotp" ,async (req,res)=>{
   console.log(req.body)
@@ -199,10 +201,10 @@ router.put("/sendotp" ,async (req,res)=>{
       console.log(info,84)
       User.updateOne({email:req.body.email},{otp:_otp})
       .then((result)=>{
-        res.send({code:200, message:'otp send'});
-        console.log(result)
+       return res.send({code:200, message:'otp send'});
+        console.log("success===========",result)
       }).catch((err)=>{
-        res.send({code:500,message:"server error"});
+       return res.send({code:500,message:"server error"});
         console.log(err);
       });
       
@@ -211,15 +213,35 @@ router.put("/sendotp" ,async (req,res)=>{
     }
     
 });
+
+
+
+router.put("/submitotp",async(req,res)=>{
+  console.log(req.body)
+  const salt = await bcrypt.genSalt(10);
+    hashedpassword = await bcrypt.hash(req.body.password,salt);
+  
+  User.findOne({otp: req.body.otp}).then(result=>{
+    
+    //update the password
+    User.updateOne({email:result.email},{password:hashedpassword})
+    .then((result)=>{
+      res.send({code:200,message:'password updated'})
+    })
+  }).catch(err=>{
+    res.send({code:500,message:"user not found"})
+  })
+});
+
 router.put("/sendmail" ,async (req,res)=>{
   console.log(req.body)
 
-  const user = await User.findOne({email: req.body.email});
+  // const user = await User.findOne({email: req.body.email});
     
     //send to user mail
-    if(!user){
-      res.send({code:500,message:'User not found'})
-    }
+    // if(!user){
+    //   res.send({code:500,message:'User not found'})
+    // }
 
     let testAccount = await nodemailer.createTestAccount()
 
@@ -244,7 +266,7 @@ router.put("/sendmail" ,async (req,res)=>{
 
     if(info.messageId){
       console.log(info,84)
-      User.updateOne({email:req.body.email})
+      // User.updateOne({email:req.body.email})
       .then((result)=>{
         res.send({code:200, message:'mail send'});
         console.log(result)
@@ -257,23 +279,6 @@ router.put("/sendmail" ,async (req,res)=>{
       res.send({code:500,message:'server error'})
     }
     
-});
-
-router.put("/submitotp",async(req,res)=>{
-  console.log(req.body)
-  const salt = await bcrypt.genSalt(10);
-    hashedpassword = await bcrypt.hash(req.body.password,salt);
-  
-  User.findOne({otp: req.body.otp}).then(result=>{
-    
-    //update the password
-    User.updateOne({email:result.email},{password:hashedpassword})
-    .then((result)=>{
-      res.send({code:200,message:'password updated'})
-    })
-  }).catch(err=>{
-    res.send({code:500,message:"user not found"})
-  })
 });
 
 module.exports = router;
