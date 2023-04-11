@@ -26,9 +26,7 @@ export const NavCenter = styled.div`
 
 export const NavLogo = styled.h1`
   font-weight: bold;
-  @media only screen and (max-width: 380px) {
-    font-size: 24px;
-  }
+  font-size: 24px;
 `;
 
 export const NavMenuItem = styled.div`

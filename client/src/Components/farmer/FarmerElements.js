@@ -24,6 +24,8 @@ export const CardContainer = styled.div`
 export const CardHeading = styled.h1`
   color: rgb(169, 116, 14);
   margin-bottom: 5%;
+  font-size:25px;
+  font-weight:bold;
 `;
 export const Input = styled.input`
   display: flex;

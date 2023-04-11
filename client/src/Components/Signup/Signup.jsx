@@ -14,7 +14,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setpassword] = useState("");
-  const [confmPassword,confirmPassword] = useState("")
+  const [confmPassword,confirmPassword] = useState("");
   const [usertype, SetUsertype] = useState("");
   const [fnameErr,setFNameErr] = useState(false)
   const [lnameErr,setLNameErr] = useState(false)
@@ -47,17 +47,16 @@ const Signup = () => {
       return;
     }
 //send mail to registered user
-axios.put('http://localhost:5000/sendmail',
-{
-    email:email,
+axios
+.post("http://localhost:5000/sendmail", {
+  recipient_email: email,
 })
-.then(res =>{
-    console.log(res.data)
-    if (res.code === 200){
-        navigate("/signup");
-    }
-})
+.catch(console.log);
 
+//send sms to regred users
+// axios.post('http://localhost:5000/sendRegnsms', { to: phone,message: "Thankyou for choosing Weizen Mart. Happy Shopping"})
+//     .then(response => console.log(response.data))
+//     .catch(error => console.log(error));
 
     fetch("http://localhost:5000/signup", {
       method: "post",

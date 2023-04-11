@@ -45,7 +45,7 @@ const Farmers = () => {
               <td>{user.email}</td>
              </tr>
              <tr>
-              <th>Registered Date & Time</th>
+              <th>Registered Date</th>
               <td>{user.createdAt.substring(0,10)}</td>
              </tr>
           <br></br>

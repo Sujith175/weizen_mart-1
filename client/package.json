@@ -14,7 +14,6 @@
     "@mui/x-data-grid": "^5.17.1",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "firebase": "^9.9.4",
@@ -40,7 +39,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "clear_jest": "jest --clearCache"
   },
   "eslintConfig": {
     "extends": [
@@ -63,5 +63,12 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@testing-library/react": "^14.0.0",
+    "autoprefixer": "^10.4.14",
+    "cypress": "^12.9.0",
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.2.7"
+  }
 }

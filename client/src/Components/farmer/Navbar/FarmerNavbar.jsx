@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-
 import { Outlet, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { UserContext } from "../../../App";

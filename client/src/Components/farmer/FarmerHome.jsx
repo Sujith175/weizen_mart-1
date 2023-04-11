@@ -10,8 +10,9 @@ display: inline-block;
 text-decoration: none;
 color: black;
 border: 1px solid #fff;
-padding: 8px;
+padding: 5px;
 font-size: 13px;
+font-weight:bold;
 background: transparent;
 position: relative;
 cursor: pointer;
@@ -21,6 +22,7 @@ cursor: pointer;
   transition: 1s;
 }
 `;
+
 
   return (
     <>
@@ -61,22 +63,7 @@ cursor: pointer;
         >
           My Products
         </NavItem>
-        <NavItem
-          className={({ isActive }) =>
-            isActive ? "link-active" : "link-inactive"
-          }
-          to="/farmer/crops"
-        >
-          Crop Prediction
-        </NavItem>
-        <NavItem
-          className={({ isActive }) =>
-            isActive ? "link-active" : "link-inactive"
-          }
-          to="/farmer/fertilizers"
-        >
-          Fertilizer Prediction
-        </NavItem>
+       
       </SideNav>
       <Content>
         <Outlet/>
@@ -98,7 +85,7 @@ const SideNav = styled.div`
   height: calc(100vh - 70px);
   position: fixed;
   overflow-y: auto;
-  width: 110px;
+  width: 170px;
   display: flex;
   flex-direction: column;
   padding: 2rem;

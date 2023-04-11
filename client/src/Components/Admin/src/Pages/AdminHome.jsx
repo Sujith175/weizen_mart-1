@@ -10,8 +10,9 @@ const Dashboard = () => {
   text-decoration: none;
   color: black;
   border: 1px solid #fff;
-  padding: 8px;
+  padding: 5px;
   font-size: 13px;
+  font-weight:bold;
   background: transparent;
   position: relative;
   cursor: pointer;
@@ -57,7 +58,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive ? "link-active" : "link-inactive"
           }
-          to="/admin/addedprods"
+          to="/admin/allprods"
         >
           All Products
         </NavItem>
@@ -122,7 +123,7 @@ const SideNav = styled.div`
   height: calc(100vh - 70px);
   position: fixed;
   overflow-y: auto;
-  width: 110px;
+  width: 190px;
   display: flex;
   flex-direction: column;
   padding: 2rem;

@@ -67,7 +67,7 @@ const StockReqs = () => {
               <td>{reqs.createdAt.substring(0,10)}</td>
              </tr>
             <br></br>
-            {reqs.productQuantity>0?<h3 className="stockadded">Stock Added</h3>:<h3 className="stocknotadded">Stock not added</h3>}
+            {reqs.productQuantity>0?<h3 className="stockadded" style={{fontWeight:"bold"}}>Stock Added</h3>:<h3 style={{fontWeight:"bold"}} className="stocknotadded">Stock not added</h3>}
             <br></br>
           <Link className="bttn" to={`/editquantity/${reqs.productId}`}> Add Stock
           </Link>

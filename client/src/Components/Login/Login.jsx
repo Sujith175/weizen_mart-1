@@ -9,6 +9,9 @@ import { FcGoogle } from "react-icons/fc";
 import styled from 'styled-components';
 import ReCAPTCHA from "react-google-recaptcha";
 import HashLoader from "react-spinners/HashLoader";
+import { UserContext } from "../../App";
+import { useContext } from "react";
+import axios from "axios";
 
 
 const Login = () => {
@@ -17,14 +20,32 @@ const Login = () => {
   color:red;
   padding:5px;
   `;
-
+  const { setEmail, setPage, email, setOTP } = useContext(UserContext);
   const navigate = useNavigate();
   const [loading,setLoading] = useState(false)
-  const [email, setEmail] = useState("");
+  //const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailErr,setEmailErr] = useState(false)
   const [pwdErr,setPwdErr] = useState(false)
   const [verified,setVerified] = useState(false);
+
+  function nagigateToOtp() {
+    if (email) {
+      const OTP = Math.floor(Math.random() * 9000 + 1000);
+      console.log(OTP);
+      setOTP(OTP);
+
+      axios
+        .post("http://localhost:5000/send_recovery_email", {
+          OTP,
+          recipient_email: email,
+        })
+        .then(() => navigate("/otp"))
+        .catch(console.log);
+      return;
+    }
+    return alert("Please enter your email");
+  }
 
   const logGoogleUser = async () => {
     const response = await signInWithGooglePopup();
@@ -149,6 +170,7 @@ const handlePassword = (e1)=>{
 
           <input
             type="text"
+            id="uname"
             className="login-input"
             placeholder="Email ID"
             onChange={(e) => setEmail(e.target.value)}
@@ -158,6 +180,7 @@ const handlePassword = (e1)=>{
 
           <input
             type="password"
+            id="pwd"
             className="login-input"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
@@ -168,9 +191,9 @@ const handlePassword = (e1)=>{
           <ReCAPTCHA
           sitekey="6LcWpuUjAAAAAM-nuoCRnhO18zrWm04iKreSMR5Q"
           onChange={onChange}
-          />
+          /> 
           
-          <button className="login-button" onClick={() => loginHandler()} disabled={!verified}>
+          <button className="login-button" id="btn" onClick={() => loginHandler()} disabled={!verified} >
             Login
           </button>
           
@@ -178,9 +201,9 @@ const handlePassword = (e1)=>{
             {" "}
             Don't have an Account?
           </Link>
-          <Link to="/pwd-reset" className="link">
+          <a href="#!" onClick={() => nagigateToOtp()} className="link">
             Forget password?
-          </Link>
+          </a>
         </div>
       </div>
     </div>

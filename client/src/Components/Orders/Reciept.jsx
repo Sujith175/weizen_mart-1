@@ -20,10 +20,10 @@ const Reciept = () => {
     const { id } = useParams("");
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const handlePrint = useReactToPrint({
+
+  const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: 'WeizenMart-reciept',
-    
   });
 
 const getinfo = async()=>{

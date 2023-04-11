@@ -20,11 +20,12 @@ const Chart = () => {
   };
 
   
+  
   return (
     <div>
       <h2 style={{marginLeft:"10rem",marginBottom:"10px"}}>Registered Customers and Farmers per Month ({selectedYear})</h2>
       <label htmlFor="year-select" style={{marginLeft:"20rem"}}>Select year </label>
-      <select id="year-select" value={selectedYear} onChange={(event) => setSelectedYear(event.target.value)}  style={{ width: 200, height: 30, fontSize: 16, marginBottom: 20 }}>
+      <select id="year-select" className='border border-gray-400' value={selectedYear} onChange={(event) => setSelectedYear(event.target.value)}  style={{ width: 100, height: 30, fontSize: 16, marginBottom: 20 }}>
         {Array.from({ length: 3 }, (_, i) => new Date().getFullYear() - i).map((year) => (
           <option key={year} value={year}>{year}</option>
         ))}

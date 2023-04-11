@@ -245,7 +245,6 @@ const Cart = () => {
 {
   loading?
 
-
     <div>
          <Announcement />
     <Button onClick={onHomeClick} className="shopping"> <ArrowBackIcon /><span >Continue Shopping</span></Button>
@@ -302,9 +301,9 @@ const Cart = () => {
                     <span>Subtotal</span>
                     <span className='amount'>{total}</span>
                     </div>
-                    {/* <p>Taxes and shipping calculated at checkout</p> */}
+                    <p>Taxes and shipping charge included</p>
                     <br></br>
-                    <button onClick={()=>handleCheckout()}>Checkout</button>
+                    <button id="checkout" onClick={()=>handleCheckout()}>Checkout</button>
                     {/* <div className='continue-shopping'>
                         <Link to="/products">
                       

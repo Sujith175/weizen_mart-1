@@ -164,7 +164,6 @@ router.post("/checkout",async (req, res) => {
     let userId=req.params.id;
     let orders=await checkout.find({
       userId:userId,
-      status:true
     });
     res.status(200).send({orders:orders});
     
@@ -180,45 +179,40 @@ router.post("/checkout",async (req, res) => {
     
   })
   
-  router.get('/api/income', async (req, res) => {
-    try {
-      const { year } = req.query;
-      const yearStart = new Date(`${year}-01-01T00:00:00.000Z`);
-      const yearEnd = new Date(`${year}-12-31T23:59:59.999Z`);
-      const pipeline = [
-        {
-          $match: {
-            createdAt: {
-              $gte: yearStart,
-              $lte: yearEnd,
-            },
-          },
-        },
-        {
-          $group: {
-            _id: {
-              yearMonth: {
-                $dateToString: {
-                  format: '%Y-%m',
-                  date: '$createdAt',
-                },
-              },
-            },
-            total: {
-              $sum: '$subtotal',
-            },
-          },
-        },
-      ];
-      const result = await Checkout.aggregate(pipeline);
-    res.json(result);
-    console.log(result)
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
+  router.get('/income/:year', async (req, res) => {
+    const selectedYear = parseInt(req.params.year);
+  
+    // Find all income data for the selected year
+    const incomes = await Checkout.find({
+      createdAt: {
+        $gte: new Date(selectedYear, 0, 1),
+        $lte: new Date(selectedYear, 11, 31)
+      }
+    });
+// Create an object to store income data per month
+const incomePerMonth = {
+  January: 0,
+  February: 0,
+  March: 0,
+  April: 0,
+  May: 0,
+  June: 0,
+  July: 0,
+  August: 0,
+  September: 0,
+  October: 0,
+  November: 0,
+  December: 0
+};
+// Iterate through the income data and update incomePerMonth object
+incomes.forEach(income => {
+  const incomeMonth = new Date(income.createdAt).toLocaleString('default', { month: 'long' });
+  incomePerMonth[incomeMonth] += income.subtotal;
 });
 
-  
+res.json({ incomePerMonth });
+});
+
+
   module.exports = router;
   

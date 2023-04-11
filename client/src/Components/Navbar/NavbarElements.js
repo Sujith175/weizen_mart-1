@@ -40,9 +40,7 @@ export const NavSearchContainer = styled.div`
 `;
 export const NavSearchInput = styled.input`
   border: none;
-  @media only screen and (max-width: 380px) {
-    width: 50px;
-  }
+  width: 120px;
 `;
 
 export const NavCenter = styled.div`
@@ -52,9 +50,7 @@ export const NavCenter = styled.div`
 
 export const NavLogo = styled.h1`
   font-weight: bold;
-  @media only screen and (max-width: 380px) {
-    font-size: 24px;
-  }
+  font-size: 30px;
 `;
 
 export const NavMenuItem = styled.div`

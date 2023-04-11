@@ -5,7 +5,7 @@ import "./Updateprof.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate,useParams } from "react-router-dom";
-import { async } from "@firebase/util";
+import axios from 'axios';
 
 
 
@@ -14,32 +14,37 @@ const Updateprof = () => {
   const [firstName, setFname] = useState("");
   const [lastName, setLname] = useState("");
   const [phone, setPhone] = useState("");
+  const[data,setData] = useState("");
 
   let userId=JSON.parse(localStorage.getItem('user'));
   const { id } = useParams("");
 
+  useEffect(()=>{
+    fetch(`http://localhost:5000/customer/${id}`, {
+      method:"GET",
+  headers: {
+    Authorization: "Bearer " + localStorage.getItem("jwt"),
+  },
+})
+  .then(response => response.json())
+  .then(result => {
+    console.log('Fetched document data:', result);
+    setData(result);
+  })
+  .catch(error => console.error('Error fetching document data:', error));
+},[]);
 
 const handleClick = async(e) => {
   e.preventDefault();
- const res = await  fetch(`http://localhost:5000/updateprofile/${id}`, {
-      method: "patch",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        firstName:firstName,
-        lastName:lastName,
-        phone:phone,
-      }),
-    })
-      const data = await res.json();
-      console.log("res===============",res)
-      if (res.status === 422 || data) {
-        alert("profile Updated SuccessFully");
-        navigate("/products");
-      } else {
-        alert("data updated successfully");
-      }
+ 
+    try {
+      await axios.put(`/updateprofile/${id}`, { firstName,lastName, phone });
+      alert('Profile updated successfully');
+      navigate("/products")
+    } catch (error) {
+      console.error(error);
+      alert('Failed to update profile');
+    }
   };
   
   //const user = JSON.parse(localStorage.getItem("user"));
@@ -55,9 +60,9 @@ const handleClick = async(e) => {
           <input
             className="forminput"
             type="text"
-            value={firstName}
+            value={data.firstName}
             //defaultValue={userId.firstName}
-            placeholder={userId.firstName}
+            placeholder={data.firstName}
             onChange={(e) => setFname(e.target.value)}
           />
           <p className="label">Last Name</p>
@@ -65,7 +70,7 @@ const handleClick = async(e) => {
             className="forminput"
             type="text"
             //defaultValue={userId.lastName}
-            placeholder={userId.lastName}
+            // default={user.lastName}
             value={lastName}
             onChange={(e) => setLname(e.target.value)}
           />
@@ -74,7 +79,7 @@ const handleClick = async(e) => {
             className="forminput"
             type="text"
             //defaultValue={userId.phone}
-            placeholder={userId.phone}
+            // default={user.phone}
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
@@ -85,6 +90,7 @@ const handleClick = async(e) => {
           </button>
           <ToastContainer />
         </div>
+        
       </div>
     </div>
   );

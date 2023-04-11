@@ -1,5 +1,5 @@
 const accountSid = 'AC66d6fe1abfd6343e34fbf9704a4ee8a8';
-const authToken = '74497c63569d46968259ec5817e9eb34';
+const authToken = '8dce821f8453379fd019677682ad8b09';
 const client = require('twilio')(accountSid, authToken);
 
 const sendSMS = (to, message) => {
@@ -12,5 +12,6 @@ const sendSMS = (to, message) => {
     .then(message => console.log(message.sid))
     .catch(error => console.log(error));
 };
+
 
 module.exports = sendSMS;

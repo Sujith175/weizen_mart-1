@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   CardList,
   Image,
@@ -7,16 +7,21 @@ import {
   CardContainer,
   Para,
   Button,
-} from "./FarmerAddedProd.js";
+} from "../../../farmer/FarmerAddedProd.js";
+import { useReactToPrint } from 'react-to-print';
 
 
-const FarmerAddedProds = () => {
+const AllProds = () => {
   
   const [data, setData] = useState([]);
   const [disp,setDisp] = useState(false);
   const [searchApiData,setSearchApiData] = useState([]);
   const [filterVal,setFilterVal] = useState("");
-  
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: 'WeizenMart-AllProducts',
+  });
 
   useEffect(() => {
     fetch("http://localhost:5000/allproducts", {
@@ -57,8 +62,8 @@ const FarmerAddedProds = () => {
     <>
     <div style={{margin:'20px 20%'}}>
      <input  type="search" style={{height:'35px',width:'25%'}} placeholder="Search Here" value={filterVal} onInput={(e)=>{handleFilter(e)}}/>
-
      </div>
+     <div ref={componentRef}>
       <Heading>All Products</Heading>
       <CardList>
         {data.map((product) => (
@@ -76,6 +81,7 @@ const FarmerAddedProds = () => {
                     <Para>Product Price(INR/Kg)  : {product.productPrice}</Para>
                     <Para>Product Quantity(Kg)  : {product.productQuantity>0?product.productQuantity:"STOCK OVER"}</Para>
                     <Para>Product description  : {product.productDescription}</Para>
+                    <Para>Product Added By : {product.postedBy.firstName} {product.postedBy.lastName}</Para>
                     <br></br>
                   </>
             :""}
@@ -83,9 +89,21 @@ const FarmerAddedProds = () => {
           </CardContainer>
         ))}
       </CardList>
-      
+    </div>
+    <button  onClick={handlePrint} style={{
+                                marginLeft:"26rem",
+                                marginBottom:"2rem",
+                                border: "none",
+                                padding: "10px",
+                                backgroundColor: "teal",
+                                color: "white",
+                                cursor: "pointer",
+                                fontWeight: "bold",
+                                fontSize: "medium",
+                                fontFamily: "sans-serif"}}> Download </button> 
+
     </>
   );
 };
 
-export default FarmerAddedProds;
+export default AllProds;

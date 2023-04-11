@@ -7,6 +7,8 @@ const StockReqFarmer = mongoose.model("stockreqfarmer")
 const requireLogin = require("../Middleware/requireLogin");
 const { route } = require("./auth");
 const sendSMS = require('../twilio');
+const sendSMSFarmer = require('../twilio1');
+const sendSMSCustomer = require('../twilio2');
 
 router.post("/stockreq", (req, res) => {
     const {
@@ -133,5 +135,15 @@ router.post("/stockreq", (req, res) => {
         sendSMS(to,message);
         res.send('SMS sent!');
       });
+      router.post('/send-sms-farmer',async (req, res) => {
+        const { to,message } = req.body;
+        sendSMSFarmer(to,message);
+        res.send('SMS sent!');
+      });
+      // router.post('/sendRegnsms',async (req, res) => {
+      //   const { to,message } = req.body;
+      //   sendSMSCustomer(to,message);
+      //   res.send('SMS sent!');
+      // });
     
 module.exports = router;

@@ -221,7 +221,7 @@ return (
     <Heading>Products</Heading>
     {/* <p>Microphone: {listening ? 'on' : 'off'}</p> */}
     <div style={{margin:'20px 20%'}}>
-     <input type="search" style={{height:'30px',width:'24%'}} placeholder="Search Here " value={filterVal} onInput={(e)=>{handleFilter(e)}}
+     <input type="search" style={{height:'30px',width:'25%'}} placeholder="Search Here " value={filterVal} onInput={(e)=>{handleFilter(e)}}
      />
      <br></br>
      <br></br>
@@ -240,7 +240,7 @@ return (
       {data.map((product) => (
         <CardContainer>
           <Image alt="" src={product.photo} />
-          <div style={{position: "absolute",right: "0px",backgroundColor:"white",fontSize:"15px",padding:"5px",borderRadius:"0% 0% 0% 12px"}}>{product.productQuantity>0?<h3 style={{textAlign:"left",marginTop:"5px",fontFamily:"sans-serif"}}className="stockadded">IN STOCK</h3>:<h3 style={{textAlign:"center",marginTop:"5px",fontFamily:"sans-serif"}} className="stocknotadded">STOCK OVER</h3>}
+          <div style={{position: "absolute",right: "0px",backgroundColor:"white",fontSize:"15px",padding:"5px",borderRadius:"0% 0% 0% 12px"}}>{product.productQuantity>0?<h3 style={{textAlign:"left",marginTop:"5px",fontFamily:"sans-serif",fontWeight:"bolder"}}className="stockadded">IN STOCK</h3>:<h3 style={{textAlign:"center",marginTop:"5px",fontFamily:"sans-serif",fontWeight:"bolder"}} className="stocknotadded">STOCK OVER</h3>}
             </div>
           <Name>{product.productName}</Name>
           <Para> Price(INR/Kg): {product.productPrice}</Para>
@@ -248,6 +248,7 @@ return (
           <Para> Quantity(Kg): {product.productQuantity>0 ? product.productQuantity :  "STOCK OVER" }</Para>
           <Para> {product.productDescription}</Para>
           <Button
+          name="cart"
             onClick={() => {
               addToCart(product);
             }}

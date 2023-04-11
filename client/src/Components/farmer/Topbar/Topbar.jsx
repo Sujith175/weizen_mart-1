@@ -5,17 +5,41 @@ import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../../App";
+import styled from "styled-components";
 
 
 export default function Topbar() {
   const { state, dispatch } = useContext(UserContext);
   const navigate = useNavigate();
 
+const NavMenu = styled.div`
+  display: inline-block;
+text-decoration: none;
+color: black;
+border: 1px solid #fff;
+padding: 5px;
+font-size: 17px;
+font-family:Aerial;
+font-weight:bold;
+background: transparent;
+position: relative;
+cursor: pointer;
+&:hover {
+  border: 1px solid #a9740e;
+  background: #a9740e;
+  transition: 1s;
+}
+`;
+
   const handleClick = () => {
     localStorage.clear();
     dispatch({ type: "CLEAR" });
     navigate("/login");
   };
+
+  const display=()=>{
+    window.location.href = 'http://localhost:3001';
+  }
 
   const logoClick = () =>{
     navigate("/farmer")
@@ -39,6 +63,7 @@ export default function Topbar() {
           <div className="topbarIconContainer">
             <SettingsIcon />
           </div> */}
+          <NavMenu style={{marginRight:"5rem"}} onClick={display}>Crop or Fertilizer Prediction</NavMenu>
           <PopupState variant="popover" popupId="demo-popup-menu">
           {(popupState) => (
         <React.Fragment>

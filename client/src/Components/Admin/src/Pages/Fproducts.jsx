@@ -5,9 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Fproducts.scss";
 import {
   CardList,
-  
   Heading,
-  
 } from "./ProductElemnts.js";
 
 

@@ -4,6 +4,7 @@ export const Heading = styled.h1`
   margin-bottom: 2%;
   margin-left: 12%;
   font-size: 30px;
+  font-weight:bold;
   color: rgb(169, 116, 14);
 `;
 export const CardList = styled.div`
